@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ContentViewController">
+            <connections>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5TF-xl-Avf">
+                    <rect key="frame" x="10" y="10" width="355" height="647"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="🤗" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jyk-cm-1rr">
+                            <rect key="frame" x="123" y="264" width="108" height="119.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="100"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="Jyk-cm-1rr" firstAttribute="centerY" secondItem="5TF-xl-Avf" secondAttribute="centerY" id="ObQ-Zn-14w"/>
+                        <constraint firstItem="Jyk-cm-1rr" firstAttribute="centerX" secondItem="5TF-xl-Avf" secondAttribute="centerX" id="sjd-bM-IGI"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="0.53511646639243282" green="0.91889148950576782" blue="0.51259258908303074" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="5TF-xl-Avf" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="10" id="Rge-en-skJ"/>
+                <constraint firstAttribute="bottom" secondItem="5TF-xl-Avf" secondAttribute="bottom" constant="10" id="Vwv-w6-X86"/>
+                <constraint firstAttribute="trailing" secondItem="5TF-xl-Avf" secondAttribute="trailing" constant="10" id="oFR-Xw-ffC"/>
+                <constraint firstItem="5TF-xl-Avf" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="wRk-a3-LSn"/>
+            </constraints>
+        </view>
+    </objects>
+</document>
