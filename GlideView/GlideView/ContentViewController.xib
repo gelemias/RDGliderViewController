@@ -36,7 +36,7 @@
                     </constraints>
                 </view>
             </subviews>
-            <color key="backgroundColor" red="0.53511646639243282" green="0.91889148950576782" blue="0.51259258908303074" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" red="0.91889148950576782" green="0.2714572482638889" blue="0.25912071156400945" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="5TF-xl-Avf" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="10" id="Rge-en-skJ"/>
                 <constraint firstAttribute="bottom" secondItem="5TF-xl-Avf" secondAttribute="bottom" constant="10" id="Vwv-w6-X86"/>

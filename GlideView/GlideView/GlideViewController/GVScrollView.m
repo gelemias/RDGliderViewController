@@ -95,7 +95,7 @@ NSString *const offsetDidChangeNotification = @"kOffsetDidChangeNotification";
     [container addSubview:_content];
 
     container.translatesAutoresizingMaskIntoConstraints = NO;
-    self.content.translatesAutoresizingMaskIntoConstraints = NO;
+    _content.translatesAutoresizingMaskIntoConstraints = NO;
     
     if (self.orientationType == GVScrollViewOrientationLeftToRight) {
                 
@@ -146,7 +146,7 @@ NSString *const offsetDidChangeNotification = @"kOffsetDidChangeNotification";
     else if (self.orientationType == GVScrollViewOrientationTopToBottom) {
         
     }
-    else if (self.orientationType == GVScrollViewOrientationLeftToRight) {
+    else if (self.orientationType == GVScrollViewOrientationRightToLeft) {
         
     }
     

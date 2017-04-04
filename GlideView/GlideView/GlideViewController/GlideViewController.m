@@ -12,11 +12,11 @@
 
 NSString *const GVException = @"GliveViewException";
 
-@interface GlideViewController () <UIScrollViewDelegate> {
-    int _glideDidScrollSeed;
-}
+@interface GlideViewController () <UIScrollViewDelegate>
 
-@property (nonatomic) GlideContentViewController *contentViewController;
+@property (nonatomic) UIViewController<GlideContentViewControllerProtocol> *contentViewController;
+@property (nonatomic) GVScrollView *scrollView;
+
 @property (nonatomic) BOOL isMoving;
 @property (nonatomic) BOOL isObservingOffsets;
 
@@ -24,17 +24,18 @@ NSString *const GVException = @"GliveViewException";
 
 @implementation GlideViewController
 
-- (instancetype)initWithScrollView:(GVScrollView *)scrollView {
+- (instancetype)initOnViewController:(UIViewController *)viewController {
     if (self = [super init]) {
-        self.scrollView = scrollView;
-        _glideDidScrollSeed = arc4random_uniform(100);
+
+        [viewController addChildViewController:self];
+
+        self.scrollView = [[GVScrollView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(viewController.view.frame), CGRectGetHeight(viewController.view.frame))];
+        [viewController.view addSubview:self.scrollView];
+        
+        self.margin = kDefaultMargin;
     }
     
     return self;
-}
-
-- (void)dealloc {
-    [self removeObserverContentViewController:self.contentViewController];
 }
 
 - (NSArray<NSNumber *> *)offsets {
@@ -67,13 +68,9 @@ NSString *const GVException = @"GliveViewException";
     return 0;
 }
 
-- (NSString *)glideDidScrollNotificationName {
-    return [NSString stringWithFormat:@"KglideDidScrollNotificationName_%d",_glideDidScrollSeed];
-}
-
 #pragma mark - Public methods
 
-- (void)setContentViewController:(GlideContentViewController *)contentViewController
+- (void)setContentViewController:(UIViewController<GlideContentViewControllerProtocol> *)contentViewController
                             type:(GVScrollViewOrientationType)type
                          offsets:(NSArray<NSNumber *> *)offsets {
     
@@ -85,51 +82,16 @@ NSString *const GVException = @"GliveViewException";
     
     if (self.scrollView && !CGRectIsNull(self.scrollView.frame)) {
         
-        self.margin = kDefaultMargin;
-
         [self.scrollView setOrientationType:type];
         [self.scrollView setOffsets:offsets];
         
-        if (self.contentViewController) {
-            [self removeObserverContentViewController:self.contentViewController];
-        }
-        
         self.contentViewController = contentViewController;
         [self.scrollView setContent:self.contentViewController.view];
-
+ 
         self.scrollView.delegate = self;
         
-        [self setShadow:YES];
         [self setCanCloseDragging:YES];
-        [self addObserverContentViewController:contentViewController];
     }
-}
-
-static int offsetsObservanceContext;
-
-- (void)addObserverContentViewController:(GlideContentViewController *)controller {
-    [controller addObserver:self forKeyPath:@"offsets" options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:&offsetsObservanceContext];
-}
-
-- (void)removeObserverContentViewController:(GlideContentViewController *)controller {
-    @try {
-        [controller removeObserver:self forKeyPath:@"offsets"];
-    } @catch (NSException *exception) {
-        
-    }
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
-    if ([keyPath isEqualToString:@"offsets"]) {
-        self.scrollView.offsets = self.contentViewController.offsets;
-        [self.scrollView updateLayouts];
-    }
-}
-
-- (void)removeContent {
-    [self.contentViewController removeObserver:self forKeyPath:@"offsets"];
-    self.contentViewController = nil;
-    [[self.scrollView subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
 }
 
 - (void)shake {
@@ -227,27 +189,6 @@ static int offsetsObservanceContext;
     return self.scrollView.isOpen;
 }
 
-- (void)setShadow:(BOOL)shadow {
-    UIBezierPath *shadowPath;
-    
-    if (!self.contentViewController) {
-        @throw [NSException exceptionWithName:GVException
-                                       reason:@"Invalid contentView - Please set first contentView and then set the shadow"
-                                     userInfo:nil];
-    }
-    
-    if (shadow) {
-        shadowPath = [UIBezierPath bezierPathWithRect:self.contentViewController.view.bounds];
-        self.contentViewController.view.layer.shadowColor = [UIColor blackColor].CGColor;
-        self.contentViewController.view.layer.shadowOpacity = 0.5f;
-        self.contentViewController.view.layer.shadowRadius = 5.0f;
-    } else {
-        shadowPath = [UIBezierPath bezierPathWithRect:CGRectZero];
-    }
-    
-    self.contentViewController.view.layer.shadowPath = shadowPath.CGPath;
-}
-
 #pragma mark - UIScrollView delegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
@@ -270,15 +211,10 @@ static int offsetsObservanceContext;
     else if (self.orientationType == GVScrollViewOrientationBottomToTop &&
              scrollView.contentOffset.y >= max) {
         [scrollView setContentOffset:CGPointMake(scrollView.contentOffset.x, max) animated:NO];
-
     }
     else if (self.orientationType == GVScrollViewOrientationTopToBottom &&
              scrollView.contentOffset.y <= max) {
         [scrollView setContentOffset:CGPointMake(scrollView.contentOffset.x, max) animated:NO];
-    }
-    
-    if (self.glideDidScrollNotificationName) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:self.glideDidScrollNotificationName object:scrollView];
     }
 }
 
@@ -306,11 +242,14 @@ static int offsetsObservanceContext;
     [self.scrollView setContentOffset:self.scrollView.contentOffset animated:YES];
 }
 
+#pragma mark - Rotation event
+
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
-    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
     if (self.contentViewController) {
         [self.contentViewController viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
     }
+
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
 }
 
 @end

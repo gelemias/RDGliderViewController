@@ -9,9 +9,11 @@
 #import <UIKit/UIKit.h>
 
 typedef enum {
-    GVScrollViewOrientationLeftToRight,
+    GVScrollViewOrientationLeftToRight = 0,
     GVScrollViewOrientationBottomToTop,
+    GVScrollViewOrientationRightToLeft,
     GVScrollViewOrientationTopToBottom
+    
 }GVScrollViewOrientationType;
 
 @interface GVScrollView : UIScrollView
