@@ -8,8 +8,6 @@
 
 #import "GlideViewController.h"
 
-#define kDefaultMargin 20;
-
 NSString *const GVException = @"GliveViewException";
 
 @interface GlideViewController () <UIScrollViewDelegate>
@@ -31,8 +29,6 @@ NSString *const GVException = @"GliveViewException";
 
         self.scrollView = [[GVScrollView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(viewController.view.frame), CGRectGetHeight(viewController.view.frame))];
         [viewController.view addSubview:self.scrollView];
-        
-        self.margin = kDefaultMargin;
     }
     
     return self;
@@ -66,6 +62,18 @@ NSString *const GVException = @"GliveViewException";
     }
     
     return 0;
+}
+
+- (void)setMargin:(CGFloat)margin {
+    [self.scrollView setMargin:margin];
+}
+
+- (CGFloat)margin {
+    if (!self.scrollView) {
+        
+    }
+    
+    return [self.scrollView margin];
 }
 
 #pragma mark - Public methods

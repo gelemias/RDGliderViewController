@@ -8,14 +8,14 @@
 
 #import "GVScrollView.h"
 
-@interface GVScrollView() <UIScrollViewDelegate> {
-    BOOL _isAnimating;
-}
+@interface GVScrollView() <UIScrollViewDelegate>
 
 @property (nonatomic) int offsetIndex;
 @property (nonatomic) BOOL isOpen;
 
 @end
+
+#define kDefaultMargin 20
 
 #define kAniDuration 0.3
 #define kAniDelay 0.0
@@ -27,14 +27,6 @@
 NSString *const offsetWillChangeNotification = @"kOffsetWillChangeNotification";
 NSString *const offsetDidChangeNotification = @"kOffsetDidChangeNotification";
 
-- (instancetype)initWithCoder:(NSCoder *)aDecoder {
-    if (self = [super initWithCoder:aDecoder]) {
-        [self initializeByDefault];
-    }
-    
-    return self;
-}
-
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         [self initializeByDefault];
@@ -44,6 +36,8 @@ NSString *const offsetDidChangeNotification = @"kOffsetDidChangeNotification";
 }
 
 - (void)initializeByDefault {
+    
+    self.margin = kDefaultMargin;
     
     self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
@@ -58,25 +52,6 @@ NSString *const offsetDidChangeNotification = @"kOffsetDidChangeNotification";
     [self setDecelerationRate:UIScrollViewDecelerationRateFast];
     
     [self setOrientationType:GVScrollViewOrientationLeftToRight];
-}
-
-- (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:UIDeviceOrientationDidChangeNotification object:nil];
-}
-
-- (void)setContentOffset:(CGPoint)contentOffset {
-    
-    if (self.orientationType == GVScrollViewOrientationTopToBottom) {
-    
-        if (self.frame.origin.y < 0) {
-            [super setContentOffset:CGPointMake(0, CGRectGetHeight(self.frame) + CGRectGetHeight(_content.frame))];
-        } else {
-            [super setContentOffset:contentOffset];
-        }
-    } else {
-        [super setContentOffset:contentOffset];
-    }
 }
 
 #pragma mark - Public Methods
@@ -201,13 +176,15 @@ NSString *const offsetDidChangeNotification = @"kOffsetDidChangeNotification";
 
 #pragma mark - Private methods
 
+
 - (void)recalculateContentSize {
-    if (self.orientationType == GVScrollViewOrientationLeftToRight) {
-        [self setContentSize:CGSizeMake(CGRectGetWidth(self.frame) + CGRectGetWidth(_content.frame), CGRectGetHeight(self.frame))];
+    if (self.orientationType == GVScrollViewOrientationLeftToRight ||
+        self.orientationType == GVScrollViewOrientationRightToLeft) {
+        [self setContentSize:CGSizeMake(CGRectGetWidth(self.frame) + CGRectGetWidth(_content.frame) + [self margin], CGRectGetHeight(self.frame))];
     }
     else if (self.orientationType == GVScrollViewOrientationBottomToTop ||
              self.orientationType == GVScrollViewOrientationTopToBottom) {
-        [self setContentSize:CGSizeMake(CGRectGetWidth(self.frame), CGRectGetHeight(self.frame)  + CGRectGetHeight(_content.frame))];
+        [self setContentSize:CGSizeMake(CGRectGetWidth(self.frame), CGRectGetHeight(self.frame) + CGRectGetHeight(_content.frame) + [self margin])];
     }
 }
 
@@ -220,7 +197,9 @@ NSString *const offsetDidChangeNotification = @"kOffsetDidChangeNotification";
     [UIView animateWithDuration:kAniDuration delay:kAniDelay usingSpringWithDamping:kAniDamping
           initialSpringVelocity:kAniVelocity options:UIViewAnimationOptionCurveEaseOut animations:^{
               
-              if (self.orientationType == GVScrollViewOrientationLeftToRight) {
+              if (self.orientationType == GVScrollViewOrientationLeftToRight ||
+                  self.orientationType == GVScrollViewOrientationRightToLeft) {
+                  
                   [self setContentOffset:CGPointMake([[self offsets] objectAtIndex:offsetIndex].floatValue, self.contentOffset.y) animated:NO];
               }
               else if (self.orientationType == GVScrollViewOrientationBottomToTop ||
@@ -281,10 +260,6 @@ NSString *const offsetDidChangeNotification = @"kOffsetDidChangeNotification";
                 return hitTestView;
             }
         }
-    }
-    
-    if (self.offsetIndex > 1) {
-        [self changeOffsetTo:1 completion:nil];
     }
     
     return nil;
