@@ -22,9 +22,9 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5TF-xl-Avf">
                     <rect key="frame" x="10" y="10" width="355" height="647"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="🤗" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jyk-cm-1rr">
-                            <rect key="frame" x="123" y="264" width="108" height="119.5"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="100"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="🤗" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.29999999999999999" translatesAutoresizingMaskIntoConstraints="NO" id="Jyk-cm-1rr">
+                            <rect key="frame" x="134" y="276" width="86" height="95.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="80"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>

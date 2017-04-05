@@ -8,8 +8,6 @@
 
 #import "GlideViewController.h"
 
-#define kDefaultMargin 20;
-
 NSString *const GVException = @"GliveViewException";
 
 @interface GlideViewController () <UIScrollViewDelegate>
@@ -31,8 +29,6 @@ NSString *const GVException = @"GliveViewException";
 
         self.scrollView = [[GVScrollView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(viewController.view.frame), CGRectGetHeight(viewController.view.frame))];
         [viewController.view addSubview:self.scrollView];
-        
-        self.margin = kDefaultMargin;
     }
     
     return self;
@@ -66,6 +62,18 @@ NSString *const GVException = @"GliveViewException";
     }
     
     return 0;
+}
+
+- (void)setMarginOffset:(CGFloat)marginOffset {
+    [self.scrollView setMargin:marginOffset];
+}
+
+- (CGFloat)marginOffset {
+    if (!self.scrollView) {
+        
+    }
+    
+    return [self.scrollView margin];
 }
 
 #pragma mark - Public methods
@@ -103,7 +111,7 @@ NSString *const GVException = @"GliveViewException";
     [animation setAutoreverses:YES];
     [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut]];
     
-    if (self.orientationType == GVScrollViewOrientationLeftToRight) {
+    if (self.orientationType == GVScrollViewOrientationRightToLeft) {
         [animation setFromValue:[NSValue valueWithCGPoint: CGPointMake([self.scrollView center].x,
                                                                        [self.scrollView  center].y)]];
         [animation setToValue:[NSValue valueWithCGPoint: CGPointMake([self.scrollView  center].x + shakeMargin,
@@ -195,16 +203,18 @@ NSString *const GVException = @"GliveViewException";
     
     CGFloat max = [[self offsets] lastObject].floatValue;
     if (self.orientationType == GVScrollViewOrientationTopToBottom) {
-        max -= self.margin;
+        max -= [self marginOffset];
     } else {
-        max += self.margin;
+        max += [self marginOffset];
     }
+    
+//    NSLog(@"%@ -> max(%.1f) contentSize: %@", NSStringFromCGPoint(scrollView.contentOffset), max, NSStringFromCGSize(scrollView.contentSize));
     
     if ([self.delegate respondsToSelector:@selector(glideViewController:hasChangedOffsetOfContent:)]) {
         [self.delegate glideViewController:self hasChangedOffsetOfContent:scrollView.contentOffset];
     }
     
-    if (self.orientationType == GVScrollViewOrientationLeftToRight &&
+    if (self.orientationType == GVScrollViewOrientationRightToLeft &&
         scrollView.contentOffset.x >= max) {
         [scrollView setContentOffset:CGPointMake(max, scrollView.contentOffset.y) animated:NO];
     }
@@ -220,7 +230,7 @@ NSString *const GVException = @"GliveViewException";
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
     
-    if ((self.scrollView.orientationType == GVScrollViewOrientationLeftToRight &&
+    if ((self.scrollView.orientationType == GVScrollViewOrientationRightToLeft &&
         self.scrollView.contentOffset.x > [[self.scrollView offsets] objectAtIndex:self.scrollView.offsetIndex].floatValue)
         ||
         (self.scrollView.orientationType == GVScrollViewOrientationBottomToTop &&
@@ -245,11 +255,17 @@ NSString *const GVException = @"GliveViewException";
 #pragma mark - Rotation event
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+
     if (self.contentViewController) {
         [self.contentViewController viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
     }
-
-    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+    
+    [coordinator animateAlongsideTransition:^(id  _Nonnull context) {
+        self.isMoving = YES;
+    } completion:^(id  _Nonnull context) {
+        self.isMoving = NO;
+    }];
 }
 
 @end

@@ -17,7 +17,6 @@
 @property (nonatomic) GlideViewController *bottomToTopGlideVC;
 @property (nonatomic) GlideViewController *topToBottomGlideVC;
 @property (nonatomic) GlideViewController *rightToLeftGlideVC;
-@property (nonatomic) GVGradientView *bgGradient;
 
 @end
 
@@ -26,11 +25,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.bgGradient = [[GVGradientView alloc] initWithFrame:self.view.bounds];
-    self.bgGradient.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    self.bgGradient.layer.colors = @[(id)[UIColor colorWithRed:.643 green:.569 blue:.776 alpha:1].CGColor,
+    GVGradientView *bgGradient = [[GVGradientView alloc] initWithFrame:self.view.bounds];
+    bgGradient.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    bgGradient.layer.colors = @[(id)[UIColor colorWithRed:.643 green:.569 blue:.776 alpha:1].CGColor,
                                      (id)[UIColor colorWithRed:.573 green:.875 blue:.678 alpha:1].CGColor];
-    [self.view insertSubview:self.bgGradient atIndex:0];
+    [self.view insertSubview:bgGradient atIndex:0];
     
     [self initRightToLeftGlideView];
     [self initBottomToTopGlideView];
@@ -43,18 +42,19 @@
     
     ContentViewController *contentVC = [[ContentViewController alloc] initWithRect:CGRectMake(0, 0, 200, CGRectGetHeight([UIScreen mainScreen].bounds))];
     [self.rightToLeftGlideVC setContentViewController:contentVC
-                                                type:GVScrollViewOrientationLeftToRight
-                                              offsets:@[@(0), @(CGRectGetWidth(contentVC.view.frame) - self.rightToLeftGlideVC.margin / 2)]];
+                                                type:GVScrollViewOrientationRightToLeft
+                                              offsets:@[@(0), @(CGRectGetWidth(contentVC.view.frame))]];
 }
 
 - (void)initBottomToTopGlideView{
     self.bottomToTopGlideVC = [[GlideViewController alloc] initOnViewController:self];
     self.bottomToTopGlideVC.delegate = self;
+    self.bottomToTopGlideVC.marginOffset = 10;
     
     ContentViewController *contentVC = [[ContentViewController alloc] initWithRect:CGRectMake(0, 0, CGRectGetHeight([UIScreen mainScreen].bounds), 200)];
     [self.bottomToTopGlideVC setContentViewController:contentVC
                                                  type:GVScrollViewOrientationBottomToTop
-                                              offsets:@[@(0), @(CGRectGetHeight(contentVC.view.frame) - self.bottomToTopGlideVC.margin / 2)]];
+                                              offsets:@[@(0), @(CGRectGetHeight(contentVC.view.frame))]];
 }
 
 #pragma mark - Actions

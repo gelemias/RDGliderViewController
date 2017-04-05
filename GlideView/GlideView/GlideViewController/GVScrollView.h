@@ -46,6 +46,11 @@ typedef enum {
 @property (nonatomic, readonly) int offsetIndex;
 
 /**
+ Margin of elastic animation default is 20px
+ */
+@property (nonatomic) CGFloat margin;
+
+/**
  Consider subviews of the content as part of the content, used when dragging
  Default Value is False
  */
@@ -60,7 +65,6 @@ extern NSString *const offsetDidChangeNotification;
 - (void)closeWithCompletion:(void (^)(BOOL finished))completion;
 
 - (instancetype)init NS_UNAVAILABLE;
-
-- (void)updateLayouts;
+- (instancetype)initWithCoder:(NSCoder *)aDecoder NS_UNAVAILABLE;
 
 @end
