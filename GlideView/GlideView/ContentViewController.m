@@ -36,6 +36,7 @@
     self.view.layer.shadowColor = [UIColor blackColor].CGColor;
     self.view.layer.shadowOpacity = 0.5f;
     self.view.layer.shadowRadius = 5.0f;
+    self.view.layer.shadowOffset = CGSizeMake(0.0f, 0.0f);
     self.view.layer.shadowPath = shadowPath.CGPath;
 }
 

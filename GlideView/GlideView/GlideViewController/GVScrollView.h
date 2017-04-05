@@ -67,6 +67,4 @@ extern NSString *const offsetDidChangeNotification;
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithCoder:(NSCoder *)aDecoder NS_UNAVAILABLE;
 
-- (void)updateLayouts;
-
 @end

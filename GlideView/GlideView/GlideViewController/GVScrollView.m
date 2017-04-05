@@ -51,7 +51,12 @@ NSString *const offsetDidChangeNotification = @"kOffsetDidChangeNotification";
     [self setContentInset:UIEdgeInsetsZero];
     [self setDecelerationRate:UIScrollViewDecelerationRateFast];
     
-    [self setOrientationType:GVScrollViewOrientationLeftToRight];
+    [self setOrientationType:GVScrollViewOrientationRightToLeft];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(viewDidRotate:)
+                                                 name:UIApplicationDidChangeStatusBarOrientationNotification
+                                               object:nil];
 }
 
 #pragma mark - Public Methods
@@ -72,7 +77,7 @@ NSString *const offsetDidChangeNotification = @"kOffsetDidChangeNotification";
     container.translatesAutoresizingMaskIntoConstraints = NO;
     _content.translatesAutoresizingMaskIntoConstraints = NO;
     
-    if (self.orientationType == GVScrollViewOrientationLeftToRight) {
+    if (self.orientationType == GVScrollViewOrientationRightToLeft) {
                 
         [container addConstraints:@[[NSLayoutConstraint constraintWithItem:_content  attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual
                                                                     toItem:container attribute:NSLayoutAttributeTop multiplier:1.0 constant:0.0],
@@ -121,7 +126,7 @@ NSString *const offsetDidChangeNotification = @"kOffsetDidChangeNotification";
     else if (self.orientationType == GVScrollViewOrientationTopToBottom) {
         
     }
-    else if (self.orientationType == GVScrollViewOrientationRightToLeft) {
+    else if (self.orientationType == GVScrollViewOrientationLeftToRight) {
         
     }
     
@@ -143,7 +148,7 @@ NSString *const offsetDidChangeNotification = @"kOffsetDidChangeNotification";
     }
         
     if (newOffsets && ![_offsets isEqualToArray:newOffsets]) {
-        [self updateLayouts];
+        [self recalculateContentSize];
     }
     _offsets = newOffsets;
 
@@ -164,35 +169,34 @@ NSString *const offsetDidChangeNotification = @"kOffsetDidChangeNotification";
     [self changeOffsetTo:0 completion:completion];
 }
 
-- (void)updateLayouts {
-    [self recalculateContentSize];
-    if ([self isOpen]) {
-        [self changeOffsetTo:self.offsetIndex completion:nil];
-    }
-    else if (!self.panGestureRecognizer.isEnabled){
-        [self changeOffsetTo:self.offsetIndex + 1 completion:nil];
-    }
-}
-
 #pragma mark - Private methods
 
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    [self recalculateContentSize];
+}
 
 - (void)recalculateContentSize {
     if (self.orientationType == GVScrollViewOrientationLeftToRight ||
         self.orientationType == GVScrollViewOrientationRightToLeft) {
         [self setContentSize:CGSizeMake(CGRectGetWidth(self.frame) + CGRectGetWidth(_content.frame) + [self margin], CGRectGetHeight(self.frame))];
+
     }
     else if (self.orientationType == GVScrollViewOrientationBottomToTop ||
              self.orientationType == GVScrollViewOrientationTopToBottom) {
         [self setContentSize:CGSizeMake(CGRectGetWidth(self.frame), CGRectGetHeight(self.frame) + CGRectGetHeight(_content.frame) + [self margin])];
     }
+    
+    [self layoutIfNeeded];
+}
+
+- (void)viewDidRotate:(NSNotification *)notification {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self changeOffsetTo:self.offsetIndex completion:nil];
+    });
 }
 
 - (void)changeOffsetTo:(int)offsetIndex completion:(void (^)(BOOL finished))completion {
-    if (self.offsetIndex != offsetIndex) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:offsetWillChangeNotification object:self userInfo:@{@"NewOffset":@(offsetIndex)}];
-    }
-    
     self.panGestureRecognizer.enabled = NO;
     [UIView animateWithDuration:kAniDuration delay:kAniDelay usingSpringWithDamping:kAniDamping
           initialSpringVelocity:kAniVelocity options:UIViewAnimationOptionCurveEaseOut animations:^{

@@ -31,7 +31,7 @@
 @property (nonatomic, weak) id<GlideViewControllerDelegate> delegate;
 
 // Margin of elastic animation default is 20px;
-@property (nonatomic) CGFloat margin;
+@property (nonatomic) CGFloat marginOffset;
 
 // Offsets have to be incremental for example: #1) 0px #2) 100px #3)d 400px
 @property (nonatomic) NSArray<NSNumber *> *offsets;
