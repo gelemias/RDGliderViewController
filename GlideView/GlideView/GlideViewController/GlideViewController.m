@@ -170,7 +170,7 @@ NSString *const GVException = @"GliveViewException";
     }
     self.isMoving = YES;
     
-    [self.scrollView changeOffsetTo:self.currentOffsetIndex completion:^(BOOL finished) {
+    [self.scrollView changeOffsetTo:self.currentOffsetIndex animated:YES completion:^(BOOL finished) {
         self.isMoving = NO;
     }];
 }
@@ -256,16 +256,13 @@ NSString *const GVException = @"GliveViewException";
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
-
     if (self.contentViewController) {
         [self.contentViewController viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
     }
     
     [coordinator animateAlongsideTransition:^(id  _Nonnull context) {
-        self.isMoving = YES;
-    } completion:^(id  _Nonnull context) {
-        self.isMoving = NO;
-    }];
+        [self remain];
+    } completion:nil];
 }
 
 @end

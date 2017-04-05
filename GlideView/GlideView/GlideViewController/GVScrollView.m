@@ -52,15 +52,6 @@ NSString *const offsetDidChangeNotification = @"kOffsetDidChangeNotification";
     [self setDecelerationRate:UIScrollViewDecelerationRateFast];
     
     [self setOrientationType:GVScrollViewOrientationRightToLeft];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(viewDidRotate:)
-                                                 name:UIApplicationDidChangeStatusBarOrientationNotification
-                                               object:nil];
-}
-
-- (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:UIApplicationDidChangeStatusBarOrientationNotification];
 }
 
 #pragma mark - Public Methods
@@ -160,17 +151,17 @@ NSString *const offsetDidChangeNotification = @"kOffsetDidChangeNotification";
 
 - (void)expandWithCompletion:(void (^)(BOOL finished))completion {
     int nextIndex = (self.offsetIndex + 1 < [[self offsets] count]) ? self.offsetIndex + 1 : self.offsetIndex;
-    [self changeOffsetTo:nextIndex completion:completion];
+    [self changeOffsetTo:nextIndex animated:NO completion:completion];
 }
 
 - (void)collapseWithCompletion:(void (^)(BOOL finished))completion {
 
     int nextIndex = (self.offsetIndex - 1 < 0) ? 0 : self.offsetIndex - 1;
-    [self changeOffsetTo:nextIndex completion:completion];
+    [self changeOffsetTo:nextIndex animated:NO completion:completion];
 }
 
 - (void)closeWithCompletion:(void (^)(BOOL finished))completion {
-    [self changeOffsetTo:0 completion:completion];
+    [self changeOffsetTo:0 animated:NO completion:completion];
 }
 
 #pragma mark - Private methods
@@ -194,13 +185,7 @@ NSString *const offsetDidChangeNotification = @"kOffsetDidChangeNotification";
     [self layoutIfNeeded];
 }
 
-- (void)viewDidRotate:(NSNotification *)notification {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self changeOffsetTo:self.offsetIndex completion:nil];
-    });
-}
-
-- (void)changeOffsetTo:(int)offsetIndex completion:(void (^)(BOOL finished))completion {
+- (void)changeOffsetTo:(int)offsetIndex animated:(BOOL)animated completion:(void (^)(BOOL finished))completion {
     self.panGestureRecognizer.enabled = NO;
     [UIView animateWithDuration:kAniDuration delay:kAniDelay usingSpringWithDamping:kAniDamping
           initialSpringVelocity:kAniVelocity options:UIViewAnimationOptionCurveEaseOut animations:^{
@@ -208,12 +193,12 @@ NSString *const offsetDidChangeNotification = @"kOffsetDidChangeNotification";
               if (self.orientationType == GVScrollViewOrientationLeftToRight ||
                   self.orientationType == GVScrollViewOrientationRightToLeft) {
                   
-                  [self setContentOffset:CGPointMake([[self offsets] objectAtIndex:offsetIndex].floatValue, self.contentOffset.y) animated:NO];
+                  [self setContentOffset:CGPointMake([[self offsets] objectAtIndex:offsetIndex].floatValue, self.contentOffset.y) animated:animated];
               }
               else if (self.orientationType == GVScrollViewOrientationBottomToTop ||
                        self.orientationType == GVScrollViewOrientationTopToBottom) {
                   
-                  [self setContentOffset:CGPointMake(self.contentOffset.x, [[self offsets] objectAtIndex:offsetIndex].floatValue) animated:NO];
+                  [self setContentOffset:CGPointMake(self.contentOffset.x, [[self offsets] objectAtIndex:offsetIndex].floatValue) animated:animated];
               }
           } completion:^(BOOL finished) {
               
