@@ -201,8 +201,7 @@ NSString *const GVException = @"GliveViewException";
 }
 
 #pragma mark - UIScrollView delegate
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     
     CGFloat max = [[self offsets] lastObject].floatValue;
     
@@ -221,10 +220,6 @@ NSString *const GVException = @"GliveViewException";
         max += [self marginOffset];
     }
     
-    if ([self.delegate respondsToSelector:@selector(glideViewController:hasChangedOffsetOfContent:)]) {
-        [self.delegate glideViewController:self hasChangedOffsetOfContent:scrollView.contentOffset];
-    }
-    
     if (self.orientationType == GVScrollViewOrientationRightToLeft &&
         scrollView.contentOffset.x >= max) {
         [scrollView setContentOffset:CGPointMake(max, scrollView.contentOffset.y) animated:NO];
@@ -240,6 +235,12 @@ NSString *const GVException = @"GliveViewException";
     else if (self.orientationType == GVScrollViewOrientationTopToBottom &&
              scrollView.contentOffset.y <= max) {
         [scrollView setContentOffset:CGPointMake(scrollView.contentOffset.x, max) animated:NO];
+    }
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if ([self.delegate respondsToSelector:@selector(glideViewController:hasChangedOffsetOfContent:)]) {
+        [self.delegate glideViewController:self hasChangedOffsetOfContent:scrollView.contentOffset];
     }
 }
 
@@ -277,19 +278,11 @@ NSString *const GVException = @"GliveViewException";
         [self.contentViewController viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
     }
     
-    CGFloat margin = self.marginOffset;
-    [self setMarginOffset:0];
-    
     [coordinator animateAlongsideTransition:^(id  _Nonnull context) {
         [self.scrollView changeOffsetTo:self.currentOffsetIndex
                                animated:YES
                              completion:nil];
-    } completion:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
-        [self.scrollView changeOffsetTo:self.currentOffsetIndex
-                               animated:NO
-                             completion:nil];
-        [self setMarginOffset:margin];
-    }];
+    } completion:nil];
 }
 
 @end
