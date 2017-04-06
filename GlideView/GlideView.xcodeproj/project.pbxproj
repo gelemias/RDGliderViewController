@@ -33,7 +33,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		C73FE63F1E939CBE005D069F /* GlideContentViewControllerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlideContentViewControllerProtocol.h; sourceTree = "<group>"; };
 		C79985441E92332900B80DA5 /* GVButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVButton.h; sourceTree = "<group>"; };
 		C79985451E92332900B80DA5 /* GVButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVButton.m; sourceTree = "<group>"; };
 		C79985491E9246BA00B80DA5 /* GlideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = GlideViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -92,7 +91,6 @@
 		C79985481E92469300B80DA5 /* GlideViewController */ = {
 			isa = PBXGroup;
 			children = (
-				C73FE63F1E939CBE005D069F /* GlideContentViewControllerProtocol.h */,
 				C79985491E9246BA00B80DA5 /* GlideViewController.h */,
 				C799854A1E9246BA00B80DA5 /* GlideViewController.m */,
 				C799854F1E92480D00B80DA5 /* GVScrollView.h */,

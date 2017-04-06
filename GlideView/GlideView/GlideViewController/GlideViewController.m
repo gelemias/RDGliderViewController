@@ -77,7 +77,7 @@ NSString *const GVException = @"GliveViewException";
 
 #pragma mark - Public methods
 
-- (void)setContentViewController:(UIViewController<GlideContentViewControllerProtocol> *)contentViewController
+- (void)setContentViewController:(UIViewController *)contentViewController
                             type:(GVScrollViewOrientationType)type
                          offsets:(NSArray<NSNumber *> *)offsets {
     
@@ -202,6 +202,15 @@ NSString *const GVException = @"GliveViewException";
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
     CGFloat max = [[self offsets] lastObject].floatValue;
+    
+    if (self.orientationType == GVScrollViewOrientationLeftToRight ||
+        self.orientationType == GVScrollViewOrientationRightToLeft) {
+        max *= CGRectGetWidth(self.scrollView.frame);
+    }
+    else {
+        max *= CGRectGetHeight(self.scrollView.frame);
+    }
+
     if (self.orientationType == GVScrollViewOrientationTopToBottom ||
         self.orientationType == GVScrollViewOrientationLeftToRight) {
         max -= [self marginOffset];
@@ -234,13 +243,13 @@ NSString *const GVException = @"GliveViewException";
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
     
     if ((self.scrollView.orientationType == GVScrollViewOrientationRightToLeft &&
-         self.scrollView.contentOffset.x > [[self.scrollView offsets] objectAtIndex:self.scrollView.offsetIndex].floatValue) ||
+         self.scrollView.contentOffset.x > [[self.scrollView offsets] objectAtIndex:self.scrollView.offsetIndex].floatValue * CGRectGetWidth(self.scrollView.content.frame)) ||
         (self.scrollView.orientationType == GVScrollViewOrientationLeftToRight &&
-         self.scrollView.contentOffset.x < [[self.scrollView offsets] objectAtIndex:self.scrollView.offsetIndex].floatValue) ||
+         self.scrollView.contentOffset.x < [[self.scrollView offsets] objectAtIndex:self.scrollView.offsetIndex].floatValue * CGRectGetWidth(self.scrollView.content.frame)) ||
         (self.scrollView.orientationType == GVScrollViewOrientationBottomToTop &&
-         self.scrollView.contentOffset.y > [[self.scrollView offsets] objectAtIndex:self.scrollView.offsetIndex].floatValue) ||
+         self.scrollView.contentOffset.y > [[self.scrollView offsets] objectAtIndex:self.scrollView.offsetIndex].floatValue * CGRectGetHeight(self.scrollView.content.frame)) ||
         (self.scrollView.orientationType == GVScrollViewOrientationTopToBottom &&
-         self.scrollView.contentOffset.y < [[self.scrollView offsets] objectAtIndex:self.scrollView.offsetIndex].floatValue)) {
+         self.scrollView.contentOffset.y < [[self.scrollView offsets] objectAtIndex:self.scrollView.offsetIndex].floatValue * CGRectGetHeight(self.scrollView.content.frame))) {
             
         [self expand];
     }

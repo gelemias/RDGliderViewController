@@ -7,9 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "GlideContentViewControllerProtocol.h"
 
-@interface ContentViewController : UIViewController <GlideContentViewControllerProtocol>
+@interface ContentViewController : UIViewController
 
 - (instancetype)initWithRect:(CGRect)rect;
 

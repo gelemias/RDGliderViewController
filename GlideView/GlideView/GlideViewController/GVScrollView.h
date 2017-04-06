@@ -30,8 +30,7 @@ typedef enum {
 @property (nonatomic) GVScrollViewOrientationType orientationType;
 
 /**
- Default expandable offset
- Default value : container.frame.width - marginOffset 
+ Expandable offset in % of content view. from 0 to 1
  */
 @property (nonatomic) NSArray<NSNumber *> *offsets;
 

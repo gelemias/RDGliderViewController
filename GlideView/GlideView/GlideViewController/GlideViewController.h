@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "GVScrollView.h"
-#import "GlideContentViewControllerProtocol.h"
 
 @class GlideViewController;
 
@@ -30,12 +29,12 @@
 
 @property (nonatomic, weak) id<GlideViewControllerDelegate> delegate;
 
-@property (nonatomic) UIViewController<GlideContentViewControllerProtocol> *contentViewController;
+@property (nonatomic) UIViewController *contentViewController;
 
 // Margin of elastic animation default is 20px;
 @property (nonatomic) CGFloat marginOffset;
 
-// Offsets have to be incremental for example: #1) 0px #2) 100px #3)d 400px
+// Expandable offset in % of contentVC view. from 0 to 1
 @property (nonatomic) NSArray<NSNumber *> *offsets;
 
 // Orientation type of the glide view
@@ -60,7 +59,7 @@
 // Initializator of the object, it requires the parent view controller to build its components
 - (instancetype)initOnViewController:(UIViewController *)viewController;
 
-- (void)setContentViewController:(UIViewController<GlideContentViewControllerProtocol> *)contentViewController
+- (void)setContentViewController:(UIViewController *)contentViewController
                             type:(GVScrollViewOrientationType)type
                          offsets:(NSArray<NSNumber *> *)offsets;
 
