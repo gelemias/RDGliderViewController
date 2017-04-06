@@ -14,7 +14,6 @@ NSString *const GVException = @"GliveViewException";
 
 @property (nonatomic) GVScrollView *scrollView;
 
-@property (nonatomic) BOOL isMoving;
 @property (nonatomic) BOOL isObservingOffsets;
 
 @end
@@ -47,12 +46,12 @@ NSString *const GVException = @"GliveViewException";
     }
 }
 
-- (int)currentOffsetIndex {
+- (NSUInteger)currentOffsetIndex {
     if (self.scrollView) {
         return self.scrollView.offsetIndex;
     }
 
-    return INT_MIN;
+    return 0;
 }
 
 - (GVScrollViewOrientationType)orientationType {
@@ -129,17 +128,11 @@ NSString *const GVException = @"GliveViewException";
 }
 
 - (void)expand {
-    if (self.isMoving) {
-        return;
-    }
-    self.isMoving = YES;
-    
     if ([self.delegate respondsToSelector:@selector(glideViewControllerWillExpand:)]) {
         [self.delegate glideViewControllerWillExpand:self];
     }
     
     [self.scrollView expandWithCompletion:^(BOOL finished) {
-        self.isMoving = NO;
         if ([self.delegate respondsToSelector:@selector(glideViewControllerDidExpand:)]) {
             [self.delegate glideViewControllerDidExpand:self];
         }
@@ -147,46 +140,53 @@ NSString *const GVException = @"GliveViewException";
 }
 
 - (void)collapse {
-    if (self.isMoving) {
-        return;
-    }
-    self.isMoving = YES;
-    
     if ([self.delegate respondsToSelector:@selector(glideViewControllerWillCollapse:)]) {
         [self.delegate glideViewControllerWillCollapse:self];
     }
     
     [self.scrollView collapseWithCompletion:^(BOOL finished) {
-        self.isMoving = NO;
         if ([self.delegate respondsToSelector:@selector(glideViewControllerDidCollapse:)]) {
             [self.delegate glideViewControllerDidCollapse:self];
         }
     }];
 }
 
-- (void)remain {
-    if (self.isMoving) {
-        return;
+- (void)changeOffsetTo:(NSUInteger)offsetIndex {
+    if (offsetIndex > self.scrollView.offsetIndex) {
+        if ([self.delegate respondsToSelector:@selector(glideViewControllerWillExpand:)]) {
+            [self.delegate glideViewControllerWillExpand:self];
+        }
+        
+        [self.scrollView changeOffsetTo:offsetIndex animated:NO completion:^(BOOL finished) {
+
+            if ([self.delegate respondsToSelector:@selector(glideViewControllerDidExpand:)]) {
+                [self.delegate glideViewControllerDidExpand:self];
+            }
+        }];
+    } else if (offsetIndex < self.scrollView.offsetIndex) {
+        if ([self.delegate respondsToSelector:@selector(glideViewControllerWillCollapse:)]) {
+            [self.delegate glideViewControllerWillCollapse:self];
+        }
+        
+        [self.scrollView changeOffsetTo:offsetIndex animated:NO completion:^(BOOL finished) {
+
+            if ([self.delegate respondsToSelector:@selector(glideViewControllerDidCollapse:)]) {
+                [self.delegate glideViewControllerDidCollapse:self];
+            }
+        }];
+    } else {
+        [self.scrollView changeOffsetTo:self.currentOffsetIndex
+                               animated:NO
+                             completion:nil];
     }
-    self.isMoving = YES;
-    
-    [self.scrollView changeOffsetTo:self.currentOffsetIndex animated:YES completion:^(BOOL finished) {
-        self.isMoving = NO;
-    }];
 }
 
 - (void)close {
-    if (self.isMoving) {
-        return;
-    }
-    self.isMoving = YES;
-    
     if ([self.delegate respondsToSelector:@selector(glideViewControllerWillCollapse:)]) {
         [self.delegate glideViewControllerWillCollapse:self];
     }
     
     [self.scrollView closeWithCompletion:^(BOOL finished) {
-        self.isMoving = NO;
         if ([self.delegate respondsToSelector:@selector(glideViewControllerDidCollapse:)]) {
             [self.delegate glideViewControllerDidCollapse:self];
         }
@@ -242,26 +242,28 @@ NSString *const GVException = @"GliveViewException";
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
     
-    if ((self.scrollView.orientationType == GVScrollViewOrientationRightToLeft &&
-         self.scrollView.contentOffset.x > [[self.scrollView offsets] objectAtIndex:self.scrollView.offsetIndex].floatValue * CGRectGetWidth(self.scrollView.content.frame)) ||
-        (self.scrollView.orientationType == GVScrollViewOrientationLeftToRight &&
-         self.scrollView.contentOffset.x < [[self.scrollView offsets] objectAtIndex:self.scrollView.offsetIndex].floatValue * CGRectGetWidth(self.scrollView.content.frame)) ||
-        (self.scrollView.orientationType == GVScrollViewOrientationBottomToTop &&
-         self.scrollView.contentOffset.y > [[self.scrollView offsets] objectAtIndex:self.scrollView.offsetIndex].floatValue * CGRectGetHeight(self.scrollView.content.frame)) ||
-        (self.scrollView.orientationType == GVScrollViewOrientationTopToBottom &&
-         self.scrollView.contentOffset.y < [[self.scrollView offsets] objectAtIndex:self.scrollView.offsetIndex].floatValue * CGRectGetHeight(self.scrollView.content.frame))) {
-            
-        [self expand];
+    NSUInteger index = 0;
+    CGFloat offset = self.scrollView.contentOffset.x;
+    CGFloat threshold = CGRectGetWidth(self.scrollView.content.frame);
+
+    if (self.scrollView.orientationType == GVScrollViewOrientationBottomToTop ||
+        self.scrollView.orientationType == GVScrollViewOrientationTopToBottom) {
+        offset = self.scrollView.contentOffset.y;
+        threshold = CGRectGetHeight(self.scrollView.content.frame);
     }
-    else if (self.currentOffsetIndex > 1 || (self.canCloseDragging && self.currentOffsetIndex == 1)) {
-        [self collapse];
-    } else {
-        [self remain];
+    
+    for (int i = 0 ; i < [self.offsets count] ; i++) {
+        CGFloat transformedOffset = [[self.scrollView offsets] objectAtIndex:i].floatValue * threshold;
+        if (offset > transformedOffset) {
+            index = i;
+        }
     }
+    
+    [self changeOffsetTo:(index == 0 && !self.canCloseDragging) ? 1 : index];
 }
 
 - (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView{
-    [self.scrollView setContentOffset:self.scrollView.contentOffset animated:YES];
+    [self.scrollView setContentOffset:self.scrollView.contentOffset animated:NO];
 }
 
 #pragma mark - Rotation event
@@ -273,7 +275,9 @@ NSString *const GVException = @"GliveViewException";
     }
     
     [coordinator animateAlongsideTransition:^(id  _Nonnull context) {
-        [self remain];
+        [self.scrollView changeOffsetTo:self.currentOffsetIndex
+                               animated:YES
+                             completion:nil];
     } completion:nil];
 }
 

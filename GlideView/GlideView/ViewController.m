@@ -54,9 +54,9 @@
     [self.bottomToTopGlideVC setContentViewController:[ContentViewController new]
                                                  type:GVScrollViewOrientationBottomToTop
                                               offsets:@[@(0),
+                                                        @(0.6),
                                                         @(0.2),
                                                         @(0.4),
-                                                        @(0.6),
                                                         @(0.8),
                                                         @(1)]];
 }
@@ -93,6 +93,23 @@
     } else {
         [self.rightToLeftGlideVC collapse];
     }
+}
+
+#pragma mark - GlideViewControllerDelegate
+
+- (void)glideViewController:(GlideViewController *)glideViewController hasChangedOffsetOfContent:(CGPoint)offset {
+    ContentViewController *vc = (ContentViewController *)glideViewController.contentViewController;
+    [vc setOffset:NSStringFromCGPoint(offset)];
+}
+
+- (void)glideViewControllerDidExpand:(GlideViewController *)glideViewController {
+    ContentViewController *vc = (ContentViewController *)glideViewController.contentViewController;
+    [vc setIndex:glideViewController.currentOffsetIndex ofMax:[glideViewController.offsets count]];
+}
+
+- (void)glideViewControllerDidCollapse:(GlideViewController *)glideViewController {
+    ContentViewController *vc = (ContentViewController *)glideViewController.contentViewController;
+    [vc setIndex:glideViewController.currentOffsetIndex ofMax:[glideViewController.offsets count]];
 }
 
 @end

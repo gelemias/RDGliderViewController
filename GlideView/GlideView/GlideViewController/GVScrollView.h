@@ -42,7 +42,7 @@ typedef enum {
 /**
  Returns the position of open Offsets
  */
-@property (nonatomic, readonly) int offsetIndex;
+@property (nonatomic, readonly) NSUInteger offsetIndex;
 
 /**
  Margin of elastic animation default is 20px
@@ -58,7 +58,7 @@ typedef enum {
 extern NSString *const offsetWillChangeNotification;
 extern NSString *const offsetDidChangeNotification;
 
-- (void)changeOffsetTo:(int)offsetIndex animated:(BOOL)animated completion:(void (^)(BOOL finished))completion;
+- (void)changeOffsetTo:(NSUInteger)offsetIndex animated:(BOOL)animated completion:(void (^)(BOOL finished))completion;
 - (void)expandWithCompletion:(void (^)(BOOL finished))completion;
 - (void)collapseWithCompletion:(void (^)(BOOL finished))completion;
 - (void)closeWithCompletion:(void (^)(BOOL finished))completion;

@@ -10,6 +10,9 @@
 
 @interface ContentViewController : UIViewController
 
+- (void)setIndex:(NSUInteger)index ofMax:(NSUInteger)max;
+- (void)setOffset:(NSString *)offset;
+
 - (instancetype)initWithRect:(CGRect)rect;
 
 @end

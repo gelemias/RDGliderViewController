@@ -10,7 +10,7 @@
 
 @interface GVScrollView() <UIScrollViewDelegate>
 
-@property (nonatomic) int offsetIndex;
+@property (nonatomic) NSUInteger offsetIndex;
 @property (nonatomic) BOOL isOpen;
 
 @end
@@ -135,8 +135,7 @@ NSString *const offsetDidChangeNotification = @"kOffsetDidChangeNotification";
 }
 
 - (void)setOffsets:(NSArray<NSNumber *> *)offsets {
-    
-    NSArray *newOffsets = offsets;
+    NSArray *newOffsets = [offsets sortedArrayUsingSelector: @selector(compare:)];
     
     if (newOffsets && ![_offsets isEqualToArray:newOffsets]) {
         [self recalculateContentSize];
@@ -146,13 +145,13 @@ NSString *const offsetDidChangeNotification = @"kOffsetDidChangeNotification";
 }
 
 - (void)expandWithCompletion:(void (^)(BOOL finished))completion {
-    int nextIndex = (self.offsetIndex + 1 < [[self offsets] count]) ? self.offsetIndex + 1 : self.offsetIndex;
+    NSUInteger nextIndex = (self.offsetIndex + 1 < [[self offsets] count]) ? self.offsetIndex + 1 : self.offsetIndex;
     [self changeOffsetTo:nextIndex animated:NO completion:completion];
 }
 
 - (void)collapseWithCompletion:(void (^)(BOOL finished))completion {
 
-    int nextIndex = (self.offsetIndex - 1 < 0) ? 0 : self.offsetIndex - 1;
+    NSUInteger nextIndex = self.offsetIndex - 1;
     [self changeOffsetTo:nextIndex animated:NO completion:completion];
 }
 
@@ -181,7 +180,7 @@ NSString *const offsetDidChangeNotification = @"kOffsetDidChangeNotification";
     [self layoutIfNeeded];
 }
 
-- (void)changeOffsetTo:(int)offsetIndex animated:(BOOL)animated completion:(void (^)(BOOL finished))completion {
+- (void)changeOffsetTo:(NSUInteger)offsetIndex animated:(BOOL)animated completion:(void (^)(BOOL finished))completion {
     self.panGestureRecognizer.enabled = NO;
     [UIView animateWithDuration:kAniDuration delay:kAniDelay usingSpringWithDamping:kAniDamping
           initialSpringVelocity:kAniVelocity options:UIViewAnimationOptionCurveEaseOut animations:^{

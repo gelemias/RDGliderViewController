@@ -15,6 +15,7 @@
 
 @optional
 
+// Delegate method to notify invoke object when offset has changed
 - (void)glideViewController:(GlideViewController *)glideViewController hasChangedOffsetOfContent:(CGPoint)offset;
 
 - (void)glideViewControllerWillExpand:(GlideViewController *)glideViewController;
@@ -34,17 +35,14 @@
 // Margin of elastic animation default is 20px;
 @property (nonatomic) CGFloat marginOffset;
 
-// Expandable offset in % of contentVC view. from 0 to 1
+// Sorted list of offsets in % of contentVC view. from 0 to 1
 @property (nonatomic) NSArray<NSNumber *> *offsets;
 
 // Orientation type of the glide view
 @property (nonatomic, readonly) GVScrollViewOrientationType orientationType;
 
 // Current offset of the glide view
-@property (nonatomic, readonly) int currentOffsetIndex;
-
-// Returns a bool for determining if the glide view is moving
-@property (nonatomic, readonly) BOOL isMoving;
+@property (nonatomic, readonly) NSUInteger currentOffsetIndex;
 
 // Returns a bool for determining if the glide view isn't closed.
 @property (nonatomic, readonly) BOOL isOpen;
@@ -59,6 +57,7 @@
 // Initializator of the object, it requires the parent view controller to build its components
 - (instancetype)initOnViewController:(UIViewController *)viewController;
 
+// This Method sets the content viewController to the glive View and initialize type and offets.
 - (void)setContentViewController:(UIViewController *)contentViewController
                             type:(GVScrollViewOrientationType)type
                          offsets:(NSArray<NSNumber *> *)offsets;
@@ -72,7 +71,10 @@
 // Decrease the position of the glive view by one in the list of offsets
 - (void)collapse;
 
-// Goes directly to the first offset which is the default position.
+// Change offset of view.
+- (void)changeOffsetTo:(NSUInteger)offsetIndex;
+
+// This method moves the View directly to the first offset which is the default position.
 - (void)close;
 
 @end
