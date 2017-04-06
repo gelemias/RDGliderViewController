@@ -40,7 +40,7 @@
     self.rightToLeftGlideVC = [[GlideViewController alloc] initOnViewController:self];
     self.rightToLeftGlideVC.delegate = self;
     
-    ContentViewController *contentVC = [[ContentViewController alloc] initWithRect:CGRectMake(0, 0, 200, CGRectGetHeight([UIScreen mainScreen].bounds))];
+    ContentViewController *contentVC = [[ContentViewController alloc] initWithRect:CGRectMake(0, 0, 200, CGRectGetHeight(self.view.frame))];
     [self.rightToLeftGlideVC setContentViewController:contentVC
                                                 type:GVScrollViewOrientationRightToLeft
                                               offsets:@[@(0), @(CGRectGetWidth(contentVC.view.frame))]];
@@ -51,10 +51,12 @@
     self.bottomToTopGlideVC.delegate = self;
     self.bottomToTopGlideVC.marginOffset = 10;
     
-    ContentViewController *contentVC = [[ContentViewController alloc] initWithRect:CGRectMake(0, 0, CGRectGetHeight([UIScreen mainScreen].bounds), 200)];
+    ContentViewController *contentVC = [[ContentViewController alloc] initWithRect:CGRectMake(0, 0, CGRectGetHeight(self.view.frame), CGRectGetHeight(self.view.frame))];
     [self.bottomToTopGlideVC setContentViewController:contentVC
                                                  type:GVScrollViewOrientationBottomToTop
-                                              offsets:@[@(0), @(CGRectGetHeight(contentVC.view.frame))]];
+                                              offsets:@[@(0),
+                                                        @(CGRectGetHeight(self.view.frame) / 2),
+                                                        @(CGRectGetHeight(self.view.frame) - self.bottomToTopGlideVC.marginOffset)]];
 }
 
 #pragma mark - Actions

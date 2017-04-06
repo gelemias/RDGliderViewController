@@ -133,15 +133,6 @@ NSString *const offsetDidChangeNotification = @"kOffsetDidChangeNotification";
     
     NSArray *newOffsets = offsets;
     
-    if (self.orientationType == GVScrollViewOrientationTopToBottom) {
-        NSMutableArray<NSNumber *> *topToBottomArray = [NSMutableArray new];
-        for (NSNumber *offset in offsets) {
-            [topToBottomArray  addObject:@(CGRectGetHeight(self.content.frame) - offset.floatValue)];
-        }
-        
-        newOffsets = [topToBottomArray copy];
-    }
-        
     if (newOffsets && ![_offsets isEqualToArray:newOffsets]) {
         [self recalculateContentSize];
     }

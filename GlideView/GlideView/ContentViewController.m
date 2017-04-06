@@ -10,8 +10,6 @@
 
 @interface ContentViewController ()
 
-@property (nonatomic) CGRect rect;
-
 @end
 
 @implementation ContentViewController
@@ -19,7 +17,7 @@
 
 - (instancetype)initWithRect:(CGRect)rect {
     if (self = [self init]) {
-        self.rect = rect;
+        self.view.frame = rect;
     }
     
     return self;
@@ -27,7 +25,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.frame = self.rect;
     
     self.view.layer.cornerRadius = 10.0f;    
     [self.view.subviews firstObject].layer.cornerRadius = 10.0f;

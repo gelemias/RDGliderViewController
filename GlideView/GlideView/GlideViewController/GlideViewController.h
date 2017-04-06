@@ -30,6 +30,8 @@
 
 @property (nonatomic, weak) id<GlideViewControllerDelegate> delegate;
 
+@property (nonatomic) UIViewController<GlideContentViewControllerProtocol> *contentViewController;
+
 // Margin of elastic animation default is 20px;
 @property (nonatomic) CGFloat marginOffset;
 
