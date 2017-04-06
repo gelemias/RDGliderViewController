@@ -104,12 +104,12 @@
 
 - (void)glideViewControllerDidExpand:(GlideViewController *)glideViewController {
     ContentViewController *vc = (ContentViewController *)glideViewController.contentViewController;
-    [vc setIndex:glideViewController.currentOffsetIndex ofMax:[glideViewController.offsets count]];
+    [vc setIndex:glideViewController.currentOffsetIndex ofMax:[glideViewController.offsets count] - 1];
 }
 
 - (void)glideViewControllerDidCollapse:(GlideViewController *)glideViewController {
     ContentViewController *vc = (ContentViewController *)glideViewController.contentViewController;
-    [vc setIndex:glideViewController.currentOffsetIndex ofMax:[glideViewController.offsets count]];
+    [vc setIndex:glideViewController.currentOffsetIndex ofMax:[glideViewController.offsets count] - 1];
 }
 
 @end

@@ -159,27 +159,6 @@ NSString *const offsetDidChangeNotification = @"kOffsetDidChangeNotification";
     [self changeOffsetTo:0 animated:NO completion:completion];
 }
 
-#pragma mark - Private methods
-
-- (void)layoutSubviews {
-    [super layoutSubviews];
-    [self recalculateContentSize];
-}
-
-- (void)recalculateContentSize {
-    if (self.orientationType == GVScrollViewOrientationLeftToRight ||
-        self.orientationType == GVScrollViewOrientationRightToLeft) {
-        [self setContentSize:CGSizeMake(CGRectGetWidth(self.frame) + CGRectGetWidth(_content.frame) + [self margin], CGRectGetHeight(self.frame))];
-
-    }
-    else if (self.orientationType == GVScrollViewOrientationBottomToTop ||
-             self.orientationType == GVScrollViewOrientationTopToBottom) {
-        [self setContentSize:CGSizeMake(CGRectGetWidth(self.frame), CGRectGetHeight(self.frame) + CGRectGetHeight(_content.frame) + [self margin])];
-    }
-    
-    [self layoutIfNeeded];
-}
-
 - (void)changeOffsetTo:(NSUInteger)offsetIndex animated:(BOOL)animated completion:(void (^)(BOOL finished))completion {
     self.panGestureRecognizer.enabled = NO;
     [UIView animateWithDuration:kAniDuration delay:kAniDelay usingSpringWithDamping:kAniDamping
@@ -210,6 +189,22 @@ NSString *const offsetDidChangeNotification = @"kOffsetDidChangeNotification";
                   completion(finished);
               }
           }];
+}
+
+#pragma mark - Private methods
+
+- (void)recalculateContentSize {
+    if (self.orientationType == GVScrollViewOrientationLeftToRight ||
+        self.orientationType == GVScrollViewOrientationRightToLeft) {
+        [self setContentSize:CGSizeMake(CGRectGetWidth(self.frame) + CGRectGetWidth(_content.frame) + [self margin], CGRectGetHeight(self.frame))];
+
+    }
+    else if (self.orientationType == GVScrollViewOrientationBottomToTop ||
+             self.orientationType == GVScrollViewOrientationTopToBottom) {
+        [self setContentSize:CGSizeMake(CGRectGetWidth(self.frame), CGRectGetHeight(self.frame) + CGRectGetHeight(_content.frame) + [self margin])];
+    }
+    
+    [self layoutIfNeeded];
 }
 
 #pragma mark - touch handler

@@ -88,6 +88,9 @@ NSString *const GVException = @"GliveViewException";
     
     if (self.scrollView && !CGRectIsNull(self.scrollView.frame)) {
         
+        self.parentViewController.automaticallyAdjustsScrollViewInsets = NO;
+        self.automaticallyAdjustsScrollViewInsets = NO;
+        
         [self.scrollView setOrientationType:type];
         [self.scrollView setOffsets:offsets];
         
@@ -274,11 +277,19 @@ NSString *const GVException = @"GliveViewException";
         [self.contentViewController viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
     }
     
+    CGFloat margin = self.marginOffset;
+    [self setMarginOffset:0];
+    
     [coordinator animateAlongsideTransition:^(id  _Nonnull context) {
         [self.scrollView changeOffsetTo:self.currentOffsetIndex
                                animated:YES
                              completion:nil];
-    } completion:nil];
+    } completion:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
+        [self.scrollView changeOffsetTo:self.currentOffsetIndex
+                               animated:NO
+                             completion:nil];
+        [self setMarginOffset:margin];
+    }];
 }
 
 @end
