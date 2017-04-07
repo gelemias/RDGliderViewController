@@ -20,13 +20,17 @@ NSString *const GVException = @"GliveViewException";
 
 @implementation GlideViewController
 
-- (instancetype)initOnViewController:(UIViewController *)viewController {
+- (instancetype)initOn:(UIViewController *)parent
+           WithContent:(UIViewController *)content
+                  type:(GVScrollViewOrientationType)type
+            AndOffsets:(NSArray<NSNumber *> *)offsets {
     if (self = [super init]) {
-
-        [viewController addChildViewController:self];
-
-        self.scrollView = [[GVScrollView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(viewController.view.frame), CGRectGetHeight(viewController.view.frame))];
-        [viewController.view addSubview:self.scrollView];
+        
+        [parent addChildViewController:self];
+        self.scrollView = [[GVScrollView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(parent.view.frame), CGRectGetHeight(parent.view.frame))];
+        [parent.view addSubview:self.scrollView];
+        
+        [self setContentViewController:content type:type offsets:offsets];
     }
     
     return self;

@@ -37,24 +37,23 @@
 
 - (void)initRightToLeftGlideView{
     ContentViewController *contentVC = [[ContentViewController alloc] initWithRect:CGRectMake(0, 0, 200, 200)];
-    self.rightToLeftGlideVC = [[GlideViewController alloc] initOnViewController:self];
-    [self.rightToLeftGlideVC setContentViewController:contentVC
-                                                type:GVScrollViewOrientationRightToLeft
-                                              offsets:@[@(0), @(1)]];
+    self.rightToLeftGlideVC = [[GlideViewController alloc] initOn:self
+                                                      WithContent:contentVC
+                                                             type:GVScrollViewOrientationRightToLeft
+                                                       AndOffsets:@[@(0), @(1)]];
     self.rightToLeftGlideVC.delegate = self;
 }
 
 - (void)initBottomToTopGlideView{
-    self.bottomToTopGlideVC = [[GlideViewController alloc] initOnViewController:self];
-    [self.bottomToTopGlideVC setContentViewController:[ContentViewController new]
-                                                 type:GVScrollViewOrientationBottomToTop
-                                              offsets:@[@(0),
-                                                        @(0.6),
-                                                        @(0.2),
-                                                        @(0.4),
-                                                        @(0.8),
-                                                        @(1)]];
-
+    self.bottomToTopGlideVC = [[GlideViewController alloc] initOn:self
+                                                      WithContent:[ContentViewController new]
+                                                             type:GVScrollViewOrientationBottomToTop
+                                                       AndOffsets:@[@(0),
+                                                                    @(0.6),
+                                                                    @(0.2),
+                                                                    @(0.4),
+                                                                    @(0.8),
+                                                                    @(1)]];
     self.bottomToTopGlideVC.delegate = self;
     self.bottomToTopGlideVC.marginOffset = 10;
 }
