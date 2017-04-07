@@ -24,9 +24,6 @@
 
 @implementation GVScrollView
 
-NSString *const offsetWillChangeNotification = @"kOffsetWillChangeNotification";
-NSString *const offsetDidChangeNotification = @"kOffsetDidChangeNotification";
-
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         [self initializeByDefault];
@@ -135,6 +132,12 @@ NSString *const offsetDidChangeNotification = @"kOffsetDidChangeNotification";
 }
 
 - (void)setOffsets:(NSArray<NSNumber *> *)offsets {
+    for (NSNumber *number in offsets) {
+        if ([number floatValue] > 1.0) {
+            [NSException raise:@"Invalid offset value" format:@"offset represents a %% of contentView to be shown i.e. 0.5 of a contentView of 100px will show 50px"];
+        }
+    }
+    
     NSArray *newOffsets = [offsets sortedArrayUsingSelector: @selector(compare:)];
     
     if (newOffsets && ![_offsets isEqualToArray:newOffsets]) {
@@ -175,11 +178,6 @@ NSString *const offsetDidChangeNotification = @"kOffsetDidChangeNotification";
                   [self setContentOffset:CGPointMake(self.contentOffset.x, [[self offsets] objectAtIndex:offsetIndex].floatValue * CGRectGetHeight(self.content.frame)) animated:animated];
               }
           } completion:^(BOOL finished) {
-              
-              if (self.offsetIndex != offsetIndex) {
-                  [[NSNotificationCenter defaultCenter] postNotificationName:offsetDidChangeNotification object:self];
-              }
-              
               self.offsetIndex = offsetIndex;
               self.isOpen = (self.offsetIndex == 0) ? NO : YES;
               

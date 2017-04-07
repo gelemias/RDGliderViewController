@@ -47,15 +47,8 @@
 // Returns a bool for determining if the glide view isn't closed.
 @property (nonatomic, readonly) BOOL isOpen;
 
-// Bool meant for enabling the posibility to close the glide view dragging, Default value is True;
-@property (nonatomic) BOOL canCloseDragging;
-
-- (instancetype)init NS_UNAVAILABLE;
-- (instancetype)initWithCoder:(NSCoder *)aDecoder NS_UNAVAILABLE;
-- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil NS_UNAVAILABLE;
-
-// Initializator of the object, it requires the parent view controller to build its components
-- (instancetype)initOnViewController:(UIViewController *)viewController;
+// Bool meant for enabling the posibility to close the glide view dragging, Default value is NO;
+@property (nonatomic) BOOL disableDraggingToClose;
 
 // This Method sets the content viewController to the glive View and initialize type and offets.
 - (void)setContentViewController:(UIViewController *)contentViewController
@@ -76,5 +69,13 @@
 
 // This method moves the View directly to the first offset which is the default position.
 - (void)close;
+
+
+// Initializator of the object, it requires the parent view controller to build its components
+- (instancetype)initOnViewController:(UIViewController *)viewController;
+
+- (instancetype)init NS_UNAVAILABLE;
+- (instancetype)initWithCoder:(NSCoder *)aDecoder NS_UNAVAILABLE;
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil NS_UNAVAILABLE;
 
 @end

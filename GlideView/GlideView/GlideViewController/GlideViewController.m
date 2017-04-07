@@ -33,11 +33,12 @@ NSString *const GVException = @"GliveViewException";
 }
 
 - (NSArray<NSNumber *> *)offsets {
-    if (self.scrollView) {
-        return self.scrollView.offsets;
+    if (!self.scrollView) {
+        [NSException raise:@"Invalid request" format:@"GlideViewController have to instantiate first on a viewController"];
     }
     
-    return nil;
+    return self.scrollView.offsets;
+
 }
 
 - (void)setOffsets:(NSArray<NSNumber *> *)offsets {
@@ -98,8 +99,6 @@ NSString *const GVException = @"GliveViewException";
         [self.scrollView setContent:self.contentViewController.view];
  
         self.scrollView.delegate = self;
-        
-        [self setCanCloseDragging:YES];
     }
 }
 
@@ -201,42 +200,6 @@ NSString *const GVException = @"GliveViewException";
 }
 
 #pragma mark - UIScrollView delegate
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    
-    CGFloat max = [[self offsets] lastObject].floatValue;
-    
-    if (self.orientationType == GVScrollViewOrientationLeftToRight ||
-        self.orientationType == GVScrollViewOrientationRightToLeft) {
-        max *= CGRectGetWidth(self.scrollView.frame);
-    }
-    else {
-        max *= CGRectGetHeight(self.scrollView.frame);
-    }
-
-    if (self.orientationType == GVScrollViewOrientationTopToBottom ||
-        self.orientationType == GVScrollViewOrientationLeftToRight) {
-        max -= [self marginOffset];
-    } else {
-        max += [self marginOffset];
-    }
-    
-    if (self.orientationType == GVScrollViewOrientationRightToLeft &&
-        scrollView.contentOffset.x >= max) {
-        [scrollView setContentOffset:CGPointMake(max, scrollView.contentOffset.y) animated:NO];
-    }
-    else if (self.orientationType == GVScrollViewOrientationLeftToRight &&
-               scrollView.contentOffset.x <= max) {
-        [scrollView setContentOffset:CGPointMake(max, scrollView.contentOffset.y) animated:NO];
-    }
-    else if (self.orientationType == GVScrollViewOrientationBottomToTop &&
-             scrollView.contentOffset.y >= max) {
-        [scrollView setContentOffset:CGPointMake(scrollView.contentOffset.x, max) animated:NO];
-    }
-    else if (self.orientationType == GVScrollViewOrientationTopToBottom &&
-             scrollView.contentOffset.y <= max) {
-        [scrollView setContentOffset:CGPointMake(scrollView.contentOffset.x, max) animated:NO];
-    }
-}
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if ([self.delegate respondsToSelector:@selector(glideViewController:hasChangedOffsetOfContent:)]) {
@@ -263,7 +226,7 @@ NSString *const GVException = @"GliveViewException";
         }
     }
     
-    [self changeOffsetTo:(index == 0 && !self.canCloseDragging) ? 1 : index];
+    [self changeOffsetTo:(index == 0 && self.disableDraggingToClose) ? 1 : index];
 }
 
 - (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView{
@@ -282,7 +245,9 @@ NSString *const GVException = @"GliveViewException";
         [self.scrollView changeOffsetTo:self.currentOffsetIndex
                                animated:YES
                              completion:nil];
-    } completion:nil];
+    } completion:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
+        [self.scrollView recalculateContentSize];
+    }];
 }
 
 @end

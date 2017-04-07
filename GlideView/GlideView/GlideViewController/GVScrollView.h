@@ -58,6 +58,8 @@ typedef enum {
 extern NSString *const offsetWillChangeNotification;
 extern NSString *const offsetDidChangeNotification;
 
+- (void)recalculateContentSize;
+
 - (void)changeOffsetTo:(NSUInteger)offsetIndex animated:(BOOL)animated completion:(void (^)(BOOL finished))completion;
 - (void)expandWithCompletion:(void (^)(BOOL finished))completion;
 - (void)collapseWithCompletion:(void (^)(BOOL finished))completion;

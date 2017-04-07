@@ -36,21 +36,16 @@
 }
 
 - (void)initRightToLeftGlideView{
-    
-    self.rightToLeftGlideVC = [[GlideViewController alloc] initOnViewController:self];
-    self.rightToLeftGlideVC.delegate = self;
-    
     ContentViewController *contentVC = [[ContentViewController alloc] initWithRect:CGRectMake(0, 0, 200, 200)];
+    self.rightToLeftGlideVC = [[GlideViewController alloc] initOnViewController:self];
     [self.rightToLeftGlideVC setContentViewController:contentVC
                                                 type:GVScrollViewOrientationRightToLeft
                                               offsets:@[@(0), @(1)]];
+    self.rightToLeftGlideVC.delegate = self;
 }
 
 - (void)initBottomToTopGlideView{
     self.bottomToTopGlideVC = [[GlideViewController alloc] initOnViewController:self];
-    self.bottomToTopGlideVC.delegate = self;
-    self.bottomToTopGlideVC.marginOffset = 10;
-    
     [self.bottomToTopGlideVC setContentViewController:[ContentViewController new]
                                                  type:GVScrollViewOrientationBottomToTop
                                               offsets:@[@(0),
@@ -59,6 +54,9 @@
                                                         @(0.4),
                                                         @(0.8),
                                                         @(1)]];
+
+    self.bottomToTopGlideVC.delegate = self;
+    self.bottomToTopGlideVC.marginOffset = 10;
 }
 
 #pragma mark - Actions
@@ -67,7 +65,7 @@
     if ([self.bottomToTopGlideVC currentOffsetIndex] < [[self.bottomToTopGlideVC offsets] count] - 1) {
         [self.bottomToTopGlideVC expand];
     } else {
-        [self.bottomToTopGlideVC collapse];
+        [self.bottomToTopGlideVC shake];
     }
 }
 
@@ -75,7 +73,7 @@
     if ([self.leftToRightGlideVC currentOffsetIndex] < [[self.leftToRightGlideVC offsets] count] - 1) {
         [self.leftToRightGlideVC expand];
     } else {
-        [self.leftToRightGlideVC collapse];
+        [self.leftToRightGlideVC shake];
     }
 }
 
@@ -83,7 +81,7 @@
     if ([self.topToBottomGlideVC currentOffsetIndex] < [[self.topToBottomGlideVC offsets] count] - 1) {
         [self.topToBottomGlideVC expand];
     } else {
-        [self.topToBottomGlideVC collapse];
+        [self.topToBottomGlideVC shake];
     }
 }
 
@@ -91,7 +89,7 @@
     if ([self.rightToLeftGlideVC currentOffsetIndex] < [[self.rightToLeftGlideVC offsets] count] - 1) {
         [self.rightToLeftGlideVC expand];
     } else {
-        [self.rightToLeftGlideVC collapse];
+        [self.rightToLeftGlideVC shake];
     }
 }
 
