@@ -194,12 +194,14 @@
 - (void)recalculateContentSize {
     if (self.orientationType == GVScrollViewOrientationLeftToRight ||
         self.orientationType == GVScrollViewOrientationRightToLeft) {
-        [self setContentSize:CGSizeMake(CGRectGetWidth(self.frame) + CGRectGetWidth(_content.frame) + [self margin], CGRectGetHeight(self.frame))];
+        CGFloat threshold = [[self offsets] lastObject].floatValue * CGRectGetWidth(self.content.frame) + [self margin];
+        [self setContentSize:CGSizeMake(CGRectGetWidth(self.frame) + threshold, CGRectGetHeight(self.frame))];
 
     }
     else if (self.orientationType == GVScrollViewOrientationBottomToTop ||
              self.orientationType == GVScrollViewOrientationTopToBottom) {
-        [self setContentSize:CGSizeMake(CGRectGetWidth(self.frame), CGRectGetHeight(self.frame) + CGRectGetHeight(_content.frame) + [self margin])];
+        CGFloat threshold = [[self offsets] lastObject].floatValue * CGRectGetHeight(self.content.frame) + [self margin];
+        [self setContentSize:CGSizeMake(CGRectGetWidth(self.frame), CGRectGetHeight(self.frame) + threshold)];
     }
     
     [self layoutIfNeeded];

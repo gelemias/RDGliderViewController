@@ -18,6 +18,8 @@
 
 @end
 
+#define kBoundsObserverKeyPath @"bounds"
+
 @implementation ContentViewController
 
 - (instancetype)initWithRect:(CGRect)rect {
@@ -30,9 +32,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.view addObserver:self forKeyPath:kBoundsObserverKeyPath options:0 context:nil];
     self.view.frame = self.rect;
-    
-    self.view.layer.cornerRadius = 10.0f;    
+}
+
+- (void)dealloc {
+    [self.view removeObserver:self forKeyPath:kBoundsObserverKeyPath];
+}
+
+- (void)drawShadow {
+    self.view.layer.cornerRadius = 10.0f;
     [self.view.subviews firstObject].layer.cornerRadius = 10.0f;
     
     UIBezierPath *shadowPath = [UIBezierPath bezierPathWithRect:self.view.bounds];
@@ -52,5 +61,14 @@
     [self.offsetTopLabel setText:[NSString stringWithFormat:@"offset %@", offset]];
     [self.offsetBottomLabel setText:[NSString stringWithFormat:@"offset %@", offset]];
 }
+
+#pragma mark - KVO self.view frame Changed
+
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if([keyPath isEqualToString:kBoundsObserverKeyPath]) {
+        [self drawShadow];
+    }
+}
+
 
 @end

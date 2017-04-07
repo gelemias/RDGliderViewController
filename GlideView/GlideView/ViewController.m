@@ -52,8 +52,7 @@
                                                                     @(0.6),
                                                                     @(0.2),
                                                                     @(0.4),
-                                                                    @(0.8),
-                                                                    @(1)]];
+                                                                    @(0.8)]];
     self.bottomToTopGlideVC.delegate = self;
     self.bottomToTopGlideVC.marginOffset = 10;
 }
