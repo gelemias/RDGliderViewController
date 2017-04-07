@@ -157,34 +157,31 @@ NSString *const GVException = @"GliveViewException";
     }];
 }
 
-- (void)changeOffsetTo:(NSUInteger)offsetIndex {
-    if (offsetIndex > self.scrollView.offsetIndex) {
+- (void)changeOffsetTo:(NSUInteger)offsetIndex animated:(BOOL)animated {
+    if (offsetIndex > self.currentOffsetIndex) {
         if ([self.delegate respondsToSelector:@selector(glideViewControllerWillExpand:)]) {
             [self.delegate glideViewControllerWillExpand:self];
         }
-        
-        [self.scrollView changeOffsetTo:offsetIndex animated:NO completion:^(BOOL finished) {
-
-            if ([self.delegate respondsToSelector:@selector(glideViewControllerDidExpand:)]) {
-                [self.delegate glideViewControllerDidExpand:self];
-            }
-        }];
-    } else if (offsetIndex < self.scrollView.offsetIndex) {
+    } else if (offsetIndex < self.currentOffsetIndex) {
         if ([self.delegate respondsToSelector:@selector(glideViewControllerWillCollapse:)]) {
             [self.delegate glideViewControllerWillCollapse:self];
         }
         
-        [self.scrollView changeOffsetTo:offsetIndex animated:NO completion:^(BOOL finished) {
-
-            if ([self.delegate respondsToSelector:@selector(glideViewControllerDidCollapse:)]) {
-                [self.delegate glideViewControllerDidCollapse:self];
-            }
-        }];
-    } else {
-        [self.scrollView changeOffsetTo:self.currentOffsetIndex
-                               animated:NO
-                             completion:nil];
     }
+    
+    [self.scrollView changeOffsetTo:offsetIndex
+                           animated:animated
+                         completion:^(BOOL finished) {
+                             if (offsetIndex > self.currentOffsetIndex) {
+                                 if ([self.delegate respondsToSelector:@selector(glideViewControllerDidExpand:)]) {
+                                     [self.delegate glideViewControllerDidExpand:self];
+                                 }
+                             } else {
+                                  if ([self.delegate respondsToSelector:@selector(glideViewControllerDidCollapse:)]) {
+                                     [self.delegate glideViewControllerDidCollapse:self];
+                                  }
+                             }
+                         }];
 }
 
 - (void)close {
@@ -217,8 +214,8 @@ NSString *const GVException = @"GliveViewException";
     CGFloat offset = self.scrollView.contentOffset.x;
     CGFloat threshold = CGRectGetWidth(self.scrollView.content.frame);
 
-    if (self.scrollView.orientationType == GVScrollViewOrientationBottomToTop ||
-        self.scrollView.orientationType == GVScrollViewOrientationTopToBottom) {
+    if (self.orientationType == GVScrollViewOrientationBottomToTop ||
+        self.orientationType == GVScrollViewOrientationTopToBottom) {
         offset = self.scrollView.contentOffset.y;
         threshold = CGRectGetHeight(self.scrollView.content.frame);
     }
@@ -230,7 +227,7 @@ NSString *const GVException = @"GliveViewException";
         }
     }
     
-    [self changeOffsetTo:(index == 0 && self.disableDraggingToClose) ? 1 : index];
+    [self changeOffsetTo:(index == 0 && self.disableDraggingToClose) ? 1 : index animated:NO];
 }
 
 - (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView{
@@ -246,9 +243,7 @@ NSString *const GVException = @"GliveViewException";
     }
     
     [coordinator animateAlongsideTransition:^(id  _Nonnull context) {
-        [self.scrollView changeOffsetTo:self.currentOffsetIndex
-                               animated:YES
-                             completion:nil];
+        [self changeOffsetTo:self.currentOffsetIndex animated:YES];
     } completion:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
         [self.scrollView recalculateContentSize];
     }];
