@@ -165,6 +165,8 @@
 				C7D9C6151E9220A000F80609 /* Sources */,
 				C7D9C6161E9220A000F80609 /* Frameworks */,
 				C7D9C6171E9220A000F80609 /* Resources */,
+				C77AEA7B1E9E0AE700A1C586 /* Build number */,
+				C77AEA7A1E9E099F00A1C586 /* Release notes */,
 			);
 			buildRules = (
 			);
@@ -254,6 +256,37 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		C77AEA7A1E9E099F00A1C586 /* Release notes */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Release notes";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "FILE='../ReleaseNotes.md'\nbranch=$(git branch | sed -n -e 's/^\\* \\(.*\\)/\\1/p')\nLATEST_TAG=$(git describe --abbrev=0)\n\nBUILD_NUM=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\")\nBUILD_VER=$(/usr/libexec/Plistbuddy -c \"Print CFBundleShortVersionString\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\")\n\n> $FILE\necho '## RELEASE NOTES' >> $FILE\necho '' >> $FILE\necho '#### Latest version - ' $BUILD_VER.$BUILD_NUM >> $FILE\ngit log $LATEST_TAG..HEAD --no-merges --grep=\"\\[\" --pretty=format:\"+ %ad %x08 %s\" -50 --date=short | sed '/^\\s*$/d' >> $FILE\necho '' >> $FILE\necho '#### Previously released:' >> $FILE\ngit log INIT..$LATEST_TAG --no-merges --grep=\"\\[\" --pretty=format:\"+ %ad %x08 %s\" -50 --date=short | sed '/^\\s*$/d' >> $FILE\n\nREADME='../README.md'\nsed -i -e '/^## RELEASE NOTES$/,$d' $README\ncat $FILE >> $README\n\nrm -R \"../README.md-e\"\nrm -R $FILE || true\n";
+		};
+		C77AEA7B1E9E0AE700A1C586 /* Build number */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Build number";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#Update build number with number of git commits if in release mode\nbuildNumber=$(git rev-list HEAD | wc -l | tr -d ' ')\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		C7D9C6151E9220A000F80609 /* Sources */ = {
