@@ -23,7 +23,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" alpha="0.29999999999999999" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GLIDE VIEW" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eXj-0m-Mqw">
-                                <rect key="frame" x="16" y="90" width="343" height="507"/>
+                                <rect key="frame" x="16" y="80" width="343" height="517"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBlack" family="Helvetica Neue" pointSize="154"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -36,9 +36,9 @@
                                     <constraint firstAttribute="height" constant="50" id="eSd-9a-wzp"/>
                                 </constraints>
                                 <color key="tintColor" red="0.66666666669999997" green="0.66666666669999997" blue="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="⬅️"/>
+                                <state key="normal" title="⬇️"/>
                                 <connections>
-                                    <action selector="leftToRightButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Iw9-W4-KbN"/>
+                                    <action selector="topToBottomButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="AaP-rt-w36"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T4a-Or-hXd" customClass="GVButton">
@@ -49,21 +49,33 @@
                                     <constraint firstAttribute="width" constant="50" id="zXC-k2-iNd"/>
                                 </constraints>
                                 <color key="tintColor" red="0.66666666669999997" green="0.66666666669999997" blue="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="⬆️"/>
+                                <state key="normal" title="⬅️"/>
                                 <connections>
-                                    <action selector="bottomToTopButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3pE-1k-ZPn"/>
+                                    <action selector="rightToLeftButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5pU-Ji-szC"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JCO-g5-lSd" customClass="GVButton">
-                                <rect key="frame" x="305" y="40" width="50" height="50"/>
+                                <rect key="frame" x="305" y="30" width="50" height="50"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="S68-cx-y9e"/>
                                     <constraint firstAttribute="width" constant="50" id="pF7-nC-SAx"/>
                                 </constraints>
-                                <state key="normal" title="⬇️"/>
+                                <state key="normal" title="➡️"/>
                                 <connections>
-                                    <action selector="topToBottomButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8qj-Av-Ktf"/>
+                                    <action selector="leftToRightButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="rB7-2f-nI6"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="af7-Hh-5Xb" customClass="GVButton">
+                                <rect key="frame" x="20" y="30" width="50" height="50"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="D9V-a5-ck3"/>
+                                    <constraint firstAttribute="width" constant="50" id="ox7-Zp-Q8Q"/>
+                                </constraints>
+                                <state key="normal" title="⬆️"/>
+                                <connections>
+                                    <action selector="bottomToTopButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fB5-MQ-RR3"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -72,10 +84,12 @@
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="T4a-Or-hXd" secondAttribute="bottom" constant="20" id="5dA-IT-zWK"/>
                             <constraint firstItem="eXj-0m-Mqw" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="7XR-eL-Wdt"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="jXL-sS-K5u" secondAttribute="bottom" constant="20" id="AD8-G7-aqy"/>
-                            <constraint firstItem="JCO-g5-lSd" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="20" id="H8b-RI-GlM"/>
+                            <constraint firstItem="JCO-g5-lSd" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="10" id="H8b-RI-GlM"/>
                             <constraint firstAttribute="trailing" secondItem="JCO-g5-lSd" secondAttribute="trailing" constant="20" id="J20-Rb-Ggs"/>
                             <constraint firstItem="T4a-Or-hXd" firstAttribute="top" secondItem="eXj-0m-Mqw" secondAttribute="bottom" id="bXs-sj-PuJ"/>
+                            <constraint firstItem="af7-Hh-5Xb" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" id="jfK-oL-yh6"/>
                             <constraint firstAttribute="trailing" secondItem="jXL-sS-K5u" secondAttribute="trailing" constant="20" id="ohO-8E-sld"/>
+                            <constraint firstItem="af7-Hh-5Xb" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="10" id="qsE-RJ-fue"/>
                             <constraint firstItem="eXj-0m-Mqw" firstAttribute="top" secondItem="JCO-g5-lSd" secondAttribute="bottom" id="vnq-uB-NBK"/>
                             <constraint firstAttribute="trailingMargin" secondItem="eXj-0m-Mqw" secondAttribute="trailing" id="wyQ-kg-opz"/>
                             <constraint firstItem="T4a-Or-hXd" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" id="xdq-hv-gbA"/>

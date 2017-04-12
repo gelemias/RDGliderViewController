@@ -9,9 +9,11 @@
 #import <UIKit/UIKit.h>
 
 typedef enum {
-    GVScrollViewOrientationLeftToRight,
+    GVScrollViewOrientationLeftToRight = 0,
     GVScrollViewOrientationBottomToTop,
+    GVScrollViewOrientationRightToLeft,
     GVScrollViewOrientationTopToBottom
+    
 }GVScrollViewOrientationType;
 
 @interface GVScrollView : UIScrollView
@@ -28,8 +30,7 @@ typedef enum {
 @property (nonatomic) GVScrollViewOrientationType orientationType;
 
 /**
- Default expandable offset
- Default value : container.frame.width - marginOffset 
+ Expandable offset in % of content view. from 0 to 1
  */
 @property (nonatomic) NSArray<NSNumber *> *offsets;
 
@@ -41,7 +42,12 @@ typedef enum {
 /**
  Returns the position of open Offsets
  */
-@property (nonatomic, readonly) int offsetIndex;
+@property (nonatomic, readonly) NSUInteger offsetIndex;
+
+/**
+ Margin of elastic animation default is 20px
+ */
+@property (nonatomic) CGFloat margin;
 
 /**
  Consider subviews of the content as part of the content, used when dragging
@@ -52,13 +58,14 @@ typedef enum {
 extern NSString *const offsetWillChangeNotification;
 extern NSString *const offsetDidChangeNotification;
 
-- (void)changeOffsetTo:(int)offsetIndex completion:(void (^)(BOOL finished))completion;
+- (void)recalculateContentSize;
+
+- (void)changeOffsetTo:(NSUInteger)offsetIndex animated:(BOOL)animated completion:(void (^)(BOOL finished))completion;
 - (void)expandWithCompletion:(void (^)(BOOL finished))completion;
 - (void)collapseWithCompletion:(void (^)(BOOL finished))completion;
 - (void)closeWithCompletion:(void (^)(BOOL finished))completion;
 
 - (instancetype)init NS_UNAVAILABLE;
-
-- (void)updateLayouts;
+- (instancetype)initWithCoder:(NSCoder *)aDecoder NS_UNAVAILABLE;
 
 @end

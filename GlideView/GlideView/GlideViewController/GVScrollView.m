@@ -8,14 +8,14 @@
 
 #import "GVScrollView.h"
 
-@interface GVScrollView() <UIScrollViewDelegate> {
-    BOOL _isAnimating;
-}
+@interface GVScrollView() <UIScrollViewDelegate>
 
-@property (nonatomic) int offsetIndex;
+@property (nonatomic) NSUInteger offsetIndex;
 @property (nonatomic) BOOL isOpen;
 
 @end
+
+#define kDefaultMargin 20
 
 #define kAniDuration 0.3
 #define kAniDelay 0.0
@@ -23,17 +23,6 @@
 #define kAniVelocity 0.6
 
 @implementation GVScrollView
-
-NSString *const offsetWillChangeNotification = @"kOffsetWillChangeNotification";
-NSString *const offsetDidChangeNotification = @"kOffsetDidChangeNotification";
-
-- (instancetype)initWithCoder:(NSCoder *)aDecoder {
-    if (self = [super initWithCoder:aDecoder]) {
-        [self initializeByDefault];
-    }
-    
-    return self;
-}
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
@@ -44,6 +33,8 @@ NSString *const offsetDidChangeNotification = @"kOffsetDidChangeNotification";
 }
 
 - (void)initializeByDefault {
+    
+    self.margin = kDefaultMargin;
     
     self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
@@ -57,26 +48,7 @@ NSString *const offsetDidChangeNotification = @"kOffsetDidChangeNotification";
     [self setContentInset:UIEdgeInsetsZero];
     [self setDecelerationRate:UIScrollViewDecelerationRateFast];
     
-    [self setOrientationType:GVScrollViewOrientationLeftToRight];
-}
-
-- (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:UIDeviceOrientationDidChangeNotification object:nil];
-}
-
-- (void)setContentOffset:(CGPoint)contentOffset {
-    
-    if (self.orientationType == GVScrollViewOrientationTopToBottom) {
-    
-        if (self.frame.origin.y < 0) {
-            [super setContentOffset:CGPointMake(0, CGRectGetHeight(self.frame) + CGRectGetHeight(_content.frame))];
-        } else {
-            [super setContentOffset:contentOffset];
-        }
-    } else {
-        [super setContentOffset:contentOffset];
-    }
+    [self setOrientationType:GVScrollViewOrientationRightToLeft];
 }
 
 #pragma mark - Public Methods
@@ -93,11 +65,12 @@ NSString *const offsetDidChangeNotification = @"kOffsetDidChangeNotification";
     UIView *container = [UIView new];
 
     [container addSubview:_content];
+    [self addSubview:container];
 
     container.translatesAutoresizingMaskIntoConstraints = NO;
-    self.content.translatesAutoresizingMaskIntoConstraints = NO;
-    
-    if (self.orientationType == GVScrollViewOrientationLeftToRight) {
+    _content.translatesAutoresizingMaskIntoConstraints = NO;
+
+    if (self.orientationType == GVScrollViewOrientationRightToLeft) {
                 
         [container addConstraints:@[[NSLayoutConstraint constraintWithItem:_content  attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual
                                                                     toItem:container attribute:NSLayoutAttributeTop multiplier:1.0 constant:0.0],
@@ -109,16 +82,14 @@ NSString *const offsetDidChangeNotification = @"kOffsetDidChangeNotification";
                                     [NSLayoutConstraint constraintWithItem:_content  attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual
                                                                      toItem:nil      attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:CGRectGetWidth(_content.frame)]]];
         
-        [self addSubview:container];
-        
         [self addConstraints:@[[NSLayoutConstraint constraintWithItem:container attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual
                                                                toItem:self      attribute:NSLayoutAttributeLeading multiplier:1.0 constant:0.0],
                                [NSLayoutConstraint constraintWithItem:container attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual
                                                                toItem:self      attribute:NSLayoutAttributeTop multiplier:1.0 constant:0.0],
-                               [NSLayoutConstraint constraintWithItem:container attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual
-                                                               toItem:self      attribute:NSLayoutAttributeWidth multiplier:1.0 constant:CGRectGetWidth(_content.frame)],
                                [NSLayoutConstraint constraintWithItem:container attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual
-                                                               toItem:self      attribute:NSLayoutAttributeHeight multiplier:1.0 constant:0.0]]];
+                                                               toItem:self      attribute:NSLayoutAttributeHeight multiplier:1.0 constant:0.0],
+                               [NSLayoutConstraint constraintWithItem:container attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual
+                                                               toItem:self      attribute:NSLayoutAttributeWidth multiplier:1.0 constant:CGRectGetWidth(_content.frame)]]];
     }
     else if (self.orientationType == GVScrollViewOrientationBottomToTop) {
         
@@ -127,21 +98,27 @@ NSString *const offsetDidChangeNotification = @"kOffsetDidChangeNotification";
                                     [NSLayoutConstraint constraintWithItem:_content  attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual
                                                                     toItem:container attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:0.0],
                                     [NSLayoutConstraint constraintWithItem:_content  attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual
-                                                                    toItem:container attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0.0],
-                                    
-                                    [NSLayoutConstraint constraintWithItem:_content  attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual
-                                                                    toItem:nil      attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:CGRectGetHeight(_content.frame)]]];
-        
-        [self addSubview:container];
+                                                                    toItem:container attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0.0]]];
 
         [self addConstraints:@[[NSLayoutConstraint constraintWithItem:container attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual
                                                                toItem:self      attribute:NSLayoutAttributeLeading multiplier:1.0 constant:0.0],
                                [NSLayoutConstraint constraintWithItem:container attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual
                                                                toItem:self      attribute:NSLayoutAttributeTop multiplier:1.0 constant:0.0],
                                [NSLayoutConstraint constraintWithItem:container attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual
-                                                               toItem:self      attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0.0],
-                               [NSLayoutConstraint constraintWithItem:container attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual
-                                                               toItem:self      attribute:NSLayoutAttributeHeight multiplier:1.0 constant:CGRectGetHeight(_content.frame)]]];
+                                                               toItem:self      attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0.0]]];
+        
+        if (CGRectIsEmpty(_content.frame)) {
+            [self addConstraints:@[[NSLayoutConstraint constraintWithItem:_content attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual
+                                                                toItem:self     attribute:NSLayoutAttributeHeight multiplier:1.0 constant:0.0],
+                                   [NSLayoutConstraint constraintWithItem:container attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual
+                                                                   toItem:self      attribute:NSLayoutAttributeHeight multiplier:2.0 constant:0.0]]];
+        } else {
+            [container addConstraint:[NSLayoutConstraint constraintWithItem:_content attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual
+                                                                     toItem:nil      attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:CGRectGetHeight(_content.frame)]];
+            
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:container attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual
+                                                                toItem:self      attribute:NSLayoutAttributeHeight multiplier:1.0 constant:CGRectGetHeight(_content.frame)]];
+        }
     }
     else if (self.orientationType == GVScrollViewOrientationTopToBottom) {
         
@@ -155,85 +132,52 @@ NSString *const offsetDidChangeNotification = @"kOffsetDidChangeNotification";
 }
 
 - (void)setOffsets:(NSArray<NSNumber *> *)offsets {
-    
-    NSArray *newOffsets = offsets;
-    
-    if (self.orientationType == GVScrollViewOrientationTopToBottom) {
-        NSMutableArray<NSNumber *> *topToBottomArray = [NSMutableArray new];
-        for (NSNumber *offset in offsets) {
-            [topToBottomArray  addObject:@(CGRectGetHeight(self.content.frame) - offset.floatValue)];
+    for (NSNumber *number in offsets) {
+        if ([number floatValue] > 1.0) {
+            [NSException raise:@"Invalid offset value" format:@"offset represents a %% of contentView to be shown i.e. 0.5 of a contentView of 100px will show 50px"];
         }
-        
-        newOffsets = [topToBottomArray copy];
     }
-        
+    
+    NSArray *newOffsets = [offsets sortedArrayUsingSelector: @selector(compare:)];
+    
     if (newOffsets && ![_offsets isEqualToArray:newOffsets]) {
-        [self updateLayouts];
+        [self recalculateContentSize];
     }
     _offsets = newOffsets;
 
 }
 
 - (void)expandWithCompletion:(void (^)(BOOL finished))completion {
-    int nextIndex = (self.offsetIndex + 1 < [[self offsets] count]) ? self.offsetIndex + 1 : self.offsetIndex;
-    [self changeOffsetTo:nextIndex completion:completion];
+    NSUInteger nextIndex = (self.offsetIndex + 1 < [[self offsets] count]) ? self.offsetIndex + 1 : self.offsetIndex;
+    [self changeOffsetTo:nextIndex animated:NO completion:completion];
 }
 
 - (void)collapseWithCompletion:(void (^)(BOOL finished))completion {
 
-    int nextIndex = (self.offsetIndex - 1 < 0) ? 0 : self.offsetIndex - 1;
-    [self changeOffsetTo:nextIndex completion:completion];
+    NSUInteger nextIndex = self.offsetIndex - 1;
+    [self changeOffsetTo:nextIndex animated:NO completion:completion];
 }
 
 - (void)closeWithCompletion:(void (^)(BOOL finished))completion {
-    [self changeOffsetTo:0 completion:completion];
+    [self changeOffsetTo:0 animated:NO completion:completion];
 }
 
-- (void)updateLayouts {
-    [self recalculateContentSize];
-    if ([self isOpen]) {
-        [self changeOffsetTo:self.offsetIndex completion:nil];
-    }
-    else if (!self.panGestureRecognizer.isEnabled){
-        [self changeOffsetTo:self.offsetIndex + 1 completion:nil];
-    }
-}
-
-#pragma mark - Private methods
-
-- (void)recalculateContentSize {
-    if (self.orientationType == GVScrollViewOrientationLeftToRight) {
-        [self setContentSize:CGSizeMake(CGRectGetWidth(self.frame) + CGRectGetWidth(_content.frame), CGRectGetHeight(self.frame))];
-    }
-    else if (self.orientationType == GVScrollViewOrientationBottomToTop ||
-             self.orientationType == GVScrollViewOrientationTopToBottom) {
-        [self setContentSize:CGSizeMake(CGRectGetWidth(self.frame), CGRectGetHeight(self.frame)  + CGRectGetHeight(_content.frame))];
-    }
-}
-
-- (void)changeOffsetTo:(int)offsetIndex completion:(void (^)(BOOL finished))completion {
-    if (self.offsetIndex != offsetIndex) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:offsetWillChangeNotification object:self userInfo:@{@"NewOffset":@(offsetIndex)}];
-    }
-    
+- (void)changeOffsetTo:(NSUInteger)offsetIndex animated:(BOOL)animated completion:(void (^)(BOOL finished))completion {
     self.panGestureRecognizer.enabled = NO;
     [UIView animateWithDuration:kAniDuration delay:kAniDelay usingSpringWithDamping:kAniDamping
           initialSpringVelocity:kAniVelocity options:UIViewAnimationOptionCurveEaseOut animations:^{
               
-              if (self.orientationType == GVScrollViewOrientationLeftToRight) {
-                  [self setContentOffset:CGPointMake([[self offsets] objectAtIndex:offsetIndex].floatValue, self.contentOffset.y) animated:NO];
+              if (self.orientationType == GVScrollViewOrientationLeftToRight ||
+                  self.orientationType == GVScrollViewOrientationRightToLeft) {
+                  
+                  [self setContentOffset:CGPointMake([[self offsets] objectAtIndex:offsetIndex].floatValue * CGRectGetWidth(self.content.frame), self.contentOffset.y) animated:animated];
               }
               else if (self.orientationType == GVScrollViewOrientationBottomToTop ||
                        self.orientationType == GVScrollViewOrientationTopToBottom) {
                   
-                  [self setContentOffset:CGPointMake(self.contentOffset.x, [[self offsets] objectAtIndex:offsetIndex].floatValue) animated:NO];
+                  [self setContentOffset:CGPointMake(self.contentOffset.x, [[self offsets] objectAtIndex:offsetIndex].floatValue * CGRectGetHeight(self.content.frame)) animated:animated];
               }
           } completion:^(BOOL finished) {
-              
-              if (self.offsetIndex != offsetIndex) {
-                  [[NSNotificationCenter defaultCenter] postNotificationName:offsetDidChangeNotification object:self];
-              }
-              
               self.offsetIndex = offsetIndex;
               self.isOpen = (self.offsetIndex == 0) ? NO : YES;
               
@@ -243,6 +187,24 @@ NSString *const offsetDidChangeNotification = @"kOffsetDidChangeNotification";
                   completion(finished);
               }
           }];
+}
+
+#pragma mark - Private methods
+
+- (void)recalculateContentSize {
+    if (self.orientationType == GVScrollViewOrientationLeftToRight ||
+        self.orientationType == GVScrollViewOrientationRightToLeft) {
+        CGFloat threshold = [[self offsets] lastObject].floatValue * CGRectGetWidth(self.content.frame) + [self margin];
+        [self setContentSize:CGSizeMake(CGRectGetWidth(self.frame) + threshold, CGRectGetHeight(self.frame))];
+
+    }
+    else if (self.orientationType == GVScrollViewOrientationBottomToTop ||
+             self.orientationType == GVScrollViewOrientationTopToBottom) {
+        CGFloat threshold = [[self offsets] lastObject].floatValue * CGRectGetHeight(self.content.frame) + [self margin];
+        [self setContentSize:CGSizeMake(CGRectGetWidth(self.frame), CGRectGetHeight(self.frame) + threshold)];
+    }
+    
+    [self layoutIfNeeded];
 }
 
 #pragma mark - touch handler
@@ -281,10 +243,6 @@ NSString *const offsetDidChangeNotification = @"kOffsetDidChangeNotification";
                 return hitTestView;
             }
         }
-    }
-    
-    if (self.offsetIndex > 1) {
-        [self changeOffsetTo:1 completion:nil];
     }
     
     return nil;

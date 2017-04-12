@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "GlideContentViewController.h"
 
-@interface ContentViewController : GlideContentViewController
+@interface ContentViewController : UIViewController
+
+- (void)setIndex:(NSUInteger)index ofMax:(NSUInteger)max;
+- (void)setOffset:(NSString *)offset;
 
 - (instancetype)initWithRect:(CGRect)rect;
 

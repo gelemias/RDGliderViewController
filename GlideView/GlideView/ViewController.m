@@ -13,86 +13,99 @@
 
 @interface ViewController () <GlideViewControllerDelegate>
 
-@property (nonatomic) GlideViewController *leftToRightGlideViewController;
-@property (nonatomic) GlideViewController *bottomToTopGlideViewController;
-@property (nonatomic) GlideViewController *topToBottomGlideViewController;
-@property (nonatomic) GVGradientView *bgGradient;
+@property (nonatomic) GlideViewController *leftToRightGlideVC;
+@property (nonatomic) GlideViewController *bottomToTopGlideVC;
+@property (nonatomic) GlideViewController *topToBottomGlideVC;
+@property (nonatomic) GlideViewController *rightToLeftGlideVC;
 
 @end
-
-#define kGlideMargin 10.0f
 
 @implementation ViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.bgGradient = [[GVGradientView alloc] initWithFrame:self.view.bounds];
-    self.bgGradient.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    self.bgGradient.layer.colors = @[(id)[UIColor colorWithRed:.643 green:.569 blue:.776 alpha:1].CGColor,
+    GVGradientView *bgGradient = [[GVGradientView alloc] initWithFrame:self.view.bounds];
+    bgGradient.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    bgGradient.layer.colors = @[(id)[UIColor colorWithRed:.643 green:.569 blue:.776 alpha:1].CGColor,
                                      (id)[UIColor colorWithRed:.573 green:.875 blue:.678 alpha:1].CGColor];
-    [self.view insertSubview:self.bgGradient atIndex:0];
+    [self.view insertSubview:bgGradient atIndex:0];
     
-    [self initLeftToRightGlideView];
+    [self initRightToLeftGlideView];
     [self initBottomToTopGlideView];
 }
 
-- (void)initLeftToRightGlideView{
-    
-    GVScrollView *scrollView = [[GVScrollView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame))];
-    [self.view addSubview:scrollView];
-    
-    self.leftToRightGlideViewController = [[GlideViewController alloc] initWithScrollView:scrollView];
-    self.leftToRightGlideViewController.delegate = self;
-    
-    ContentViewController *contentVC = [[ContentViewController alloc] initWithRect:CGRectMake(0, 0, 200, CGRectGetHeight([UIScreen mainScreen].bounds))];
-    [self.leftToRightGlideViewController setContentViewController:contentVC
-                                                             type:GVScrollViewOrientationLeftToRight
-                                                          offsets:@[@(0),
-                                                                    @(CGRectGetWidth(contentVC.view.frame) - kGlideMargin)]];
-    [self addChildViewController:self.leftToRightGlideViewController];
+- (void)initRightToLeftGlideView{
+    ContentViewController *contentVC = [[ContentViewController alloc] initWithRect:CGRectMake(0, 0, 200, 200)];
+    self.rightToLeftGlideVC = [[GlideViewController alloc] initOn:self
+                                                      WithContent:contentVC
+                                                             type:GVScrollViewOrientationRightToLeft
+                                                       AndOffsets:@[@(0), @(1)]];
+    self.rightToLeftGlideVC.delegate = self;
 }
 
 - (void)initBottomToTopGlideView{
-    
-    GVScrollView *scrollView = [[GVScrollView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame))];
-    [self.view addSubview:scrollView];
-    
-    self.bottomToTopGlideViewController = [[GlideViewController alloc] initWithScrollView:scrollView];
-    self.bottomToTopGlideViewController.delegate = self;
-    
-    ContentViewController *contentVC = [[ContentViewController alloc] initWithRect:CGRectMake(0, 0, CGRectGetHeight([UIScreen mainScreen].bounds), 200)];
-    [self.bottomToTopGlideViewController setContentViewController:contentVC
+    self.bottomToTopGlideVC = [[GlideViewController alloc] initOn:self
+                                                      WithContent:[ContentViewController new]
                                                              type:GVScrollViewOrientationBottomToTop
-                                                          offsets:@[@(0),
-                                                                    @(CGRectGetHeight(contentVC.view.frame) - kGlideMargin)]];
-    [self addChildViewController:self.bottomToTopGlideViewController];
+                                                       AndOffsets:@[@(0),
+                                                                    @(0.6),
+                                                                    @(0.2),
+                                                                    @(0.4),
+                                                                    @(0.8)]];
+    self.bottomToTopGlideVC.delegate = self;
+    self.bottomToTopGlideVC.marginOffset = 10;
 }
 
 #pragma mark - Actions
 
 - (IBAction)bottomToTopButtonPressed:(id)sender {
-    if ([self.bottomToTopGlideViewController currentOffsetIndex] < [[self.bottomToTopGlideViewController offsets] count] - 1) {
-        [self.bottomToTopGlideViewController expand];
+    if ([self.bottomToTopGlideVC currentOffsetIndex] < [[self.bottomToTopGlideVC offsets] count] - 1) {
+        [self.bottomToTopGlideVC expand];
     } else {
-        [self.bottomToTopGlideViewController collapse];
+        [self.bottomToTopGlideVC shake];
     }
 }
 
 - (IBAction)leftToRightButtonPressed:(id)sender {
-    if ([self.leftToRightGlideViewController currentOffsetIndex] < [[self.leftToRightGlideViewController offsets] count] - 1) {
-        [self.leftToRightGlideViewController expand];
+    if ([self.leftToRightGlideVC currentOffsetIndex] < [[self.leftToRightGlideVC offsets] count] - 1) {
+        [self.leftToRightGlideVC expand];
     } else {
-        [self.leftToRightGlideViewController collapse];
+        [self.leftToRightGlideVC shake];
     }
 }
 
 - (IBAction)topToBottomButtonPressed:(id)sender {
-    if ([self.topToBottomGlideViewController currentOffsetIndex] < [[self.topToBottomGlideViewController offsets] count] - 1) {
-        [self.topToBottomGlideViewController expand];
+    if ([self.topToBottomGlideVC currentOffsetIndex] < [[self.topToBottomGlideVC offsets] count] - 1) {
+        [self.topToBottomGlideVC expand];
     } else {
-        [self.topToBottomGlideViewController collapse];
+        [self.topToBottomGlideVC shake];
     }
+}
+
+- (IBAction)rightToLeftButtonPressed:(id)sender {
+    if ([self.rightToLeftGlideVC currentOffsetIndex] < [[self.rightToLeftGlideVC offsets] count] - 1) {
+        [self.rightToLeftGlideVC expand];
+    } else {
+        [self.rightToLeftGlideVC shake];
+    }
+}
+
+#pragma mark - GlideViewControllerDelegate
+
+- (void)glideViewController:(GlideViewController *)glideViewController hasChangedOffsetOfContent:(CGPoint)offset {
+    ContentViewController *vc = (ContentViewController *)glideViewController.contentViewController;
+    [vc setOffset:NSStringFromCGPoint(offset)];
+}
+
+- (void)glideViewControllerDidExpand:(GlideViewController *)glideViewController {
+    ContentViewController *vc = (ContentViewController *)glideViewController.contentViewController;
+    [vc setIndex:glideViewController.currentOffsetIndex ofMax:[glideViewController.offsets count] - 1];
+}
+
+- (void)glideViewControllerDidCollapse:(GlideViewController *)glideViewController {
+    ContentViewController *vc = (ContentViewController *)glideViewController.contentViewController;
+    [vc setIndex:glideViewController.currentOffsetIndex ofMax:[glideViewController.offsets count] - 1];
 }
 
 @end
