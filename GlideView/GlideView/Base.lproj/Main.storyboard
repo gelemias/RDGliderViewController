@@ -29,56 +29,6 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jXL-sS-K5u" customClass="GVButton">
-                                <rect key="frame" x="305" y="597" width="50" height="50"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="50" id="5gp-M9-163"/>
-                                    <constraint firstAttribute="height" constant="50" id="eSd-9a-wzp"/>
-                                </constraints>
-                                <color key="tintColor" red="0.66666666669999997" green="0.66666666669999997" blue="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="⬇️"/>
-                                <connections>
-                                    <action selector="topToBottomButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="AaP-rt-w36"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T4a-Or-hXd" customClass="GVButton">
-                                <rect key="frame" x="20" y="597" width="50" height="50"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="RQJ-q9-5DP"/>
-                                    <constraint firstAttribute="width" constant="50" id="zXC-k2-iNd"/>
-                                </constraints>
-                                <color key="tintColor" red="0.66666666669999997" green="0.66666666669999997" blue="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="⬅️"/>
-                                <connections>
-                                    <action selector="rightToLeftButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5pU-Ji-szC"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JCO-g5-lSd" customClass="GVButton">
-                                <rect key="frame" x="305" y="30" width="50" height="50"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="S68-cx-y9e"/>
-                                    <constraint firstAttribute="width" constant="50" id="pF7-nC-SAx"/>
-                                </constraints>
-                                <state key="normal" title="➡️"/>
-                                <connections>
-                                    <action selector="leftToRightButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="rB7-2f-nI6"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="af7-Hh-5Xb" customClass="GVButton">
-                                <rect key="frame" x="20" y="30" width="50" height="50"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="D9V-a5-ck3"/>
-                                    <constraint firstAttribute="width" constant="50" id="ox7-Zp-Q8Q"/>
-                                </constraints>
-                                <state key="normal" title="⬆️"/>
-                                <connections>
-                                    <action selector="bottomToTopButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fB5-MQ-RR3"/>
-                                </connections>
-                            </button>
                             <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Py-PP-mCQ">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
@@ -175,6 +125,56 @@
                                     <constraint firstItem="k6W-2e-h7c" firstAttribute="top" secondItem="KEv-Uk-3mP" secondAttribute="bottom" id="zcf-3Q-ig3"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jXL-sS-K5u" customClass="GVButton">
+                                <rect key="frame" x="305" y="597" width="50" height="50"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="5gp-M9-163"/>
+                                    <constraint firstAttribute="height" constant="50" id="eSd-9a-wzp"/>
+                                </constraints>
+                                <color key="tintColor" red="0.66666666669999997" green="0.66666666669999997" blue="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="⬇️"/>
+                                <connections>
+                                    <action selector="topToBottomButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="AaP-rt-w36"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T4a-Or-hXd" customClass="GVButton">
+                                <rect key="frame" x="20" y="597" width="50" height="50"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="RQJ-q9-5DP"/>
+                                    <constraint firstAttribute="width" constant="50" id="zXC-k2-iNd"/>
+                                </constraints>
+                                <color key="tintColor" red="0.66666666669999997" green="0.66666666669999997" blue="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="⬅️"/>
+                                <connections>
+                                    <action selector="rightToLeftButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5pU-Ji-szC"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JCO-g5-lSd" customClass="GVButton">
+                                <rect key="frame" x="305" y="30" width="50" height="50"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="S68-cx-y9e"/>
+                                    <constraint firstAttribute="width" constant="50" id="pF7-nC-SAx"/>
+                                </constraints>
+                                <state key="normal" title="➡️"/>
+                                <connections>
+                                    <action selector="leftToRightButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="rB7-2f-nI6"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="af7-Hh-5Xb" customClass="GVButton">
+                                <rect key="frame" x="20" y="30" width="50" height="50"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="D9V-a5-ck3"/>
+                                    <constraint firstAttribute="width" constant="50" id="ox7-Zp-Q8Q"/>
+                                </constraints>
+                                <state key="normal" title="⬆️"/>
+                                <connections>
+                                    <action selector="bottomToTopButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fB5-MQ-RR3"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>

@@ -34,7 +34,7 @@
     [self initRightToLeftGlideView];
     [self initBottomToTopGlideView];
     [self initTopToBottomGlideView];
-//    [self initLeftToRightGlideView];
+    [self initLeftToRightGlideView];
 }
 
 - (void)initRightToLeftGlideView{
@@ -79,7 +79,7 @@
                                                                     @(0.8),
                                                                     @(1)]];
     self.leftToRightGlideVC.delegate = self;
-    self.leftToRightGlideVC.marginOffset = 10;
+//    self.leftToRightGlideVC.marginOffset = 10;
 }
 
 #pragma mark - Actions

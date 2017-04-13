@@ -96,7 +96,33 @@
             [self addConstraint:[NSLayoutConstraint constraintWithItem:container attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual
                                                                 toItem:self           attribute:NSLayoutAttributeWidth multiplier:1.0 constant:CGRectGetWidth(_content.frame)]];
         }
-
+    }
+    else if (self.orientationType == GVScrollViewOrientationLeftToRight) {
+        
+        [container addConstraints:@[[NSLayoutConstraint constraintWithItem:_content  attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual
+                                                                    toItem:container attribute:NSLayoutAttributeTop multiplier:1.0 constant:0.0],
+                                    [NSLayoutConstraint constraintWithItem:_content  attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual
+                                                                    toItem:container   attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0.0],
+                                    [NSLayoutConstraint constraintWithItem:_content  attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual
+                                                                    toItem:container   attribute:NSLayoutAttributeLeading multiplier:1.0 constant:[self margin]]]];
+        
+        [self addConstraints:@[[NSLayoutConstraint constraintWithItem:container attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual
+                                                               toItem:self      attribute:NSLayoutAttributeLeading multiplier:1.0 constant:0.0],
+                               [NSLayoutConstraint constraintWithItem:container attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual
+                                                               toItem:self      attribute:NSLayoutAttributeTop multiplier:1.0 constant:0.0],
+                               [NSLayoutConstraint constraintWithItem:container attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual
+                                                               toItem:self      attribute:NSLayoutAttributeHeight multiplier:1.0 constant:0.0]]];
+        if (CGRectIsEmpty(_content.frame)) {
+            [self addConstraints:@[[NSLayoutConstraint constraintWithItem:_content attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual
+                                                                   toItem:self     attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0.0],
+                                   [NSLayoutConstraint constraintWithItem:container attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual
+                                                                   toItem:self           attribute:NSLayoutAttributeWidth multiplier:2.0 constant:0.0]]];
+        } else {
+            [container addConstraint:[NSLayoutConstraint constraintWithItem:_content attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual
+                                                                     toItem:nil      attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:CGRectGetWidth(_content.frame)]];
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:container attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual
+                                                                toItem:self           attribute:NSLayoutAttributeWidth multiplier:1.0 constant:CGRectGetWidth(_content.frame)]];
+        }
     }
     else if (self.orientationType == GVScrollViewOrientationBottomToTop) {
         
@@ -153,9 +179,6 @@
             [self addConstraint:[NSLayoutConstraint constraintWithItem:container attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual
                                                                 toItem:self      attribute:NSLayoutAttributeHeight multiplier:1.0 constant:CGRectGetHeight(_content.frame)]];
         }
-    }
-    else if (self.orientationType == GVScrollViewOrientationLeftToRight) {
-        
     }
     
     [self layoutIfNeeded];
