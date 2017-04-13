@@ -29,7 +29,8 @@ SOFTWARE.
 
 ## RELEASE NOTES
 
-#### Latest version -  0.1.23
+#### Latest version -  0.1.24
++ 2017-04-13 *[DEV] first implementation for TopToBottom GlideView*
 + 2017-04-12 *[FIX] fixed release notes not recognised characters*
 + 2017-04-12 *[DOC] added ReleaseNotes to Readme file*
 + 2017-04-07 *[DEV] enhanced threshold calculation for boundaries*

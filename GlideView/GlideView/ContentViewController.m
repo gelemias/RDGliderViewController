@@ -33,6 +33,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.frame = CGRectMake(0, 0, self.lenght, self.lenght);
+    
+    [self drawShadow];
 }
 
 - (void)drawShadow {

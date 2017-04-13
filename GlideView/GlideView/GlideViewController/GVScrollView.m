@@ -127,7 +127,7 @@
                                     [NSLayoutConstraint constraintWithItem:_content  attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual
                                                                     toItem:self.container attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:0.0],
                                     [NSLayoutConstraint constraintWithItem:_content  attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual
-                                                                    toItem:self.container attribute:NSLayoutAttributeTop multiplier:1.0 constant:0.0]]];
+                                                                    toItem:self.container attribute:NSLayoutAttributeTop multiplier:1.0 constant:[self margin]]]];
         
         [self addConstraints:@[[NSLayoutConstraint constraintWithItem:self.container attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual
                                                                toItem:self      attribute:NSLayoutAttributeLeading multiplier:1.0 constant:0.0],
@@ -202,15 +202,19 @@
     [UIView animateWithDuration:kAniDuration delay:kAniDelay usingSpringWithDamping:kAniDamping
           initialSpringVelocity:kAniVelocity options:UIViewAnimationOptionCurveEaseOut animations:^{
               
-              if (self.orientationType == GVScrollViewOrientationLeftToRight ||
-                  self.orientationType == GVScrollViewOrientationRightToLeft) {
-                  
+              if (self.orientationType == GVScrollViewOrientationLeftToRight) {
+                  CGFloat margin = (offsetIndex == 0 || offsetIndex == self.offsets.count - 1) ? self.margin : 0;
+                  [self setContentOffset:CGPointMake(([[self offsets] objectAtIndex:offsetIndex].floatValue * CGRectGetWidth(self.content.frame)) + margin, self.contentOffset.y) animated:animated];
+              }
+              else if (self.orientationType == GVScrollViewOrientationRightToLeft) {
                   [self setContentOffset:CGPointMake([[self offsets] objectAtIndex:offsetIndex].floatValue * CGRectGetWidth(self.content.frame), self.contentOffset.y) animated:animated];
               }
-              else if (self.orientationType == GVScrollViewOrientationBottomToTop ||
-                       self.orientationType == GVScrollViewOrientationTopToBottom) {
-                  
+              else if (self.orientationType == GVScrollViewOrientationBottomToTop) {
                   [self setContentOffset:CGPointMake(self.contentOffset.x, [[self offsets] objectAtIndex:offsetIndex].floatValue * CGRectGetHeight(self.content.frame)) animated:animated];
+              }
+              else if (self.orientationType == GVScrollViewOrientationTopToBottom) {
+                  CGFloat margin = (offsetIndex == 0 || offsetIndex == self.offsets.count - 1) ? self.margin : 0;
+                  [self setContentOffset:CGPointMake(self.contentOffset.x, ([[self offsets] objectAtIndex:offsetIndex].floatValue * CGRectGetHeight(self.content.frame)) + margin) animated:animated];
               }
           } completion:^(BOOL finished) {
               self.offsetIndex = offsetIndex;
@@ -227,11 +231,15 @@
 #pragma mark - Private methods
 
 - (void)recalculateContentSize {
+    
     CGSize size = self.container.frame.size;
-    if (self.orientationType == GVScrollViewOrientationBottomToTop) {
+    
+    if (self.orientationType == GVScrollViewOrientationBottomToTop ||
+        self.orientationType == GVScrollViewOrientationTopToBottom){
         size.height += self.margin;
     }
-    else if (self.orientationType == GVScrollViewOrientationRightToLeft) {
+    else if (self.orientationType == GVScrollViewOrientationRightToLeft ||
+             self.orientationType == GVScrollViewOrientationLeftToRight) {
         size.width += self.margin;
     }
 
