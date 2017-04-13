@@ -14,7 +14,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *offsetTopLabel;
 @property (weak, nonatomic) IBOutlet UILabel *indexBottomLabel;
 @property (weak, nonatomic) IBOutlet UILabel *offsetBottomLabel;
-@property (nonatomic) CGRect rect;
+@property (nonatomic) CGFloat lenght;
 
 @end
 
@@ -22,9 +22,9 @@
 
 @implementation ContentViewController
 
-- (instancetype)initWithRect:(CGRect)rect {
+- (instancetype)initWithLength:(CGFloat)lenght {
     if (self = [self init]) {
-        self.rect = rect;
+        self.lenght = lenght;
     }
     
     return self;
@@ -32,12 +32,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.view addObserver:self forKeyPath:kBoundsObserverKeyPath options:0 context:nil];
-    self.view.frame = self.rect;
-}
-
-- (void)dealloc {
-    [self.view removeObserver:self forKeyPath:kBoundsObserverKeyPath];
+    self.view.frame = CGRectMake(0, 0, self.lenght, self.lenght);
 }
 
 - (void)drawShadow {
@@ -62,13 +57,12 @@
     [self.offsetBottomLabel setText:[NSString stringWithFormat:@"offset %@", offset]];
 }
 
-#pragma mark - KVO self.view frame Changed
+#pragma mark - rotation handler
 
--(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    if([keyPath isEqualToString:kBoundsObserverKeyPath]) {
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+    [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
         [self drawShadow];
-    }
+    } completion:nil];
 }
-
 
 @end

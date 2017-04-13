@@ -103,6 +103,8 @@ NSString *const GVException = @"GliveViewException";
         [self.scrollView setContent:self.contentViewController.view];
  
         self.scrollView.delegate = self;
+    
+        [self close];
     }
 }
 
@@ -115,19 +117,29 @@ NSString *const GVException = @"GliveViewException";
     [animation setAutoreverses:YES];
     [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut]];
     
-    if (self.orientationType == GVScrollViewOrientationRightToLeft ||
-        self.orientationType == GVScrollViewOrientationLeftToRight) {
+    if (self.orientationType == GVScrollViewOrientationRightToLeft) {
         [animation setFromValue:[NSValue valueWithCGPoint: CGPointMake([self.scrollView center].x,
                                                                        [self.scrollView  center].y)]];
         [animation setToValue:[NSValue valueWithCGPoint: CGPointMake([self.scrollView  center].x + shakeMargin,
                                                                      [self.scrollView  center].y)]];
-        
-    } else if (self.orientationType == GVScrollViewOrientationBottomToTop ||
-               self.orientationType == GVScrollViewOrientationTopToBottom) {
+    }
+    else if (self.orientationType == GVScrollViewOrientationLeftToRight) {
+        [animation setFromValue:[NSValue valueWithCGPoint: CGPointMake([self.scrollView center].x,
+                                                                       [self.scrollView  center].y)]];
+        [animation setToValue:[NSValue valueWithCGPoint: CGPointMake([self.scrollView  center].x - shakeMargin,
+                                                                     [self.scrollView  center].y)]];
+    }
+    else if (self.orientationType == GVScrollViewOrientationBottomToTop) {
         [animation setFromValue:[NSValue valueWithCGPoint: CGPointMake([self.scrollView center].x,
                                                                        [self.scrollView  center].y)]];
         [animation setToValue:[NSValue valueWithCGPoint: CGPointMake([self.scrollView  center].x,
                                                                      [self.scrollView  center].y + shakeMargin)]];
+    }
+    else if (self.orientationType == GVScrollViewOrientationTopToBottom) {
+        [animation setFromValue:[NSValue valueWithCGPoint: CGPointMake([self.scrollView center].x,
+                                                                       [self.scrollView  center].y)]];
+        [animation setToValue:[NSValue valueWithCGPoint: CGPointMake([self.scrollView  center].x,
+                                                                     [self.scrollView  center].y - shakeMargin)]];
     }
 
     [[self.scrollView layer] addAnimation:animation forKey:@"position"];
@@ -203,6 +215,11 @@ NSString *const GVException = @"GliveViewException";
 #pragma mark - UIScrollView delegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    NSLog(@"offset: %@ / size: %@ / frame: %@",
+          NSStringFromCGPoint(scrollView.contentOffset),
+          NSStringFromCGSize(scrollView.contentSize),
+          NSStringFromCGSize(scrollView.frame.size));
+    
     if ([self.delegate respondsToSelector:@selector(glideViewController:hasChangedOffsetOfContent:)]) {
         [self.delegate glideViewController:self hasChangedOffsetOfContent:scrollView.contentOffset];
     }
@@ -220,9 +237,12 @@ NSString *const GVException = @"GliveViewException";
         threshold = CGRectGetHeight(self.scrollView.content.frame);
     }
     
+    NSUInteger distance = INT_MAX;
     for (int i = 0 ; i < [self.offsets count] ; i++) {
         CGFloat transformedOffset = [[self.scrollView offsets] objectAtIndex:i].floatValue * threshold;
-        if (offset > transformedOffset) {
+        NSUInteger distToAnchor = fabs(offset - transformedOffset);
+        if (distToAnchor < distance) {
+            distance = distToAnchor;
             index = i;
         }
     }

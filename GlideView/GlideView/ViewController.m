@@ -33,12 +33,13 @@
     
     [self initRightToLeftGlideView];
     [self initBottomToTopGlideView];
+    [self initTopToBottomGlideView];
+//    [self initLeftToRightGlideView];
 }
 
 - (void)initRightToLeftGlideView{
-    ContentViewController *contentVC = [[ContentViewController alloc] initWithRect:CGRectMake(0, 0, 200, 200)];
     self.rightToLeftGlideVC = [[GlideViewController alloc] initOn:self
-                                                      WithContent:contentVC
+                                                      WithContent:[[ContentViewController alloc] initWithLength:200.0f]
                                                              type:GVScrollViewOrientationRightToLeft
                                                        AndOffsets:@[@(0), @(1)]];
     self.rightToLeftGlideVC.delegate = self;
@@ -55,6 +56,30 @@
                                                                     @(0.8)]];
     self.bottomToTopGlideVC.delegate = self;
     self.bottomToTopGlideVC.marginOffset = 10;
+}
+
+- (void)initTopToBottomGlideView{
+    self.topToBottomGlideVC = [[GlideViewController alloc] initOn:self
+                                                      WithContent:[[ContentViewController alloc] initWithLength:400.0f]
+                                                             type:GVScrollViewOrientationTopToBottom
+                                                       AndOffsets:@[@(0),
+                                                                    @(0.5),
+                                                                    @(1)]];
+    self.topToBottomGlideVC.delegate = self;
+}
+
+- (void)initLeftToRightGlideView {
+    self.leftToRightGlideVC = [[GlideViewController alloc] initOn:self
+                                                      WithContent:[ContentViewController new]
+                                                             type:GVScrollViewOrientationLeftToRight
+                                                       AndOffsets:@[@(0),
+                                                                    @(0.6),
+                                                                    @(0.2),
+                                                                    @(0.4),
+                                                                    @(0.8),
+                                                                    @(1)]];
+    self.leftToRightGlideVC.delegate = self;
+    self.leftToRightGlideVC.marginOffset = 10;
 }
 
 #pragma mark - Actions
