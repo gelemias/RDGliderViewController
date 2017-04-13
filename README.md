@@ -29,7 +29,8 @@ SOFTWARE.
 
 ## RELEASE NOTES
 
-#### Latest version -  0.1.24
+#### Latest version -  0.1.25
++ 2017-04-13 *[DEV] added margins to reversed positions*
 + 2017-04-13 *[DEV] first implementation for TopToBottom GlideView*
 + 2017-04-12 *[FIX] fixed release notes not recognised characters*
 + 2017-04-12 *[DOC] added ReleaseNotes to Readme file*

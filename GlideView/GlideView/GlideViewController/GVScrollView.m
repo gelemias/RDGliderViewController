@@ -232,15 +232,19 @@
 
 - (void)recalculateContentSize {
     
-    CGSize size = self.container.frame.size;
+    CGSize size = self.contentSize;
     
-    if (self.orientationType == GVScrollViewOrientationBottomToTop ||
-        self.orientationType == GVScrollViewOrientationTopToBottom){
-        size.height += self.margin;
+    if (self.orientationType == GVScrollViewOrientationBottomToTop) {
+        size.height = CGRectGetHeight(self.frame) + (CGRectGetHeight(self.content.frame) * [self.offsets lastObject].floatValue) + self.margin;
     }
-    else if (self.orientationType == GVScrollViewOrientationRightToLeft ||
-             self.orientationType == GVScrollViewOrientationLeftToRight) {
-        size.width += self.margin;
+    else if (self.orientationType == GVScrollViewOrientationTopToBottom){
+        size.height = CGRectGetHeight(self.frame) + (CGRectGetHeight(self.content.frame) * [self.offsets firstObject].floatValue) + self.margin;
+    }
+    else if (self.orientationType == GVScrollViewOrientationRightToLeft) {
+        size.width = CGRectGetWidth(self.frame) + (CGRectGetWidth(self.content.frame) * [self.offsets lastObject].floatValue) + self.margin;
+    }
+    else if (self.orientationType == GVScrollViewOrientationLeftToRight) {
+        size.width = CGRectGetWidth(self.frame) + (CGRectGetWidth(self.content.frame) * [self.offsets firstObject].floatValue) + self.margin;
     }
 
     [self setContentSize:size];
