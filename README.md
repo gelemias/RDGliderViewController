@@ -29,7 +29,8 @@ SOFTWARE.
 
 ## RELEASE NOTES
 
-#### Latest version -  0.1.25
+#### Latest version -  0.1.26
++ 2017-04-13 *[DEV] limited max content scroll to largest offset percent of content length*
 + 2017-04-13 *[DEV] added margins to reversed positions*
 + 2017-04-13 *[DEV] first implementation for TopToBottom GlideView*
 + 2017-04-12 *[FIX] fixed release notes not recognised characters*

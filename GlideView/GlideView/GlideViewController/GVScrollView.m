@@ -12,7 +12,6 @@
 
 @property (nonatomic) NSUInteger offsetIndex;
 @property (nonatomic) BOOL isOpen;
-@property (nonatomic) UIView *container;
 
 @end
 
@@ -63,88 +62,95 @@
     
     [[self subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
-    self.container = [UIView new];
+    UIView *container = [UIView new];
 
-    [self.container addSubview:_content];
-    [self addSubview:self.container];
+    [container addSubview:_content];
+    [self addSubview:container];
 
-    self.container.translatesAutoresizingMaskIntoConstraints = NO;
+    container.translatesAutoresizingMaskIntoConstraints = NO;
     _content.translatesAutoresizingMaskIntoConstraints = NO;
 
     if (self.orientationType == GVScrollViewOrientationRightToLeft) {
                 
-        [self.container addConstraints:@[[NSLayoutConstraint constraintWithItem:_content  attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual
-                                                                    toItem:self.container attribute:NSLayoutAttributeTop multiplier:1.0 constant:0.0],
+        [container addConstraints:@[[NSLayoutConstraint constraintWithItem:_content  attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual
+                                                                    toItem:container attribute:NSLayoutAttributeTop multiplier:1.0 constant:0.0],
                                     [NSLayoutConstraint constraintWithItem:_content  attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual
-                                                                    toItem:self.container   attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0.0],
+                                                                    toItem:container   attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0.0],
                                     [NSLayoutConstraint constraintWithItem:_content  attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual
-                                                                    toItem:self.container   attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:0.0],
-                                    
-                                    [NSLayoutConstraint constraintWithItem:_content  attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual
-                                                                     toItem:nil      attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:CGRectGetWidth(_content.frame)]]];
+                                                                    toItem:container   attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:0.0]]];
         
-        [self addConstraints:@[[NSLayoutConstraint constraintWithItem:self.container attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual
+        [self addConstraints:@[[NSLayoutConstraint constraintWithItem:container attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual
                                                                toItem:self      attribute:NSLayoutAttributeLeading multiplier:1.0 constant:0.0],
-                               [NSLayoutConstraint constraintWithItem:self.container attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual
+                               [NSLayoutConstraint constraintWithItem:container attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual
                                                                toItem:self      attribute:NSLayoutAttributeTop multiplier:1.0 constant:0.0],
-                               [NSLayoutConstraint constraintWithItem:self.container attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual
-                                                               toItem:self      attribute:NSLayoutAttributeHeight multiplier:1.0 constant:0.0],
-                               [NSLayoutConstraint constraintWithItem:self.container attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual
-                                                               toItem:self      attribute:NSLayoutAttributeWidth multiplier:1.0 constant:CGRectGetWidth(_content.frame)]]];
+                               [NSLayoutConstraint constraintWithItem:container attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual
+                                                               toItem:self      attribute:NSLayoutAttributeHeight multiplier:1.0 constant:0.0]]];
+        if (CGRectIsEmpty(_content.frame)) {
+            [self addConstraints:@[[NSLayoutConstraint constraintWithItem:_content attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual
+                                                                   toItem:self     attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0.0],
+                                   [NSLayoutConstraint constraintWithItem:container attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual
+                                                                   toItem:self           attribute:NSLayoutAttributeWidth multiplier:2.0 constant:0.0]]];
+        } else {
+            [container addConstraint:[NSLayoutConstraint constraintWithItem:_content attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual
+                                                                          toItem:nil      attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:CGRectGetWidth(_content.frame)]];
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:container attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual
+                                                                toItem:self           attribute:NSLayoutAttributeWidth multiplier:1.0 constant:CGRectGetWidth(_content.frame)]];
+        }
+
     }
     else if (self.orientationType == GVScrollViewOrientationBottomToTop) {
         
-        [self.container addConstraints:@[[NSLayoutConstraint constraintWithItem:_content  attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual
-                                                                    toItem:self.container attribute:NSLayoutAttributeLeading multiplier:1.0 constant:0.0],
+        [container addConstraints:@[[NSLayoutConstraint constraintWithItem:_content  attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual
+                                                                    toItem:container attribute:NSLayoutAttributeLeading multiplier:1.0 constant:0.0],
                                     [NSLayoutConstraint constraintWithItem:_content  attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual
-                                                                    toItem:self.container attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:0.0],
+                                                                    toItem:container attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:0.0],
                                     [NSLayoutConstraint constraintWithItem:_content  attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual
-                                                                    toItem:self.container attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0.0]]];
+                                                                    toItem:container attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0.0]]];
 
-        [self addConstraints:@[[NSLayoutConstraint constraintWithItem:self.container attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual
+        [self addConstraints:@[[NSLayoutConstraint constraintWithItem:container attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual
                                                                toItem:self      attribute:NSLayoutAttributeLeading multiplier:1.0 constant:0.0],
-                               [NSLayoutConstraint constraintWithItem:self.container attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual
+                               [NSLayoutConstraint constraintWithItem:container attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual
                                                                toItem:self      attribute:NSLayoutAttributeTop multiplier:1.0 constant:0.0],
-                               [NSLayoutConstraint constraintWithItem:self.container attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual
+                               [NSLayoutConstraint constraintWithItem:container attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual
                                                                toItem:self      attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0.0]]];
         
         if (CGRectIsEmpty(_content.frame)) {
             [self addConstraints:@[[NSLayoutConstraint constraintWithItem:_content attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual
                                                                    toItem:self     attribute:NSLayoutAttributeHeight multiplier:1.0 constant:0.0],
-                                   [NSLayoutConstraint constraintWithItem:self.container attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual
+                                   [NSLayoutConstraint constraintWithItem:container attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual
                                                                    toItem:self      attribute:NSLayoutAttributeHeight multiplier:2.0 constant:0.0]]];
         } else {
-            [self.container addConstraint:[NSLayoutConstraint constraintWithItem:_content attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual
+            [container addConstraint:[NSLayoutConstraint constraintWithItem:_content attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual
                                                                           toItem:nil      attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:CGRectGetHeight(_content.frame)]];
-            [self addConstraint:[NSLayoutConstraint constraintWithItem:self.container attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:container attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual
                                                                 toItem:self      attribute:NSLayoutAttributeHeight multiplier:1.0 constant:CGRectGetHeight(_content.frame)]];
         }
     }
     else if (self.orientationType == GVScrollViewOrientationTopToBottom) {
         
-        [self.container addConstraints:@[[NSLayoutConstraint constraintWithItem:_content  attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual
-                                                                    toItem:self.container attribute:NSLayoutAttributeLeading multiplier:1.0 constant:0.0],
+        [container addConstraints:@[[NSLayoutConstraint constraintWithItem:_content  attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual
+                                                                    toItem:container attribute:NSLayoutAttributeLeading multiplier:1.0 constant:0.0],
                                     [NSLayoutConstraint constraintWithItem:_content  attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual
-                                                                    toItem:self.container attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:0.0],
+                                                                    toItem:container attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:0.0],
                                     [NSLayoutConstraint constraintWithItem:_content  attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual
-                                                                    toItem:self.container attribute:NSLayoutAttributeTop multiplier:1.0 constant:[self margin]]]];
+                                                                    toItem:container attribute:NSLayoutAttributeTop multiplier:1.0 constant:[self margin]]]];
         
-        [self addConstraints:@[[NSLayoutConstraint constraintWithItem:self.container attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual
+        [self addConstraints:@[[NSLayoutConstraint constraintWithItem:container attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual
                                                                toItem:self      attribute:NSLayoutAttributeLeading multiplier:1.0 constant:0.0],
-                               [NSLayoutConstraint constraintWithItem:self.container attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual
+                               [NSLayoutConstraint constraintWithItem:container attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual
                                                                toItem:self      attribute:NSLayoutAttributeTop multiplier:1.0 constant:0.0],
-                               [NSLayoutConstraint constraintWithItem:self.container attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual
+                               [NSLayoutConstraint constraintWithItem:container attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual
                                                                toItem:self      attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0.0]]];
         
         if (CGRectIsEmpty(_content.frame)) {
             [self addConstraints:@[[NSLayoutConstraint constraintWithItem:_content attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual
                                                                    toItem:self     attribute:NSLayoutAttributeHeight multiplier:1.0 constant:0.0],
-                                   [NSLayoutConstraint constraintWithItem:self.container attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual
+                                   [NSLayoutConstraint constraintWithItem:container attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual
                                                                    toItem:self      attribute:NSLayoutAttributeHeight multiplier:2.0 constant:0.0]]];
         } else {
-            [self.container addConstraint:[NSLayoutConstraint constraintWithItem:_content attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual
+            [container addConstraint:[NSLayoutConstraint constraintWithItem:_content attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual
                                                                      toItem:nil      attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:CGRectGetHeight(_content.frame)]];
-            [self addConstraint:[NSLayoutConstraint constraintWithItem:self.container attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:container attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual
                                                                 toItem:self      attribute:NSLayoutAttributeHeight multiplier:1.0 constant:CGRectGetHeight(_content.frame)]];
         }
     }
