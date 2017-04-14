@@ -29,7 +29,8 @@ SOFTWARE.
 
 ## RELEASE NOTES
 
-#### Latest version -  0.1.29
+#### Latest version -  0.1.30
++ 2017-04-14 *[FIX] issue with rendering shadow when rotating*
 + 2017-04-14 *[FIX] horizontal offset broken*
 + 2017-04-13 *[DEV] first implementation of Left To Right side*
 + 2017-04-13 *[REF] cleaned constraints of scrollview*

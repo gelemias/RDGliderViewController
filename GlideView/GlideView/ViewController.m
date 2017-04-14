@@ -7,16 +7,16 @@
 //
 
 #import "ViewController.h"
-#import "GlideViewController.h"
+#import "GVGlideViewController.h"
 #import "ContentViewController.h"
 #import "GVGradientView.h"
 
-@interface ViewController () <GlideViewControllerDelegate>
+@interface ViewController () <GVGlideViewControllerDelegate>
 
-@property (nonatomic) GlideViewController *leftToRightGlideVC;
-@property (nonatomic) GlideViewController *bottomToTopGlideVC;
-@property (nonatomic) GlideViewController *topToBottomGlideVC;
-@property (nonatomic) GlideViewController *rightToLeftGlideVC;
+@property (nonatomic) GVGlideViewController *leftToRightGlideVC;
+@property (nonatomic) GVGlideViewController *bottomToTopGlideVC;
+@property (nonatomic) GVGlideViewController *topToBottomGlideVC;
+@property (nonatomic) GVGlideViewController *rightToLeftGlideVC;
 
 @end
 
@@ -38,7 +38,7 @@
 }
 
 - (void)initRightToLeftGlideView{
-    self.rightToLeftGlideVC = [[GlideViewController alloc] initOn:self
+    self.rightToLeftGlideVC = [[GVGlideViewController alloc] initOn:self
                                                       WithContent:[[ContentViewController alloc] initWithLength:200.0f]
                                                              type:GVScrollViewOrientationRightToLeft
                                                        AndOffsets:@[@(0), @(1)]];
@@ -46,7 +46,7 @@
 }
 
 - (void)initBottomToTopGlideView {
-    self.bottomToTopGlideVC = [[GlideViewController alloc] initOn:self
+    self.bottomToTopGlideVC = [[GVGlideViewController alloc] initOn:self
                                                       WithContent:[ContentViewController new]
                                                              type:GVScrollViewOrientationBottomToTop
                                                        AndOffsets:@[@(0),
@@ -59,7 +59,7 @@
 }
 
 - (void)initTopToBottomGlideView {
-    self.topToBottomGlideVC = [[GlideViewController alloc] initOn:self
+    self.topToBottomGlideVC = [[GVGlideViewController alloc] initOn:self
                                                       WithContent:[[ContentViewController alloc] initWithLength:400.0f]
                                                              type:GVScrollViewOrientationTopToBottom
                                                        AndOffsets:@[@(0),
@@ -69,7 +69,7 @@
 }
 
 - (void)initLeftToRightGlideView {
-    self.leftToRightGlideVC = [[GlideViewController alloc] initOn:self
+    self.leftToRightGlideVC = [[GVGlideViewController alloc] initOn:self
                                                       WithContent:[ContentViewController new]
                                                              type:GVScrollViewOrientationLeftToRight
                                                        AndOffsets:@[@(0),
@@ -118,17 +118,17 @@
 
 #pragma mark - GlideViewControllerDelegate
 
-- (void)glideViewController:(GlideViewController *)glideViewController hasChangedOffsetOfContent:(CGPoint)offset {
+- (void)glideViewController:(GVGlideViewController *)glideViewController hasChangedOffsetOfContent:(CGPoint)offset {
     ContentViewController *vc = (ContentViewController *)glideViewController.contentViewController;
     [vc setOffset:NSStringFromCGPoint(offset)];
 }
 
-- (void)glideViewControllerDidExpand:(GlideViewController *)glideViewController {
+- (void)glideViewControllerDidExpand:(GVGlideViewController *)glideViewController {
     ContentViewController *vc = (ContentViewController *)glideViewController.contentViewController;
     [vc setIndex:glideViewController.currentOffsetIndex ofMax:[glideViewController.offsets count] - 1];
 }
 
-- (void)glideViewControllerDidCollapse:(GlideViewController *)glideViewController {
+- (void)glideViewControllerDidCollapse:(GVGlideViewController *)glideViewController {
     ContentViewController *vc = (ContentViewController *)glideViewController.contentViewController;
     [vc setIndex:glideViewController.currentOffsetIndex ofMax:[glideViewController.offsets count] - 1];
 }

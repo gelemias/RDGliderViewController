@@ -277,8 +277,6 @@
           }];
 }
 
-#pragma mark - Private methods
-
 - (void)recalculateContentSize {
     
     CGSize size = CGSizeZero;

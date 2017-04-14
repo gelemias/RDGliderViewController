@@ -1,16 +1,16 @@
 //
-//  GlideViewController.m
+//  GVGlideViewController.m
 //  GlideView
 //
 //  Created by GuillermoD on 8/4/16.
 //  Copyright © 2017. All rights reserved.
 //
 
-#import "GlideViewController.h"
+#import "GVGlideViewController.h"
 
 NSString *const GVException = @"GliveViewException";
 
-@interface GlideViewController () <UIScrollViewDelegate>
+@interface GVGlideViewController () <UIScrollViewDelegate>
 
 @property (nonatomic) GVScrollView *scrollView;
 
@@ -18,7 +18,7 @@ NSString *const GVException = @"GliveViewException";
 
 @end
 
-@implementation GlideViewController
+@implementation GVGlideViewController
 
 - (instancetype)initOn:(UIViewController *)parent
            WithContent:(UIViewController *)content
@@ -38,7 +38,7 @@ NSString *const GVException = @"GliveViewException";
 
 - (NSArray<NSNumber *> *)offsets {
     if (!self.scrollView) {
-        [NSException raise:@"Invalid request" format:@"GlideViewController have to instantiate first on a viewController"];
+        [NSException raise:@"Invalid request" format:@"GVGlideViewController have to instantiate first on a viewController"];
     }
     
     return self.scrollView.offsets;
