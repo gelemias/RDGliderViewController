@@ -29,7 +29,8 @@ SOFTWARE.
 
 ## RELEASE NOTES
 
-#### Latest version -  0.1.28
+#### Latest version -  0.1.29
++ 2017-04-14 *[FIX] horizontal offset broken*
 + 2017-04-13 *[DEV] first implementation of Left To Right side*
 + 2017-04-13 *[REF] cleaned constraints of scrollview*
 + 2017-04-13 *[DEV] limited max content scroll to largest offset percent of content length*

@@ -18,8 +18,6 @@
 
 @end
 
-#define kBoundsObserverKeyPath @"bounds"
-
 @implementation ContentViewController
 
 - (instancetype)initWithLength:(CGFloat)lenght {
@@ -34,19 +32,15 @@
     [super viewDidLoad];
     self.view.frame = CGRectMake(0, 0, self.lenght, self.lenght);
     
-    [self drawShadow];
-}
-
-- (void)drawShadow {
+    // corner radius
     self.view.layer.cornerRadius = 10.0f;
     [self.view.subviews firstObject].layer.cornerRadius = 10.0f;
     
-    UIBezierPath *shadowPath = [UIBezierPath bezierPathWithRect:self.view.bounds];
+    // shadow
     self.view.layer.shadowColor = [UIColor blackColor].CGColor;
     self.view.layer.shadowOpacity = 0.5f;
     self.view.layer.shadowRadius = 5.0f;
     self.view.layer.shadowOffset = CGSizeMake(0.0f, 0.0f);
-    self.view.layer.shadowPath = shadowPath.CGPath;
 }
 
 - (void)setIndex:(NSUInteger)index ofMax:(NSUInteger)max {
@@ -57,14 +51,6 @@
 - (void)setOffset:(NSString *)offset {
     [self.offsetTopLabel setText:[NSString stringWithFormat:@"offset %@", offset]];
     [self.offsetBottomLabel setText:[NSString stringWithFormat:@"offset %@", offset]];
-}
-
-#pragma mark - rotation handler
-
-- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
-    [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
-        [self drawShadow];
-    } completion:nil];
 }
 
 @end
