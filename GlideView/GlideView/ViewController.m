@@ -45,7 +45,7 @@
     self.rightToLeftGlideVC.delegate = self;
 }
 
-- (void)initBottomToTopGlideView{
+- (void)initBottomToTopGlideView {
     self.bottomToTopGlideVC = [[GlideViewController alloc] initOn:self
                                                       WithContent:[ContentViewController new]
                                                              type:GVScrollViewOrientationBottomToTop
@@ -55,10 +55,10 @@
                                                                     @(0.4),
                                                                     @(0.8)]];
     self.bottomToTopGlideVC.delegate = self;
-    self.bottomToTopGlideVC.marginOffset = 10;
+    self.bottomToTopGlideVC.marginOffset = 30;
 }
 
-- (void)initTopToBottomGlideView{
+- (void)initTopToBottomGlideView {
     self.topToBottomGlideVC = [[GlideViewController alloc] initOn:self
                                                       WithContent:[[ContentViewController alloc] initWithLength:400.0f]
                                                              type:GVScrollViewOrientationTopToBottom
@@ -79,7 +79,7 @@
                                                                     @(0.8),
                                                                     @(1)]];
     self.leftToRightGlideVC.delegate = self;
-//    self.leftToRightGlideVC.marginOffset = 10;
+    self.leftToRightGlideVC.marginOffset = 10;
 }
 
 #pragma mark - Actions
