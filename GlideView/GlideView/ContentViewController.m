@@ -14,17 +14,15 @@
 @property (weak, nonatomic) IBOutlet UILabel *offsetTopLabel;
 @property (weak, nonatomic) IBOutlet UILabel *indexBottomLabel;
 @property (weak, nonatomic) IBOutlet UILabel *offsetBottomLabel;
-@property (nonatomic) CGRect rect;
+@property (nonatomic) CGFloat lenght;
 
 @end
 
-#define kBoundsObserverKeyPath @"bounds"
-
 @implementation ContentViewController
 
-- (instancetype)initWithRect:(CGRect)rect {
+- (instancetype)initWithLength:(CGFloat)lenght {
     if (self = [self init]) {
-        self.rect = rect;
+        self.lenght = lenght;
     }
     
     return self;
@@ -32,24 +30,17 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.view addObserver:self forKeyPath:kBoundsObserverKeyPath options:0 context:nil];
-    self.view.frame = self.rect;
-}
-
-- (void)dealloc {
-    [self.view removeObserver:self forKeyPath:kBoundsObserverKeyPath];
-}
-
-- (void)drawShadow {
+    self.view.frame = CGRectMake(0, 0, self.lenght, self.lenght);
+    
+    // corner radius
     self.view.layer.cornerRadius = 10.0f;
     [self.view.subviews firstObject].layer.cornerRadius = 10.0f;
     
-    UIBezierPath *shadowPath = [UIBezierPath bezierPathWithRect:self.view.bounds];
+    // shadow
     self.view.layer.shadowColor = [UIColor blackColor].CGColor;
     self.view.layer.shadowOpacity = 0.5f;
     self.view.layer.shadowRadius = 5.0f;
     self.view.layer.shadowOffset = CGSizeMake(0.0f, 0.0f);
-    self.view.layer.shadowPath = shadowPath.CGPath;
 }
 
 - (void)setIndex:(NSUInteger)index ofMax:(NSUInteger)max {
@@ -61,14 +52,5 @@
     [self.offsetTopLabel setText:[NSString stringWithFormat:@"offset %@", offset]];
     [self.offsetBottomLabel setText:[NSString stringWithFormat:@"offset %@", offset]];
 }
-
-#pragma mark - KVO self.view frame Changed
-
--(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    if([keyPath isEqualToString:kBoundsObserverKeyPath]) {
-        [self drawShadow];
-    }
-}
-
 
 @end

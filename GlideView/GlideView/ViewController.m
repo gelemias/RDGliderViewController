@@ -7,16 +7,16 @@
 //
 
 #import "ViewController.h"
-#import "GlideViewController.h"
+#import "GVGlideViewController.h"
 #import "ContentViewController.h"
 #import "GVGradientView.h"
 
-@interface ViewController () <GlideViewControllerDelegate>
+@interface ViewController () <GVGlideViewControllerDelegate>
 
-@property (nonatomic) GlideViewController *leftToRightGlideVC;
-@property (nonatomic) GlideViewController *bottomToTopGlideVC;
-@property (nonatomic) GlideViewController *topToBottomGlideVC;
-@property (nonatomic) GlideViewController *rightToLeftGlideVC;
+@property (nonatomic) GVGlideViewController *leftToRightGlideVC;
+@property (nonatomic) GVGlideViewController *bottomToTopGlideVC;
+@property (nonatomic) GVGlideViewController *topToBottomGlideVC;
+@property (nonatomic) GVGlideViewController *rightToLeftGlideVC;
 
 @end
 
@@ -33,19 +33,20 @@
     
     [self initRightToLeftGlideView];
     [self initBottomToTopGlideView];
+    [self initTopToBottomGlideView];
+    [self initLeftToRightGlideView];
 }
 
 - (void)initRightToLeftGlideView{
-    ContentViewController *contentVC = [[ContentViewController alloc] initWithRect:CGRectMake(0, 0, 200, 200)];
-    self.rightToLeftGlideVC = [[GlideViewController alloc] initOn:self
-                                                      WithContent:contentVC
+    self.rightToLeftGlideVC = [[GVGlideViewController alloc] initOn:self
+                                                      WithContent:[[ContentViewController alloc] initWithLength:200.0f]
                                                              type:GVScrollViewOrientationRightToLeft
                                                        AndOffsets:@[@(0), @(1)]];
     self.rightToLeftGlideVC.delegate = self;
 }
 
-- (void)initBottomToTopGlideView{
-    self.bottomToTopGlideVC = [[GlideViewController alloc] initOn:self
+- (void)initBottomToTopGlideView {
+    self.bottomToTopGlideVC = [[GVGlideViewController alloc] initOn:self
                                                       WithContent:[ContentViewController new]
                                                              type:GVScrollViewOrientationBottomToTop
                                                        AndOffsets:@[@(0),
@@ -54,7 +55,31 @@
                                                                     @(0.4),
                                                                     @(0.8)]];
     self.bottomToTopGlideVC.delegate = self;
-    self.bottomToTopGlideVC.marginOffset = 10;
+    self.bottomToTopGlideVC.marginOffset = 30;
+}
+
+- (void)initTopToBottomGlideView {
+    self.topToBottomGlideVC = [[GVGlideViewController alloc] initOn:self
+                                                      WithContent:[[ContentViewController alloc] initWithLength:400.0f]
+                                                             type:GVScrollViewOrientationTopToBottom
+                                                       AndOffsets:@[@(0),
+                                                                    @(0.5),
+                                                                    @(1)]];
+    self.topToBottomGlideVC.delegate = self;
+}
+
+- (void)initLeftToRightGlideView {
+    self.leftToRightGlideVC = [[GVGlideViewController alloc] initOn:self
+                                                      WithContent:[ContentViewController new]
+                                                             type:GVScrollViewOrientationLeftToRight
+                                                       AndOffsets:@[@(0),
+                                                                    @(0.6),
+                                                                    @(0.2),
+                                                                    @(0.4),
+                                                                    @(0.8),
+                                                                    @(1)]];
+    self.leftToRightGlideVC.delegate = self;
+    self.leftToRightGlideVC.marginOffset = 10;
 }
 
 #pragma mark - Actions
@@ -93,17 +118,17 @@
 
 #pragma mark - GlideViewControllerDelegate
 
-- (void)glideViewController:(GlideViewController *)glideViewController hasChangedOffsetOfContent:(CGPoint)offset {
+- (void)glideViewController:(GVGlideViewController *)glideViewController hasChangedOffsetOfContent:(CGPoint)offset {
     ContentViewController *vc = (ContentViewController *)glideViewController.contentViewController;
     [vc setOffset:NSStringFromCGPoint(offset)];
 }
 
-- (void)glideViewControllerDidExpand:(GlideViewController *)glideViewController {
+- (void)glideViewControllerDidExpand:(GVGlideViewController *)glideViewController {
     ContentViewController *vc = (ContentViewController *)glideViewController.contentViewController;
     [vc setIndex:glideViewController.currentOffsetIndex ofMax:[glideViewController.offsets count] - 1];
 }
 
-- (void)glideViewControllerDidCollapse:(GlideViewController *)glideViewController {
+- (void)glideViewControllerDidCollapse:(GVGlideViewController *)glideViewController {
     ContentViewController *vc = (ContentViewController *)glideViewController.contentViewController;
     [vc setIndex:glideViewController.currentOffsetIndex ofMax:[glideViewController.offsets count] - 1];
 }

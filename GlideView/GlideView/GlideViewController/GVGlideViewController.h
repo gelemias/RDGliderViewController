@@ -1,5 +1,5 @@
 //
-//  GlideViewController.h
+//  GVGlideViewController.h
 //  GlideView
 //
 //  Created by GuillermoD on 8/4/16.
@@ -9,42 +9,42 @@
 #import <UIKit/UIKit.h>
 #import "GVScrollView.h"
 
-@class GlideViewController;
+@class GVGlideViewController;
 
-@protocol GlideViewControllerDelegate <NSObject>
+@protocol GVGlideViewControllerDelegate <NSObject>
 
 @optional
 
 /**
  Delegate method to notify invoke object when offset has changed
  */
-- (void)glideViewController:(GlideViewController *)glideViewController hasChangedOffsetOfContent:(CGPoint)offset;
+- (void)glideViewController:(GVGlideViewController *)glideViewController hasChangedOffsetOfContent:(CGPoint)offset;
 
 /**
  Delegate method to notify invoke object when glideView will increase offset by one
  */
-- (void)glideViewControllerWillExpand:(GlideViewController *)glideViewController;
+- (void)glideViewControllerWillExpand:(GVGlideViewController *)glideViewController;
 
 /**
  Delegate method to notify invoke object when glideView will decrease offset by one
  */
-- (void)glideViewControllerWillCollapse:(GlideViewController *)glideViewController;
+- (void)glideViewControllerWillCollapse:(GVGlideViewController *)glideViewController;
 
 /**
  Delegate method to notify invoke object when glideView did increase offset by one
  */
-- (void)glideViewControllerDidExpand:(GlideViewController *)glideViewController;
+- (void)glideViewControllerDidExpand:(GVGlideViewController *)glideViewController;
 
 /**
  Delegate method to notify invoke object when glideView did decrease offset by one
  */
-- (void)glideViewControllerDidCollapse:(GlideViewController *)glideViewController;
+- (void)glideViewControllerDidCollapse:(GVGlideViewController *)glideViewController;
 
 @end
 
-@interface GlideViewController : UIViewController
+@interface GVGlideViewController : UIViewController
 
-@property (nonatomic, weak) id<GlideViewControllerDelegate> delegate;
+@property (nonatomic, weak) id<GVGlideViewControllerDelegate> delegate;
 
 @property (nonatomic) UIViewController *contentViewController;
 
@@ -111,7 +111,7 @@
  * @param content external ViewController placed as a content of the GlideView
  * @param type of GlideView Left to Right, Right to Left, Bottom To Top and Top to Bottom.
  * @param offsets Array of offsets in % (0 to 1) dependent of Content size if not expecified UIScreen bounds.
- * @return A newly created GlideViewController instance
+ * @return A newly created GVGlideViewController instance
  */
 - (instancetype)initOn:(UIViewController *)parent
            WithContent:(UIViewController *)content

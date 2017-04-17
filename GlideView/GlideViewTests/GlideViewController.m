@@ -1,18 +1,18 @@
 //
-//  GlideViewTests.m
-//  GlideViewTests
+//  GVGlideViewController.m
+//  GlideView
 //
-//  Created by Guillermo Delgado on 03/04/2017.
-//  Copyright © 2017. All rights reserved.
+//  Created by Guillermo Delgado on 14/04/2017.
+//  Copyright © 2017 Guillermo Delgado. All rights reserved.
 //
 
 #import <XCTest/XCTest.h>
 
-@interface GlideViewTests : XCTestCase
+@interface GVGlideViewController : XCTestCase
 
 @end
 
-@implementation GlideViewTests
+@implementation GVGlideViewController
 
 - (void)setUp {
     [super setUp];

@@ -24,46 +24,50 @@ typedef enum {
 @property (nonatomic) UIView *content;
 
 /**
- Orientation for draggable container
+ Orientation for draggable container.
  Default value : GVScrollViewOrientationLeftToRight
  */
 @property (nonatomic) GVScrollViewOrientationType orientationType;
 
 /**
- Expandable offset in % of content view. from 0 to 1
+ Expandable offset in % of content view. from 0 to 1.
  */
 @property (nonatomic) NSArray<NSNumber *> *offsets;
 
 /**
- Determines whether the element is Open or not
+ Determines whether the element is Open or not.
  */
 @property (nonatomic, readonly) BOOL isOpen;
 
 /**
- Returns the position of open Offsets
+ Returns the position of open Offsets.
  */
 @property (nonatomic, readonly) NSUInteger offsetIndex;
 
 /**
- Margin of elastic animation default is 20px
+ Margin of elastic animation default is 20px.
  */
 @property (nonatomic) CGFloat margin;
 
 /**
- Consider subviews of the content as part of the content, used when dragging
+ Consider subviews of the content as part of the content, used when dragging.
  Default Value is False
  */
 @property (nonatomic) BOOL selectContentSubViews;
 
-extern NSString *const offsetWillChangeNotification;
-extern NSString *const offsetDidChangeNotification;
-
+/**
+ Call this method to force recalculation of contentSize in ScrollView, i.e. when content changes.
+ */
 - (void)recalculateContentSize;
+
+// Methods to Increase or decrease offset of content within GVScrollView.
 
 - (void)changeOffsetTo:(NSUInteger)offsetIndex animated:(BOOL)animated completion:(void (^)(BOOL finished))completion;
 - (void)expandWithCompletion:(void (^)(BOOL finished))completion;
 - (void)collapseWithCompletion:(void (^)(BOOL finished))completion;
 - (void)closeWithCompletion:(void (^)(BOOL finished))completion;
+
+// Unavailable constructors.
 
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithCoder:(NSCoder *)aDecoder NS_UNAVAILABLE;
