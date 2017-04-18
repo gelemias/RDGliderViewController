@@ -1,4 +1,4 @@
-# GliderViewController [![Build Status](https://travis-ci.org/gelemias/GliderViewController.svg?branch=develop)](https://travis-ci.org/gelemias/GliderViewController.svg?branch=develop) [![Coverage Status](https://coveralls.io/repos/github/gelemias/GliderViewController/badge.svg?branch=develop)](https://coveralls.io/github/gelemias/GliderViewController?branch=develop)
+# GliderViewController [![Build Status](https://travis-ci.org/gelemias/GliderViewController.svg?branch=develop)](https://travis-ci.org/gelemias/GliderViewController) [![Coverage Status](https://coveralls.io/repos/github/gelemias/GliderViewController/badge.svg?branch=develop)](https://coveralls.io/github/gelemias/GliderViewController?branch=develop)
 
 Control for a floating view gliding over a ViewController
 
