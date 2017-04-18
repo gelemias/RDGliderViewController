@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "C7D9C6181E9220A000F80609"
-               BuildableName = "GlideView.app"
-               BlueprintName = "GlideView"
-               ReferencedContainer = "container:GlideView.xcodeproj">
+               BuildableName = "GliderSample.app"
+               BlueprintName = "GliderSample"
+               ReferencedContainer = "container:GliderSample.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -34,9 +34,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "C7D9C6311E9220A000F80609"
-               BuildableName = "GlideViewTests.xctest"
-               BlueprintName = "GlideViewTests"
-               ReferencedContainer = "container:GlideView.xcodeproj">
+               BuildableName = "GliderSampleTests.xctest"
+               BlueprintName = "GliderSampleTests"
+               ReferencedContainer = "container:GliderSample.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -44,9 +44,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C7D9C6181E9220A000F80609"
-            BuildableName = "GlideView.app"
-            BlueprintName = "GlideView"
-            ReferencedContainer = "container:GlideView.xcodeproj">
+            BuildableName = "GliderSample.app"
+            BlueprintName = "GliderSample"
+            ReferencedContainer = "container:GliderSample.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -67,9 +67,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C7D9C6181E9220A000F80609"
-            BuildableName = "GlideView.app"
-            BlueprintName = "GlideView"
-            ReferencedContainer = "container:GlideView.xcodeproj">
+            BuildableName = "GliderSample.app"
+            BlueprintName = "GliderSample"
+            ReferencedContainer = "container:GliderSample.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -86,9 +86,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C7D9C6181E9220A000F80609"
-            BuildableName = "GlideView.app"
-            BlueprintName = "GlideView"
-            ReferencedContainer = "container:GlideView.xcodeproj">
+            BuildableName = "GliderSample.app"
+            BlueprintName = "GliderSample"
+            ReferencedContainer = "container:GliderSample.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

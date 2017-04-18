@@ -1,22 +1,22 @@
 //
 //  ViewController.m
-//  GlideView
+//  GliderSample
 //
 //  Created by Guillermo Delgado on 03/04/2017.
 //  Copyright © 2017. All rights reserved.
 //
 
 #import "ViewController.h"
-#import "GVGlideViewController.h"
+#import "RDGliderViewController.h"
 #import "ContentViewController.h"
-#import "GVGradientView.h"
+#import "RDGradientView.h"
 
-@interface ViewController () <GVGlideViewControllerDelegate>
+@interface ViewController () <RDGliderViewControllerDelegate>
 
-@property (nonatomic) GVGlideViewController *leftToRightGlideVC;
-@property (nonatomic) GVGlideViewController *bottomToTopGlideVC;
-@property (nonatomic) GVGlideViewController *topToBottomGlideVC;
-@property (nonatomic) GVGlideViewController *rightToLeftGlideVC;
+@property (nonatomic) RDGliderViewController *leftToRightGlideVC;
+@property (nonatomic) RDGliderViewController *bottomToTopGlideVC;
+@property (nonatomic) RDGliderViewController *topToBottomGlideVC;
+@property (nonatomic) RDGliderViewController *rightToLeftGlideVC;
 
 @end
 
@@ -25,7 +25,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    GVGradientView *bgGradient = [[GVGradientView alloc] initWithFrame:self.view.bounds];
+    RDGradientView *bgGradient = [[RDGradientView alloc] initWithFrame:self.view.bounds];
     bgGradient.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     bgGradient.layer.colors = @[(id)[UIColor colorWithRed:.643 green:.569 blue:.776 alpha:1].CGColor,
                                      (id)[UIColor colorWithRed:.573 green:.875 blue:.678 alpha:1].CGColor];
@@ -38,17 +38,17 @@
 }
 
 - (void)initRightToLeftGlideView{
-    self.rightToLeftGlideVC = [[GVGlideViewController alloc] initOn:self
+    self.rightToLeftGlideVC = [[RDGliderViewController alloc] initOn:self
                                                       WithContent:[[ContentViewController alloc] initWithLength:200.0f]
-                                                             type:GVScrollViewOrientationRightToLeft
+                                                             type:RDScrollViewOrientationRightToLeft
                                                        AndOffsets:@[@(0), @(1)]];
     self.rightToLeftGlideVC.delegate = self;
 }
 
 - (void)initBottomToTopGlideView {
-    self.bottomToTopGlideVC = [[GVGlideViewController alloc] initOn:self
+    self.bottomToTopGlideVC = [[RDGliderViewController alloc] initOn:self
                                                       WithContent:[ContentViewController new]
-                                                             type:GVScrollViewOrientationBottomToTop
+                                                             type:RDScrollViewOrientationBottomToTop
                                                        AndOffsets:@[@(0),
                                                                     @(0.6),
                                                                     @(0.2),
@@ -59,9 +59,9 @@
 }
 
 - (void)initTopToBottomGlideView {
-    self.topToBottomGlideVC = [[GVGlideViewController alloc] initOn:self
+    self.topToBottomGlideVC = [[RDGliderViewController alloc] initOn:self
                                                       WithContent:[[ContentViewController alloc] initWithLength:400.0f]
-                                                             type:GVScrollViewOrientationTopToBottom
+                                                             type:RDScrollViewOrientationTopToBottom
                                                        AndOffsets:@[@(0),
                                                                     @(0.5),
                                                                     @(1)]];
@@ -69,9 +69,9 @@
 }
 
 - (void)initLeftToRightGlideView {
-    self.leftToRightGlideVC = [[GVGlideViewController alloc] initOn:self
+    self.leftToRightGlideVC = [[RDGliderViewController alloc] initOn:self
                                                       WithContent:[ContentViewController new]
-                                                             type:GVScrollViewOrientationLeftToRight
+                                                             type:RDScrollViewOrientationLeftToRight
                                                        AndOffsets:@[@(0),
                                                                     @(0.6),
                                                                     @(0.2),
@@ -118,17 +118,17 @@
 
 #pragma mark - GlideViewControllerDelegate
 
-- (void)glideViewController:(GVGlideViewController *)glideViewController hasChangedOffsetOfContent:(CGPoint)offset {
+- (void)glideViewController:(RDGliderViewController *)glideViewController hasChangedOffsetOfContent:(CGPoint)offset {
     ContentViewController *vc = (ContentViewController *)glideViewController.contentViewController;
     [vc setOffset:NSStringFromCGPoint(offset)];
 }
 
-- (void)glideViewControllerDidExpand:(GVGlideViewController *)glideViewController {
+- (void)glideViewControllerDidExpand:(RDGliderViewController *)glideViewController {
     ContentViewController *vc = (ContentViewController *)glideViewController.contentViewController;
     [vc setIndex:glideViewController.currentOffsetIndex ofMax:[glideViewController.offsets count] - 1];
 }
 
-- (void)glideViewControllerDidCollapse:(GVGlideViewController *)glideViewController {
+- (void)glideViewControllerDidCollapse:(RDGliderViewController *)glideViewController {
     ContentViewController *vc = (ContentViewController *)glideViewController.contentViewController;
     [vc setIndex:glideViewController.currentOffsetIndex ofMax:[glideViewController.offsets count] - 1];
 }

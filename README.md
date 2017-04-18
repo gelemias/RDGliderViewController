@@ -32,7 +32,8 @@ SOFTWARE.
 
 ## RELEASE NOTES
 
-#### Latest version -  0.1.38
+#### Latest version -  0.1.42
++ 2017-04-18 *[ENV] Added code coverage support*
 + 2017-04-18 *[ENV] added yml build file for Travis CI*
 + 2017-04-18 *[TEST] Added unit tests for GVScrollView*
 

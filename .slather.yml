@@ -1,7 +1,7 @@
 # .slather.yml
 
 coverage_service: coveralls
-xcodeproj: GlideView/GlideView.xcodeproj
-scheme: GlideView
+xcodeproj: GliderSample/GliderSample.xcodeproj
+scheme: GliderSample
 ignore:
   - ../*

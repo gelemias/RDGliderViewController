@@ -1,14 +1,14 @@
 //
-//  GVScrollView.m
-//  GlideView
+//  RDScrollView.m
+//  GliderSample
 //
 //  Created by GuillermoD on 8/3/16.
 //  Copyright © 2017. All rights reserved.
 //
 
-#import "GVScrollView.h"
+#import "RDScrollView.h"
 
-@interface GVScrollView() <UIScrollViewDelegate>
+@interface RDScrollView() <UIScrollViewDelegate>
 
 @property (nonatomic) NSUInteger offsetIndex;
 @property (nonatomic) BOOL isOpen;
@@ -24,7 +24,7 @@
 #define kAniDamping 0.7
 #define kAniVelocity 0.6
 
-@implementation GVScrollView
+@implementation RDScrollView
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
@@ -54,7 +54,7 @@
     [self setContentInset:UIEdgeInsetsZero];
     [self setDecelerationRate:UIScrollViewDecelerationRateFast];
     
-    [self setOrientationType:GVScrollViewOrientationRightToLeft];
+    [self setOrientationType:RDScrollViewOrientationRightToLeft];
 }
 
 #pragma mark - Public Methods
@@ -62,10 +62,10 @@
 - (void)setMargin:(CGFloat)margin {
     _margin = margin;
     
-    if (self.orientationType == GVScrollViewOrientationTopToBottom) {
+    if (self.orientationType == RDScrollViewOrientationTopToBottom) {
         self.topToBottomTopContraint.constant = margin;
     }
-    else if (self.orientationType == GVScrollViewOrientationLeftToRight) {
+    else if (self.orientationType == RDScrollViewOrientationLeftToRight) {
         self.leftToRightLeadingContraint.constant = margin;
     }
     
@@ -89,7 +89,7 @@
     container.translatesAutoresizingMaskIntoConstraints = NO;
     _content.translatesAutoresizingMaskIntoConstraints = NO;
 
-    if (self.orientationType == GVScrollViewOrientationRightToLeft) {
+    if (self.orientationType == RDScrollViewOrientationRightToLeft) {
                 
         [container addConstraints:@[[NSLayoutConstraint constraintWithItem:_content  attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual
                                                                     toItem:container attribute:NSLayoutAttributeTop multiplier:1.0 constant:0.0],
@@ -116,7 +116,7 @@
                                                                 toItem:self      attribute:NSLayoutAttributeWidth multiplier:1.0 constant:CGRectGetWidth(_content.frame)]];
         }
     }
-    else if (self.orientationType == GVScrollViewOrientationLeftToRight) {
+    else if (self.orientationType == RDScrollViewOrientationLeftToRight) {
         
         self.leftToRightLeadingContraint = [NSLayoutConstraint constraintWithItem:_content  attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual
                                                                            toItem:container attribute:NSLayoutAttributeLeading multiplier:1.0 constant:self.margin];
@@ -144,7 +144,7 @@
                                                                 toItem:self      attribute:NSLayoutAttributeWidth multiplier:1.0 constant:CGRectGetWidth(_content.frame)]];
         }
     }
-    else if (self.orientationType == GVScrollViewOrientationBottomToTop) {
+    else if (self.orientationType == RDScrollViewOrientationBottomToTop) {
         
         [container addConstraints:@[[NSLayoutConstraint constraintWithItem:_content  attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual
                                                                     toItem:container attribute:NSLayoutAttributeLeading multiplier:1.0 constant:0.0],
@@ -172,7 +172,7 @@
                                                                 toItem:self      attribute:NSLayoutAttributeHeight multiplier:1.0 constant:CGRectGetHeight(_content.frame)]];
         }
     }
-    else if (self.orientationType == GVScrollViewOrientationTopToBottom) {
+    else if (self.orientationType == RDScrollViewOrientationTopToBottom) {
         
         self.topToBottomTopContraint = [NSLayoutConstraint constraintWithItem:_content  attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual
                                                                        toItem:container attribute:NSLayoutAttributeTop multiplier:1.0 constant:self.margin];
@@ -214,8 +214,8 @@
         if ([number floatValue] > 1.0) {
             [NSException raise:@"Invalid offset value" format:@"offset represents a %% of contentView to be shown i.e. 0.5 of a contentView of 100px will show 50px"];
         }
-        else if (self.orientationType == GVScrollViewOrientationTopToBottom ||
-                 self.orientationType == GVScrollViewOrientationLeftToRight) {
+        else if (self.orientationType == RDScrollViewOrientationTopToBottom ||
+                 self.orientationType == RDScrollViewOrientationLeftToRight) {
             [reversedOffsets addObject:@(1 - number.floatValue)];
         }
     }
@@ -256,17 +256,17 @@
               
               [self.content setHidden:NO];
               
-              if (self.orientationType == GVScrollViewOrientationLeftToRight) {
+              if (self.orientationType == RDScrollViewOrientationLeftToRight) {
                   CGFloat margin = (offsetIndex == 0 || offsetIndex == self.offsets.count - 1) ? self.margin : 0;
                   [self setContentOffset:CGPointMake(([[self offsets] objectAtIndex:offsetIndex].floatValue * CGRectGetWidth(self.content.frame)) + margin, self.contentOffset.y) animated:animated];
               }
-              else if (self.orientationType == GVScrollViewOrientationRightToLeft) {
+              else if (self.orientationType == RDScrollViewOrientationRightToLeft) {
                   [self setContentOffset:CGPointMake([[self offsets] objectAtIndex:offsetIndex].floatValue * CGRectGetWidth(self.content.frame), self.contentOffset.y) animated:animated];
               }
-              else if (self.orientationType == GVScrollViewOrientationBottomToTop) {
+              else if (self.orientationType == RDScrollViewOrientationBottomToTop) {
                   [self setContentOffset:CGPointMake(self.contentOffset.x, [[self offsets] objectAtIndex:offsetIndex].floatValue * CGRectGetHeight(self.content.frame)) animated:animated];
               }
-              else if (self.orientationType == GVScrollViewOrientationTopToBottom) {
+              else if (self.orientationType == RDScrollViewOrientationTopToBottom) {
                   CGFloat margin = (offsetIndex == 0 || offsetIndex == self.offsets.count - 1) ? self.margin : 0;
                   [self setContentOffset:CGPointMake(self.contentOffset.x, ([[self offsets] objectAtIndex:offsetIndex].floatValue * CGRectGetHeight(self.content.frame)) + margin) animated:animated];
               }
@@ -287,16 +287,16 @@
     
     CGSize size = CGSizeZero;
     
-    if (self.orientationType == GVScrollViewOrientationBottomToTop) {
+    if (self.orientationType == RDScrollViewOrientationBottomToTop) {
         size.height = CGRectGetHeight(self.frame) + (CGRectGetHeight(self.content.frame) * [self.offsets lastObject].floatValue) + self.margin;
     }
-    else if (self.orientationType == GVScrollViewOrientationTopToBottom){
+    else if (self.orientationType == RDScrollViewOrientationTopToBottom){
         size.height = CGRectGetHeight(self.frame) + (CGRectGetHeight(self.content.frame) * [self.offsets firstObject].floatValue) + self.margin;
     }
-    else if (self.orientationType == GVScrollViewOrientationRightToLeft) {
+    else if (self.orientationType == RDScrollViewOrientationRightToLeft) {
         size.width = CGRectGetWidth(self.frame) + (CGRectGetWidth(self.content.frame) * [self.offsets lastObject].floatValue) + self.margin;
     }
-    else if (self.orientationType == GVScrollViewOrientationLeftToRight) {
+    else if (self.orientationType == RDScrollViewOrientationLeftToRight) {
         size.width = CGRectGetWidth(self.frame) + (CGRectGetWidth(self.content.frame) * [self.offsets firstObject].floatValue) + self.margin;
     }
 

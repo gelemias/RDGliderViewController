@@ -1,20 +1,20 @@
 //
 //  GAButton.m
-//  GlideView
+//  GliderSample
 //
 //  Created by Guillermo Delgado on 03/04/2017.
 //  Copyright © 2017. All rights reserved.
 //
 
-#import "GVButton.h"
+#import "RDButton.h"
 
-@interface GVButton()
+@interface RDButton()
 
 @property (nonatomic) UIColor *bgColor;
 
 @end
 
-@implementation GVButton
+@implementation RDButton
 
 - (void)drawRect:(CGRect)rect {
     CGContextRef ctx = UIGraphicsGetCurrentContext();

@@ -1,50 +1,50 @@
 //
-//  GVGlideViewController.h
-//  GlideView
+//  RDGliderViewController.h
+//  GliderSample
 //
 //  Created by GuillermoD on 8/4/16.
 //  Copyright © 2017. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-#import "GVScrollView.h"
+#import "RDScrollView.h"
 
-@class GVGlideViewController;
+@class RDGliderViewController;
 
-@protocol GVGlideViewControllerDelegate <NSObject>
+@protocol RDGliderViewControllerDelegate <NSObject>
 
 @optional
 
 /**
  Delegate method to notify invoke object when offset has changed
  */
-- (void)glideViewController:(GVGlideViewController *)glideViewController hasChangedOffsetOfContent:(CGPoint)offset;
+- (void)glideViewController:(RDGliderViewController *)glideViewController hasChangedOffsetOfContent:(CGPoint)offset;
 
 /**
  Delegate method to notify invoke object when glideView will increase offset by one
  */
-- (void)glideViewControllerWillExpand:(GVGlideViewController *)glideViewController;
+- (void)glideViewControllerWillExpand:(RDGliderViewController *)glideViewController;
 
 /**
  Delegate method to notify invoke object when glideView will decrease offset by one
  */
-- (void)glideViewControllerWillCollapse:(GVGlideViewController *)glideViewController;
+- (void)glideViewControllerWillCollapse:(RDGliderViewController *)glideViewController;
 
 /**
  Delegate method to notify invoke object when glideView did increase offset by one
  */
-- (void)glideViewControllerDidExpand:(GVGlideViewController *)glideViewController;
+- (void)glideViewControllerDidExpand:(RDGliderViewController *)glideViewController;
 
 /**
  Delegate method to notify invoke object when glideView did decrease offset by one
  */
-- (void)glideViewControllerDidCollapse:(GVGlideViewController *)glideViewController;
+- (void)glideViewControllerDidCollapse:(RDGliderViewController *)glideViewController;
 
 @end
 
-@interface GVGlideViewController : UIViewController
+@interface RDGliderViewController : UIViewController
 
-@property (nonatomic, weak) id<GVGlideViewControllerDelegate> delegate;
+@property (nonatomic, weak) id<RDGliderViewControllerDelegate> delegate;
 
 @property (nonatomic) UIViewController *contentViewController;
 
@@ -61,7 +61,7 @@
 /**
  Orientation type of the glide view
  */
-@property (nonatomic, readonly) GVScrollViewOrientationType orientationType;
+@property (nonatomic, readonly) RDScrollViewOrientationType orientationType;
 
 /**
  Current offset of the glide view
@@ -111,11 +111,11 @@
  * @param content external ViewController placed as a content of the GlideView
  * @param type of GlideView Left to Right, Right to Left, Bottom To Top and Top to Bottom.
  * @param offsets Array of offsets in % (0 to 1) dependent of Content size if not expecified UIScreen bounds.
- * @return A newly created GVGlideViewController instance
+ * @return A newly created RDGliderViewController instance
  */
 - (instancetype)initOn:(UIViewController *)parent
            WithContent:(UIViewController *)content
-              type:(GVScrollViewOrientationType)type
+              type:(RDScrollViewOrientationType)type
             AndOffsets:(NSArray<NSNumber *> *)offsets;
 
 #pragma mark - Unavailable methods
