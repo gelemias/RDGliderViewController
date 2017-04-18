@@ -29,7 +29,10 @@ SOFTWARE.
 
 ## RELEASE NOTES
 
-#### Latest version -  0.1.33
+#### Latest version -  0.1.34
++ 2017-04-18 *[TEST] Added unit tests for GVScrollView*
+
+#### Previously released:
 + 2017-04-14 *[REF] enhanced  naming*
 + 2017-04-14 *[FIX] issue with rendering shadow when rotating*
 + 2017-04-14 *[FIX] horizontal offset broken*
@@ -53,5 +56,3 @@ SOFTWARE.
 + 2017-04-05 *[FIX] landscape margins offset is off*
 + 2017-04-05 *[FIX] landscape to portrait rotation changes offset of scrollview*
 + 2017-04-05 *[FIX] landscape margins offset is off*
-
-#### Previously released:
