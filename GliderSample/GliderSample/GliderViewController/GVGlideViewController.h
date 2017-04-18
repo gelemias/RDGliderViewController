@@ -1,6 +1,6 @@
 //
 //  GVGlideViewController.h
-//  GlideView
+//  GliderSample
 //
 //  Created by GuillermoD on 8/4/16.
 //  Copyright © 2017. All rights reserved.

@@ -1,6 +1,6 @@
 //
 //  GAButton.h
-//  GlideView
+//  GliderSample
 //
 //  Created by Guillermo Delgado on 03/04/2017.
 //  Copyright © 2017. All rights reserved.

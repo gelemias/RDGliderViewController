@@ -1,6 +1,6 @@
 //
 //  GVGlideViewController.m
-//  GlideView
+//  GliderSample
 //
 //  Created by Guillermo Delgado on 14/04/2017.
 //  Copyright © 2017 Guillermo Delgado. All rights reserved.

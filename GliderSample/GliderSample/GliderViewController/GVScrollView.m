@@ -1,6 +1,6 @@
 //
 //  GVScrollView.m
-//  GlideView
+//  GliderSample
 //
 //  Created by GuillermoD on 8/3/16.
 //  Copyright © 2017. All rights reserved.

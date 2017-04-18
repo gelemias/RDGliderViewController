@@ -1,6 +1,6 @@
 //
 //  GVGlideViewController.m
-//  GlideView
+//  GliderSample
 //
 //  Created by GuillermoD on 8/4/16.
 //  Copyright © 2017. All rights reserved.
@@ -215,11 +215,6 @@ NSString *const GVException = @"GliveViewException";
 #pragma mark - UIScrollView delegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    NSLog(@"offset: %@ / size: %@ / frame: %@",
-          NSStringFromCGPoint(scrollView.contentOffset),
-          NSStringFromCGSize(scrollView.contentSize),
-          NSStringFromCGSize(scrollView.frame.size));
-    
     if ([self.delegate respondsToSelector:@selector(glideViewController:hasChangedOffsetOfContent:)]) {
         [self.delegate glideViewController:self hasChangedOffsetOfContent:scrollView.contentOffset];
     }

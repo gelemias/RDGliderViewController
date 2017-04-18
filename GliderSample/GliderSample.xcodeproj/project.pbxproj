@@ -29,7 +29,7 @@
 			containerPortal = C7D9C6111E9220A000F80609 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = C7D9C6181E9220A000F80609;
-			remoteInfo = GlideView;
+			remoteInfo = GliderSample;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -46,7 +46,7 @@
 		C79DCBE41E925EE000E1EF1A /* ContentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContentViewController.xib; sourceTree = "<group>"; };
 		C79DCBE71E92677700E1EF1A /* GVGradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVGradientView.h; sourceTree = "<group>"; };
 		C79DCBE81E92677700E1EF1A /* GVGradientView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVGradientView.m; sourceTree = "<group>"; };
-		C7D9C6191E9220A000F80609 /* GlideView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GlideView.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C7D9C6191E9220A000F80609 /* GliderSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GliderSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7D9C61D1E9220A000F80609 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C7D9C61F1E9220A000F80609 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		C7D9C6201E9220A000F80609 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -56,7 +56,7 @@
 		C7D9C6281E9220A000F80609 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C7D9C62B1E9220A000F80609 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C7D9C62D1E9220A000F80609 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C7D9C6321E9220A000F80609 /* GlideViewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GlideViewTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C7D9C6321E9220A000F80609 /* GliderSampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GliderSampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7D9C6361E9220A000F80609 /* GVScrollViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GVScrollViewTests.m; sourceTree = "<group>"; };
 		C7D9C6381E9220A000F80609 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -90,7 +90,7 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
-		C79985481E92469300B80DA5 /* GlideViewController */ = {
+		C79985481E92469300B80DA5 /* GliderViewController */ = {
 			isa = PBXGroup;
 			children = (
 				C79985491E9246BA00B80DA5 /* GVGlideViewController.h */,
@@ -98,14 +98,14 @@
 				C799854F1E92480D00B80DA5 /* GVScrollView.h */,
 				C79985501E92480D00B80DA5 /* GVScrollView.m */,
 			);
-			path = GlideViewController;
+			path = GliderViewController;
 			sourceTree = "<group>";
 		};
 		C7D9C6101E9220A000F80609 = {
 			isa = PBXGroup;
 			children = (
-				C7D9C61B1E9220A000F80609 /* GlideView */,
-				C7D9C6351E9220A000F80609 /* GlideViewTests */,
+				C7D9C61B1E9220A000F80609 /* GliderSample */,
+				C7D9C6351E9220A000F80609 /* GliderSampleTests */,
 				C7D9C61A1E9220A000F80609 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -113,17 +113,16 @@
 		C7D9C61A1E9220A000F80609 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C7D9C6191E9220A000F80609 /* GlideView.app */,
-				C7D9C6321E9220A000F80609 /* GlideViewTests.xctest */,
+				C7D9C6191E9220A000F80609 /* GliderSample.app */,
+				C7D9C6321E9220A000F80609 /* GliderSampleTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		C7D9C61B1E9220A000F80609 /* GlideView */ = {
+		C7D9C61B1E9220A000F80609 /* GliderSample */ = {
 			isa = PBXGroup;
 			children = (
-				C79985481E92469300B80DA5 /* GlideViewController */,
-				C79985471E92462500B80DA5 /* Helpers */,
+				C79985481E92469300B80DA5 /* GliderViewController */,
 				C7D9C61F1E9220A000F80609 /* AppDelegate.h */,
 				C7D9C6201E9220A000F80609 /* AppDelegate.m */,
 				C7D9C6221E9220A000F80609 /* ViewController.h */,
@@ -133,9 +132,10 @@
 				C79DCBE41E925EE000E1EF1A /* ContentViewController.xib */,
 				C7D9C62A1E9220A000F80609 /* LaunchScreen.storyboard */,
 				C7D9C6251E9220A000F80609 /* Main.storyboard */,
+				C79985471E92462500B80DA5 /* Helpers */,
 				C7D9C61C1E9220A000F80609 /* Supporting Files */,
 			);
-			path = GlideView;
+			path = GliderSample;
 			sourceTree = "<group>";
 		};
 		C7D9C61C1E9220A000F80609 /* Supporting Files */ = {
@@ -148,22 +148,22 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		C7D9C6351E9220A000F80609 /* GlideViewTests */ = {
+		C7D9C6351E9220A000F80609 /* GliderSampleTests */ = {
 			isa = PBXGroup;
 			children = (
 				C7D9C6361E9220A000F80609 /* GVScrollViewTests.m */,
 				C7D9C6381E9220A000F80609 /* Info.plist */,
 				C78A83001EA1041C008F5878 /* GlideViewController.m */,
 			);
-			path = GlideViewTests;
+			path = GliderSampleTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		C7D9C6181E9220A000F80609 /* GlideView */ = {
+		C7D9C6181E9220A000F80609 /* GliderSample */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C7D9C63B1E9220A000F80609 /* Build configuration list for PBXNativeTarget "GlideView" */;
+			buildConfigurationList = C7D9C63B1E9220A000F80609 /* Build configuration list for PBXNativeTarget "GliderSample" */;
 			buildPhases = (
 				C7D9C6151E9220A000F80609 /* Sources */,
 				C7D9C6161E9220A000F80609 /* Frameworks */,
@@ -175,14 +175,14 @@
 			);
 			dependencies = (
 			);
-			name = GlideView;
-			productName = GlideView;
-			productReference = C7D9C6191E9220A000F80609 /* GlideView.app */;
+			name = GliderSample;
+			productName = GliderSample;
+			productReference = C7D9C6191E9220A000F80609 /* GliderSample.app */;
 			productType = "com.apple.product-type.application";
 		};
-		C7D9C6311E9220A000F80609 /* GlideViewTests */ = {
+		C7D9C6311E9220A000F80609 /* GliderSampleTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C7D9C63E1E9220A000F80609 /* Build configuration list for PBXNativeTarget "GlideViewTests" */;
+			buildConfigurationList = C7D9C63E1E9220A000F80609 /* Build configuration list for PBXNativeTarget "GliderSampleTests" */;
 			buildPhases = (
 				C7D9C62E1E9220A000F80609 /* Sources */,
 				C7D9C62F1E9220A000F80609 /* Frameworks */,
@@ -193,9 +193,9 @@
 			dependencies = (
 				C7D9C6341E9220A000F80609 /* PBXTargetDependency */,
 			);
-			name = GlideViewTests;
-			productName = GlideViewTests;
-			productReference = C7D9C6321E9220A000F80609 /* GlideViewTests.xctest */;
+			name = GliderSampleTests;
+			productName = GliderSampleTests;
+			productReference = C7D9C6321E9220A000F80609 /* GliderSampleTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -219,7 +219,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C7D9C6141E9220A000F80609 /* Build configuration list for PBXProject "GlideView" */;
+			buildConfigurationList = C7D9C6141E9220A000F80609 /* Build configuration list for PBXProject "GliderSample" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -232,8 +232,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C7D9C6181E9220A000F80609 /* GlideView */,
-				C7D9C6311E9220A000F80609 /* GlideViewTests */,
+				C7D9C6181E9220A000F80609 /* GliderSample */,
+				C7D9C6311E9220A000F80609 /* GliderSampleTests */,
 			);
 		};
 /* End PBXProject section */
@@ -320,7 +320,7 @@
 /* Begin PBXTargetDependency section */
 		C7D9C6341E9220A000F80609 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = C7D9C6181E9220A000F80609 /* GlideView */;
+			target = C7D9C6181E9220A000F80609 /* GliderSample */;
 			targetProxy = C7D9C6331E9220A000F80609 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -442,9 +442,9 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
-				INFOPLIST_FILE = GlideView/Info.plist;
+				INFOPLIST_FILE = GliderSample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = GuillermoRD.GlideView;
+				PRODUCT_BUNDLE_IDENTIFIER = GuillermoRD.GliderSample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -456,9 +456,9 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
-				INFOPLIST_FILE = GlideView/Info.plist;
+				INFOPLIST_FILE = GliderSample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = GuillermoRD.GlideView;
+				PRODUCT_BUNDLE_IDENTIFIER = GuillermoRD.GliderSample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -469,11 +469,11 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = RT5Y8QLUYK;
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
-				INFOPLIST_FILE = GlideViewTests/Info.plist;
+				INFOPLIST_FILE = GliderSampleTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = GuillermoRD.GlideViewTests;
+				PRODUCT_BUNDLE_IDENTIFIER = GuillermoRD.GliderSampleTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GlideView.app/GlideView";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GliderSample.app/GliderSample";
 			};
 			name = Debug;
 		};
@@ -483,18 +483,18 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = RT5Y8QLUYK;
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
-				INFOPLIST_FILE = GlideViewTests/Info.plist;
+				INFOPLIST_FILE = GliderSampleTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = GuillermoRD.GlideViewTests;
+				PRODUCT_BUNDLE_IDENTIFIER = GuillermoRD.GliderSampleTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GlideView.app/GlideView";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GliderSample.app/GliderSample";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C7D9C6141E9220A000F80609 /* Build configuration list for PBXProject "GlideView" */ = {
+		C7D9C6141E9220A000F80609 /* Build configuration list for PBXProject "GliderSample" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C7D9C6391E9220A000F80609 /* Debug */,
@@ -503,7 +503,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C7D9C63B1E9220A000F80609 /* Build configuration list for PBXNativeTarget "GlideView" */ = {
+		C7D9C63B1E9220A000F80609 /* Build configuration list for PBXNativeTarget "GliderSample" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C7D9C63C1E9220A000F80609 /* Debug */,
@@ -512,7 +512,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C7D9C63E1E9220A000F80609 /* Build configuration list for PBXNativeTarget "GlideViewTests" */ = {
+		C7D9C63E1E9220A000F80609 /* Build configuration list for PBXNativeTarget "GliderSampleTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C7D9C63F1E9220A000F80609 /* Debug */,
