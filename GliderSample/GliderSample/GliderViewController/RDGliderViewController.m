@@ -1,33 +1,33 @@
 //
-//  GVGlideViewController.m
+//  RDGliderViewController.m
 //  GliderSample
 //
 //  Created by GuillermoD on 8/4/16.
 //  Copyright © 2017. All rights reserved.
 //
 
-#import "GVGlideViewController.h"
+#import "RDGliderViewController.h"
 
-NSString *const GVException = @"GliveViewException";
+NSString *const RDException = @"GliveViewException";
 
-@interface GVGlideViewController () <UIScrollViewDelegate>
+@interface RDGliderViewController () <UIScrollViewDelegate>
 
-@property (nonatomic) GVScrollView *scrollView;
+@property (nonatomic) RDScrollView *scrollView;
 
 @property (nonatomic) BOOL isObservingOffsets;
 
 @end
 
-@implementation GVGlideViewController
+@implementation RDGliderViewController
 
 - (instancetype)initOn:(UIViewController *)parent
            WithContent:(UIViewController *)content
-                  type:(GVScrollViewOrientationType)type
+                  type:(RDScrollViewOrientationType)type
             AndOffsets:(NSArray<NSNumber *> *)offsets {
     if (self = [super init]) {
         
         [parent addChildViewController:self];
-        self.scrollView = [[GVScrollView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(parent.view.frame), CGRectGetHeight(parent.view.frame))];
+        self.scrollView = [[RDScrollView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(parent.view.frame), CGRectGetHeight(parent.view.frame))];
         [parent.view addSubview:self.scrollView];
         
         [self setContentViewController:content type:type offsets:offsets];
@@ -38,7 +38,7 @@ NSString *const GVException = @"GliveViewException";
 
 - (NSArray<NSNumber *> *)offsets {
     if (!self.scrollView) {
-        [NSException raise:@"Invalid request" format:@"GVGlideViewController have to instantiate first on a viewController"];
+        [NSException raise:@"Invalid request" format:@"RDGliderViewController have to instantiate first on a viewController"];
     }
     
     return self.scrollView.offsets;
@@ -59,7 +59,7 @@ NSString *const GVException = @"GliveViewException";
     return 0;
 }
 
-- (GVScrollViewOrientationType)orientationType {
+- (RDScrollViewOrientationType)orientationType {
     if (self.scrollView) {
         return self.scrollView.orientationType;
     }
@@ -82,11 +82,11 @@ NSString *const GVException = @"GliveViewException";
 #pragma mark - Public methods
 
 - (void)setContentViewController:(UIViewController *)contentViewController
-                            type:(GVScrollViewOrientationType)type
+                            type:(RDScrollViewOrientationType)type
                          offsets:(NSArray<NSNumber *> *)offsets {
     
     if (!contentViewController) {
-        @throw [NSException exceptionWithName:GVException
+        @throw [NSException exceptionWithName:RDException
                                        reason:@"Invalid contentViewController - ViewController cannot be nil"
                                      userInfo:nil];
     }
@@ -117,25 +117,25 @@ NSString *const GVException = @"GliveViewException";
     [animation setAutoreverses:YES];
     [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut]];
     
-    if (self.orientationType == GVScrollViewOrientationRightToLeft) {
+    if (self.orientationType == RDScrollViewOrientationRightToLeft) {
         [animation setFromValue:[NSValue valueWithCGPoint: CGPointMake([self.scrollView center].x,
                                                                        [self.scrollView  center].y)]];
         [animation setToValue:[NSValue valueWithCGPoint: CGPointMake([self.scrollView  center].x + shakeMargin,
                                                                      [self.scrollView  center].y)]];
     }
-    else if (self.orientationType == GVScrollViewOrientationLeftToRight) {
+    else if (self.orientationType == RDScrollViewOrientationLeftToRight) {
         [animation setFromValue:[NSValue valueWithCGPoint: CGPointMake([self.scrollView center].x,
                                                                        [self.scrollView  center].y)]];
         [animation setToValue:[NSValue valueWithCGPoint: CGPointMake([self.scrollView  center].x - shakeMargin,
                                                                      [self.scrollView  center].y)]];
     }
-    else if (self.orientationType == GVScrollViewOrientationBottomToTop) {
+    else if (self.orientationType == RDScrollViewOrientationBottomToTop) {
         [animation setFromValue:[NSValue valueWithCGPoint: CGPointMake([self.scrollView center].x,
                                                                        [self.scrollView  center].y)]];
         [animation setToValue:[NSValue valueWithCGPoint: CGPointMake([self.scrollView  center].x,
                                                                      [self.scrollView  center].y + shakeMargin)]];
     }
-    else if (self.orientationType == GVScrollViewOrientationTopToBottom) {
+    else if (self.orientationType == RDScrollViewOrientationTopToBottom) {
         [animation setFromValue:[NSValue valueWithCGPoint: CGPointMake([self.scrollView center].x,
                                                                        [self.scrollView  center].y)]];
         [animation setToValue:[NSValue valueWithCGPoint: CGPointMake([self.scrollView  center].x,
@@ -226,8 +226,8 @@ NSString *const GVException = @"GliveViewException";
     CGFloat offset = self.scrollView.contentOffset.x;
     CGFloat threshold = CGRectGetWidth(self.scrollView.content.frame);
 
-    if (self.orientationType == GVScrollViewOrientationBottomToTop ||
-        self.orientationType == GVScrollViewOrientationTopToBottom) {
+    if (self.orientationType == RDScrollViewOrientationBottomToTop ||
+        self.orientationType == RDScrollViewOrientationTopToBottom) {
         offset = self.scrollView.contentOffset.y;
         threshold = CGRectGetHeight(self.scrollView.content.frame);
     }

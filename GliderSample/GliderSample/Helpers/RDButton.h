@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GVButton : UIButton
+@interface RDButton : UIButton
 
 @end

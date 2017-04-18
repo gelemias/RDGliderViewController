@@ -1,5 +1,5 @@
 //
-//  GVGradientView.h
+//  RDGradientView.h
 //  GliderSample
 //
 //  Created by Guillermo Delgado on 03/04/2017.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GVGradientView : UIView
+@interface RDGradientView : UIView
 
 @property (nonatomic, strong, readonly) CAGradientLayer *layer;
 

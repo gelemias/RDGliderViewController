@@ -1,5 +1,5 @@
 //
-//  GVScrollView.h
+//  RDScrollView.h
 //  GliderSample
 //
 //  Created by GuillermoD on 8/3/16.
@@ -9,14 +9,14 @@
 #import <UIKit/UIKit.h>
 
 typedef enum {
-    GVScrollViewOrientationLeftToRight = 0,
-    GVScrollViewOrientationBottomToTop,
-    GVScrollViewOrientationRightToLeft,
-    GVScrollViewOrientationTopToBottom
+    RDScrollViewOrientationLeftToRight = 0,
+    RDScrollViewOrientationBottomToTop,
+    RDScrollViewOrientationRightToLeft,
+    RDScrollViewOrientationTopToBottom
     
-}GVScrollViewOrientationType;
+}RDScrollViewOrientationType;
 
-@interface GVScrollView : UIScrollView
+@interface RDScrollView : UIScrollView
 
 /**
  DraggableContainer
@@ -25,9 +25,9 @@ typedef enum {
 
 /**
  Orientation for draggable container.
- Default value : GVScrollViewOrientationLeftToRight
+ Default value : RDScrollViewOrientationLeftToRight
  */
-@property (nonatomic) GVScrollViewOrientationType orientationType;
+@property (nonatomic) RDScrollViewOrientationType orientationType;
 
 /**
  Expandable offset in % of content view. from 0 to 1.
@@ -80,7 +80,7 @@ typedef enum {
  */
 - (void)recalculateContentSize;
 
-// Methods to Increase or decrease offset of content within GVScrollView.
+// Methods to Increase or decrease offset of content within RDScrollView.
 
 - (void)changeOffsetTo:(NSUInteger)offsetIndex animated:(BOOL)animated completion:(void (^)(BOOL finished))completion;
 - (void)expandWithCompletion:(void (^)(BOOL finished))completion;
