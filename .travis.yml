@@ -1,5 +1,5 @@
 language: objective-c
-osx_image: xcode8
+osx_image: xcode8.3
 script:
   set -o pipefail; xcodebuild -project GlideView/GlideView.xcodeproj -scheme GlideView clean build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO;
   set -o pipefail; xcodebuild test -project GlideView/GlideView.xcodeproj -scheme GlideView -destination "platform=iOS Simulator,name=iPhone 6,OS=latest";
