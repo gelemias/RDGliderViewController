@@ -30,8 +30,7 @@ SOFTWARE.
 
 ## RELEASE NOTES
 
-#### Latest version -  0.1.48
-+ 2017-04-18 *[REF] clean Project and adjust deployment target*
+#### Latest version -  0.1.36
 + 2017-04-18 *[ENV] added yml build file for Travis CI*
 + 2017-04-18 *[TEST] Added unit tests for GVScrollView*
 
