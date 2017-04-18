@@ -1,4 +1,5 @@
-# GliderViewController
+# GliderViewController [![Build Status](https://travis-ci.org/gelemias/GliderViewController.svg?branch=develop)](https://travis-ci.org/gelemias/GliderViewController.svg?branch=develop) [![Coverage Status](https://coveralls.io/repos/github/gelemias/GliderViewController/badge.svg?branch=develop)](https://coveralls.io/repos/github/gelemias/GliderViewController/badge.svg?branch=develop)
+
 Control for a floating view gliding over a ViewController
 
 ---
@@ -29,7 +30,9 @@ SOFTWARE.
 
 ## RELEASE NOTES
 
-#### Latest version -  0.1.34
+#### Latest version -  0.1.48
++ 2017-04-18 *[REF] clean Project and adjust deployment target*
++ 2017-04-18 *[ENV] added yml build file for Travis CI*
 + 2017-04-18 *[TEST] Added unit tests for GVScrollView*
 
 #### Previously released:
