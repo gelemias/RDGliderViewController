@@ -29,7 +29,8 @@ SOFTWARE.
 
 ## RELEASE NOTES
 
-#### Latest version -  0.1.30
+#### Latest version -  0.1.33
++ 2017-04-14 *[REF] enhanced  naming*
 + 2017-04-14 *[FIX] issue with rendering shadow when rotating*
 + 2017-04-14 *[FIX] horizontal offset broken*
 + 2017-04-13 *[DEV] first implementation of Left To Right side*

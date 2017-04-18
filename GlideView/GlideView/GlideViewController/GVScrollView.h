@@ -56,6 +56,26 @@ typedef enum {
 @property (nonatomic) BOOL selectContentSubViews;
 
 /**
+ Duration of animation for changing offset, default vaule is 0.3
+ */
+@property (nonatomic) CGFloat duration;
+
+/**
+ Delay of animation for changing offset, default vaule is 0.0
+ */
+@property (nonatomic) CGFloat delay;
+
+/**
+ Damping of animation for changing offset, default vaule is 0.7
+ */
+@property (nonatomic) CGFloat damping;
+
+/**
+ Damping of animation for changing offset, default vaule is 0.6
+ */
+@property (nonatomic) CGFloat velocity;
+
+/**
  Call this method to force recalculation of contentSize in ScrollView, i.e. when content changes.
  */
 - (void)recalculateContentSize;

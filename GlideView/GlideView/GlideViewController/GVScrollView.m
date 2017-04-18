@@ -35,8 +35,12 @@
 }
 
 - (void)initializeByDefault {
-    
     self.margin = kDefaultMargin;
+
+    self.duration = kAniDuration;
+    self.delay = kAniDelay;
+    self.damping = kAniDamping;
+    self.velocity = kAniVelocity;
     
     self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
@@ -203,8 +207,10 @@
 }
 
 - (void)setOffsets:(NSArray<NSNumber *> *)offsets {
+    NSArray *clearOffsets = [offsets valueForKeyPath:@"@distinctUnionOfObjects.self"];
     NSMutableArray *reversedOffsets = [NSMutableArray new];
-    for (NSNumber *number in offsets) {
+    
+    for (NSNumber *number in clearOffsets) {
         if ([number floatValue] > 1.0) {
             [NSException raise:@"Invalid offset value" format:@"offset represents a %% of contentView to be shown i.e. 0.5 of a contentView of 100px will show 50px"];
         }
@@ -214,7 +220,7 @@
         }
     }
     
-    NSArray *newOffsets = [offsets sortedArrayUsingSelector: @selector(compare:)];
+    NSArray *newOffsets = [clearOffsets sortedArrayUsingSelector: @selector(compare:)];
     
     if (reversedOffsets.count > 0) {
         newOffsets = [reversedOffsets sortedArrayUsingSelector: @selector(compare:)];
@@ -224,7 +230,7 @@
     if (newOffsets && ![_offsets isEqualToArray:newOffsets]) {
         [self recalculateContentSize];
     }
-    _offsets = newOffsets;
+    _offsets = [newOffsets copy];
 
 }
 
@@ -235,7 +241,7 @@
 
 - (void)collapseWithCompletion:(void (^)(BOOL finished))completion {
 
-    NSUInteger nextIndex = self.offsetIndex - 1;
+    NSUInteger nextIndex = self.offsetIndex == 0 ? 0 : self.offsetIndex - 1;
     [self changeOffsetTo:nextIndex animated:NO completion:completion];
 }
 
@@ -245,8 +251,8 @@
 
 - (void)changeOffsetTo:(NSUInteger)offsetIndex animated:(BOOL)animated completion:(void (^)(BOOL finished))completion {
     self.panGestureRecognizer.enabled = NO;
-    [UIView animateWithDuration:kAniDuration delay:kAniDelay usingSpringWithDamping:kAniDamping
-          initialSpringVelocity:kAniVelocity options:UIViewAnimationOptionCurveEaseOut animations:^{
+    [UIView animateWithDuration:self.duration delay:self.delay usingSpringWithDamping:self.damping
+          initialSpringVelocity:self.velocity options:UIViewAnimationOptionCurveEaseOut animations:^{
               
               [self.content setHidden:NO];
               
