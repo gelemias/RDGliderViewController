@@ -25,7 +25,9 @@
     if (self = [super init]) {
         
         [parent addChildViewController:self];
-        self.scrollView = [[RDScrollView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(parent.view.frame), CGRectGetHeight(parent.view.frame))];
+        
+        _scrollView = [[RDScrollView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(parent.view.frame), CGRectGetHeight(parent.view.frame))];
+        
         [parent.view addSubview:self.scrollView];
         
         [self setContentViewController:content type:type offsets:offsets];
@@ -174,7 +176,7 @@
 }
 
 - (void)changeOffsetTo:(NSUInteger)offsetIndex animated:(BOOL)animated {
-    if (offsetIndex > self.currentOffsetIndex) {
+    if (self.currentOffsetIndex < offsetIndex) {
         if ([self.delegate respondsToSelector:@selector(glideViewControllerWillExpand:)]) {
             [self.delegate glideViewControllerWillExpand:self];
         }
@@ -188,7 +190,7 @@
     [self.scrollView changeOffsetTo:offsetIndex
                            animated:animated
                          completion:^(BOOL finished) {
-                             if (offsetIndex > self.currentOffsetIndex) {
+                             if (self.currentOffsetIndex < offsetIndex) {
                                  if ([self.delegate respondsToSelector:@selector(glideViewControllerDidExpand:)]) {
                                      [self.delegate glideViewControllerDidExpand:self];
                                  }
@@ -237,9 +239,9 @@
     }
     
     NSUInteger distance = INT_MAX;
-    for (int i = 0 ; i < [self.offsets count] ; i++) {
+    for (NSUInteger i = 0 ; i < [self.offsets count] ; i++) {
         CGFloat transformedOffset = [[self.scrollView offsets] objectAtIndex:i].floatValue * threshold;
-        NSUInteger distToAnchor = fabs(offset - transformedOffset);
+        NSUInteger distToAnchor = (NSUInteger)fabs(offset - transformedOffset);
         if (distToAnchor < distance) {
             distance = distToAnchor;
             index = i;

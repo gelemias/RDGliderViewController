@@ -35,12 +35,12 @@
 }
 
 - (void)initializeByDefault {
-    self.margin = kDefaultMargin;
+    self.margin = (CGFloat)kDefaultMargin;
 
-    self.duration = kAniDuration;
-    self.delay = kAniDelay;
-    self.damping = kAniDamping;
-    self.velocity = kAniVelocity;
+    self.duration = (CGFloat)kAniDuration;
+    self.delay = (CGFloat)kAniDelay;
+    self.damping = (CGFloat)kAniDamping;
+    self.velocity = (CGFloat)kAniVelocity;
     
     self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
@@ -331,7 +331,7 @@
         
         for (UIView *subview in [self.subviews reverseObjectEnumerator]) {
             
-            CGPoint pt = CGPointMake(fabs(point.x), fabs(point.y));
+            CGPoint pt = CGPointMake((CGFloat)fabs(point.x), (CGFloat)fabs(point.y));
 
             CGPoint convertedPoint = [subview convertPoint:pt fromView:self];
             UIView *hitTestView = [subview hitTest:convertedPoint withEvent:event];

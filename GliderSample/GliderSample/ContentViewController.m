@@ -22,7 +22,7 @@
 
 - (instancetype)initWithLength:(CGFloat)lenght {
     if (self = [self init]) {
-        self.lenght = lenght;
+        _lenght = lenght;
     }
     
     return self;

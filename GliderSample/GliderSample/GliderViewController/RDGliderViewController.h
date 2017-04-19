@@ -57,7 +57,7 @@
 /**
  Sorted list of offsets in % of contentVC view. from 0 to 1
  */
-@property (nonatomic, nonnull) NSArray<NSNumber *> *offsets;
+@property (nonatomic, copy, nonnull) NSArray<NSNumber *> *offsets;
 
 /**
  Orientation type of the glide view

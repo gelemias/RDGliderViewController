@@ -27,8 +27,8 @@
     
     RDGradientView *bgGradient = [[RDGradientView alloc] initWithFrame:self.view.bounds];
     bgGradient.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    bgGradient.layer.colors = @[(id)[UIColor colorWithRed:.643 green:.569 blue:.776 alpha:1].CGColor,
-                                     (id)[UIColor colorWithRed:.573 green:.875 blue:.678 alpha:1].CGColor];
+    bgGradient.layer.colors = @[(id)[UIColor colorWithRed:(CGFloat)0.643 green:(CGFloat)0.569 blue:(CGFloat)0.776 alpha:1].CGColor,
+                                     (id)[UIColor colorWithRed:(CGFloat)(CGFloat)0.573 green:(CGFloat)0.875 blue:(CGFloat)0.678 alpha:1].CGColor];
     [self.view insertSubview:bgGradient atIndex:0];
     
     [self initRightToLeftGlideView];

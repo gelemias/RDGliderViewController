@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-typedef enum {
+typedef NS_ENUM(unsigned int, RDScrollViewOrientationType) {
     RDScrollViewOrientationUnknown = 0,
     
     RDScrollViewOrientationLeftToRight,
@@ -15,7 +15,7 @@ typedef enum {
     RDScrollViewOrientationRightToLeft,
     RDScrollViewOrientationTopToBottom
     
-}RDScrollViewOrientationType;
+};
 
 @interface RDScrollView : UIScrollView
 
@@ -33,7 +33,7 @@ typedef enum {
 /**
  Expandable offset in % of content view. from 0 to 1.
  */
-@property (nonatomic) NSArray<NSNumber *> *offsets;
+@property (nonatomic, copy) NSArray<NSNumber *> *offsets;
 
 /**
  Determines whether the element is Open or not.
