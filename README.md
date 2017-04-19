@@ -1,4 +1,4 @@
-# RDGliderViewController [![Build Status](https://travis-ci.org/gelemias/GliderViewController.svg?branch=develop)](https://travis-ci.org/gelemias/GliderViewController) [![Coverage Status](https://coveralls.io/repos/github/gelemias/GliderViewController/badge.svg?branch=develop)](https://coveralls.io/github/gelemias/GliderViewController?branch=develop) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+# RDGliderViewController [![Build Status](https://travis-ci.org/gelemias/GliderViewController.svg?branch=develop)](https://travis-ci.org/gelemias/GliderViewController) [![Coverage Status](https://coveralls.io/repos/github/gelemias/RDGliderViewController/badge.svg?branch=develop)](https://coveralls.io/github/gelemias/RDGliderViewController?branch=develop) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 
 
