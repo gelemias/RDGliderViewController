@@ -207,6 +207,10 @@
 }
 
 - (void)setOffsets:(NSArray<NSNumber *> *)offsets {
+    if (!offsets) {
+        [NSException raise:@"Invalid offsets array" format:@"offsets array cannot be nil"];
+    }
+    
     NSArray *clearOffsets = [offsets valueForKeyPath:@"@distinctUnionOfObjects.self"];
     NSMutableArray *reversedOffsets = [NSMutableArray new];
     

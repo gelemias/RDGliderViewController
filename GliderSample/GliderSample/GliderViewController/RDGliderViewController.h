@@ -47,7 +47,7 @@
 
 @property (nonatomic, weak, nullable) id <RDGliderViewControllerDelegate> delegate;
 
-@property (nonatomic, nonnull) UIViewController *contentViewController;
+@property (nonatomic, readonly, nonnull) UIViewController *contentViewController;
 
 /**
  Margin of elastic animation default is 20px;
@@ -78,6 +78,15 @@
  Bool meant for enabling the posibility to close the glide view dragging, Default value is NO;
  */
 @property (nonatomic) BOOL disableDraggingToClose;
+
+/**
+ Change contentViewController type and offsets after the VC has been initialized.
+ * @param contentViewController external ViewController placed as a content of the GlideView
+ * @param type of GlideView Left to Right, Right to Left, Bottom To Top and Top to Bottom.
+ * @param offsets Array of offsets in % (0 to 1) dependent of Content size if not expecified UIScreen  */
+- (void)setContentViewController:(nonnull UIViewController *)contentViewController
+                            type:(RDScrollViewOrientationType)type
+                         offsets:(nonnull NSArray<NSNumber *> *)offsets;
 
 /**
  This method gives a shake to the glive view, is meant to grap users atention.

@@ -10,8 +10,8 @@
 
 @interface RDGliderViewController () <UIScrollViewDelegate>
 
-@property (nonatomic) RDScrollView *scrollView;
-
+@property (nonatomic, nonnull) RDScrollView *scrollView;
+@property (nonatomic, nonnull) UIViewController *contentViewController;
 @property (nonatomic) BOOL isObservingOffsets;
 
 @end
@@ -23,6 +23,10 @@
                   type:(RDScrollViewOrientationType)type
             AndOffsets:(nonnull NSArray<NSNumber *> *)offsets {
     if (self = [super init]) {
+        
+        if (!parent ) {
+            [NSException raise:@"Invalid parentViewController" format:@"parentViewController cannot be nil"];
+        }
         
         [parent addChildViewController:self];
         
@@ -87,11 +91,35 @@
     return [self.scrollView margin];
 }
 
+- (NSUInteger)nearestOffsetIndexTo:(CGPoint)contentOffset {
+    NSUInteger index = 0;
+    CGFloat offset = self.scrollView.contentOffset.x;
+    CGFloat threshold = CGRectGetWidth(self.scrollView.content.frame);
+    
+    if (self.orientationType == RDScrollViewOrientationBottomToTop ||
+        self.orientationType == RDScrollViewOrientationTopToBottom) {
+        offset = self.scrollView.contentOffset.y;
+        threshold = CGRectGetHeight(self.scrollView.content.frame);
+    }
+    
+    NSUInteger distance = INT_MAX;
+    for (NSUInteger i = 0 ; i < [self.offsets count] ; i++) {
+        CGFloat transformedOffset = [[self.scrollView offsets] objectAtIndex:i].floatValue * threshold;
+        NSUInteger distToAnchor = (NSUInteger)fabs(offset - transformedOffset);
+        if (distToAnchor < distance) {
+            distance = distToAnchor;
+            index = i;
+        }
+    }
+
+    return (index == 0 && self.disableDraggingToClose) ? 1 : index;
+}
+
 #pragma mark - Public methods
 
-- (void)setContentViewController:(UIViewController *)contentViewController
+- (void)setContentViewController:(nonnull UIViewController *)contentViewController
                             type:(RDScrollViewOrientationType)type
-                         offsets:(NSArray<NSNumber *> *)offsets {
+                         offsets:(nonnull NSArray<NSNumber *> *)offsets {
     
     if (!contentViewController) {
         [NSException raise:@"Invalid contentViewController" format:@"ViewController cannot be nil"];
@@ -115,6 +143,10 @@
 }
 
 - (void)shake {
+    
+    if (!self.scrollView) {
+        return;
+    }
     
     CGFloat shakeMargin = 10.0f;
     CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"position"];
@@ -227,28 +259,8 @@
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-    
-    NSUInteger index = 0;
-    CGFloat offset = self.scrollView.contentOffset.x;
-    CGFloat threshold = CGRectGetWidth(self.scrollView.content.frame);
-
-    if (self.orientationType == RDScrollViewOrientationBottomToTop ||
-        self.orientationType == RDScrollViewOrientationTopToBottom) {
-        offset = self.scrollView.contentOffset.y;
-        threshold = CGRectGetHeight(self.scrollView.content.frame);
-    }
-    
-    NSUInteger distance = INT_MAX;
-    for (NSUInteger i = 0 ; i < [self.offsets count] ; i++) {
-        CGFloat transformedOffset = [[self.scrollView offsets] objectAtIndex:i].floatValue * threshold;
-        NSUInteger distToAnchor = (NSUInteger)fabs(offset - transformedOffset);
-        if (distToAnchor < distance) {
-            distance = distToAnchor;
-            index = i;
-        }
-    }
-    
-    [self changeOffsetTo:(index == 0 && self.disableDraggingToClose) ? 1 : index animated:NO];
+    [self changeOffsetTo:[self nearestOffsetIndexTo:scrollView.contentOffset]
+                animated:NO];
 }
 
 - (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView{
