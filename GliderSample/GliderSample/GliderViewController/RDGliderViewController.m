@@ -8,8 +8,6 @@
 
 #import "RDGliderViewController.h"
 
-NSString *const RDException = @"GliveViewException";
-
 @interface RDGliderViewController () <UIScrollViewDelegate>
 
 @property (nonatomic) RDScrollView *scrollView;
@@ -20,10 +18,10 @@ NSString *const RDException = @"GliveViewException";
 
 @implementation RDGliderViewController
 
-- (instancetype)initOn:(UIViewController *)parent
-           WithContent:(UIViewController *)content
+- (instancetype)initOn:(nonnull UIViewController *)parent
+           WithContent:(nonnull UIViewController *)content
                   type:(RDScrollViewOrientationType)type
-            AndOffsets:(NSArray<NSNumber *> *)offsets {
+            AndOffsets:(nonnull NSArray<NSNumber *> *)offsets {
     if (self = [super init]) {
         
         [parent addChildViewController:self];
@@ -46,8 +44,16 @@ NSString *const RDException = @"GliveViewException";
 }
 
 - (void)setOffsets:(NSArray<NSNumber *> *)offsets {
-    if (self.scrollView) {
-        [self.scrollView setOffsets:offsets];
+    if (offsets.count > 0) {
+        if (self.scrollView) {
+            [self.scrollView setOffsets:offsets];
+        }
+        else {
+            [NSException raise:@"Internal Inconsistency" format:@"RDGliderViewController requires an scrollview to be instanciated."];
+        }
+    }
+    else {
+        [NSException raise:@"Invalid Offsets" format:@"Array of offsets cannot be Zero"];
     }
 }
 
@@ -64,7 +70,7 @@ NSString *const RDException = @"GliveViewException";
         return self.scrollView.orientationType;
     }
     
-    return 0;
+    return RDScrollViewOrientationUnknown;
 }
 
 - (void)setMarginOffset:(CGFloat)marginOffset {
@@ -86,9 +92,7 @@ NSString *const RDException = @"GliveViewException";
                          offsets:(NSArray<NSNumber *> *)offsets {
     
     if (!contentViewController) {
-        @throw [NSException exceptionWithName:RDException
-                                       reason:@"Invalid contentViewController - ViewController cannot be nil"
-                                     userInfo:nil];
+        [NSException raise:@"Invalid contentViewController" format:@"ViewController cannot be nil"];
     }
     
     if (self.scrollView && !CGRectIsNull(self.scrollView.frame)) {

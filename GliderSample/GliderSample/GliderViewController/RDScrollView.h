@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-
 typedef enum {
-    RDScrollViewOrientationLeftToRight = 0,
+    RDScrollViewOrientationUnknown = 0,
+    
+    RDScrollViewOrientationLeftToRight,
     RDScrollViewOrientationBottomToTop,
     RDScrollViewOrientationRightToLeft,
     RDScrollViewOrientationTopToBottom

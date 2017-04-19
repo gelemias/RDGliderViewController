@@ -18,35 +18,36 @@
 /**
  Delegate method to notify invoke object when offset has changed
  */
-- (void)glideViewController:(RDGliderViewController *)glideViewController hasChangedOffsetOfContent:(CGPoint)offset;
+- (void)glideViewController:(nonnull RDGliderViewController *)glideViewController hasChangedOffsetOfContent:(CGPoint)offset;
 
 /**
  Delegate method to notify invoke object when glideView will increase offset by one
  */
-- (void)glideViewControllerWillExpand:(RDGliderViewController *)glideViewController;
+- (void)glideViewControllerWillExpand:(nonnull RDGliderViewController *)glideViewController;
 
 /**
  Delegate method to notify invoke object when glideView will decrease offset by one
  */
-- (void)glideViewControllerWillCollapse:(RDGliderViewController *)glideViewController;
+- (void)glideViewControllerWillCollapse:(nonnull RDGliderViewController *)glideViewController;
 
 /**
  Delegate method to notify invoke object when glideView did increase offset by one
  */
-- (void)glideViewControllerDidExpand:(RDGliderViewController *)glideViewController;
+- (void)glideViewControllerDidExpand:(nonnull RDGliderViewController *)glideViewController;
 
 /**
  Delegate method to notify invoke object when glideView did decrease offset by one
  */
-- (void)glideViewControllerDidCollapse:(RDGliderViewController *)glideViewController;
+- (void)glideViewControllerDidCollapse:(nonnull RDGliderViewController *)glideViewController;
 
 @end
 
+
 @interface RDGliderViewController : UIViewController
 
-@property (nonatomic, weak) id<RDGliderViewControllerDelegate> delegate;
+@property (nonatomic, weak, nullable) id <RDGliderViewControllerDelegate> delegate;
 
-@property (nonatomic) UIViewController *contentViewController;
+@property (nonatomic, nonnull) UIViewController *contentViewController;
 
 /**
  Margin of elastic animation default is 20px;
@@ -56,7 +57,7 @@
 /**
  Sorted list of offsets in % of contentVC view. from 0 to 1
  */
-@property (nonatomic) NSArray<NSNumber *> *offsets;
+@property (nonatomic, nonnull) NSArray<NSNumber *> *offsets;
 
 /**
  Orientation type of the glide view
@@ -113,15 +114,15 @@
  * @param offsets Array of offsets in % (0 to 1) dependent of Content size if not expecified UIScreen bounds.
  * @return A newly created RDGliderViewController instance
  */
-- (instancetype)initOn:(UIViewController *)parent
-           WithContent:(UIViewController *)content
-              type:(RDScrollViewOrientationType)type
-            AndOffsets:(NSArray<NSNumber *> *)offsets;
+- (nullable instancetype)initOn:(nonnull UIViewController *)parent
+                     WithContent:(nonnull UIViewController *)content
+                            type:(RDScrollViewOrientationType)type
+                      AndOffsets:(nonnull NSArray<NSNumber *> *)offsets;
 
 #pragma mark - Unavailable methods
 
-- (instancetype)init NS_UNAVAILABLE;
-- (instancetype)initWithCoder:(NSCoder *)aDecoder NS_UNAVAILABLE;
-- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil NS_UNAVAILABLE;
+- (nullable instancetype)init NS_UNAVAILABLE;
+- (nullable instancetype)initWithCoder:(NSCoder *_Nullable)aDecoder NS_UNAVAILABLE;
+- (nonnull instancetype)initWithNibName:(nullable NSString *)nibNameOrNil bundle:(nullable NSBundle *)nibBundleOrNil NS_UNAVAILABLE;
 
 @end
