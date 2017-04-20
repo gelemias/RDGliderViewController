@@ -1,12 +1,57 @@
-# RDGliderViewController [![Build Status](https://travis-ci.org/gelemias/RDGliderViewController.svg?branch=develop)](https://travis-ci.org/gelemias/RDGliderViewController) [![Coverage Status](https://coveralls.io/repos/github/gelemias/RDGliderViewController/badge.svg?branch=develop)](https://coveralls.io/github/gelemias/RDGliderViewController?branch=develop) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+# RDGliderViewController
+
+[![Build Status](https://travis-ci.org/gelemias/RDGliderViewController.svg?branch=develop)](https://travis-ci.org/gelemias/RDGliderViewController) [![Coverage Status](https://coveralls.io/repos/github/gelemias/RDGliderViewController/badge.svg?branch=develop)](https://coveralls.io/github/gelemias/RDGliderViewController?branch=develop) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 
+Control for a draggable ViewController gliding over another ViewController.
 
-Control for a floating view gliding over a ViewController
+RDGliderViewController is a view controller that manages a scrollable view using one side as a sliding point, choosing between Left-to-Right, Top-to-Bottom, Right-to-Left and Bottom-to-Top, and setting an array of offsets as percent values to determine the gliding view steps, as described bellow.
 
----
+<img src="./img/1.png" width="200"> <img src="./img/2.png" width="200"> <img src="./img/3.png" width="200"> <img src="./img/4.png" width="200">
 
-## LICENCE
+## Example
+
+To run the example project, clone the repo, and open `./Example/GliderView.xcodeproj`
+
+## Installation
+
+### Using CocoaPods
+RDGliderViewController is available through [CocoaPods](http://cocoapods.org), a dependency manager for Swift and Objective-C Cocoa projects. To install
+it, simply add the following line to your [Podfile](https://guides.cocoapods.org/using/getting-started.html):
+
+```ruby
+pod "RDGliderViewController"
+```
+
+### Using Carthage
+
+[Carthage](https://github.com/Carthage/Carthage) is a decentralized dependency manager that builds your dependencies and provides you with binary frameworks.
+
+You can install Carthage with [Homebrew](http://brew.sh/) and then integrate **RDGliderViewController** into your Xcode project adding the following line into your [Cartfile](https://github.com/Carthage/Carthage/blob/master/Documentation/Artifacts.md#cartfile):
+
+```ruby
+github "gelemias/RDGliderViewController"
+```
+
+### Manual Installation
+
+For an old fashion installation you can directly add the **header** and **implementation** files for `RDGliderViewController` and `RDScrollView` to your project.
+
+- Download the latest code version or add the repository as a git submodule to your git-tracked project.
+
+- Drag and drop the folder `RDGliderViewController/` onto your project and make sure to select **Copy items if needed**.
+
+- Add `#import "RDGliderViewController.h"` at the beginning of your class.
+
+## Usage
+
+//
+
+## Author
+
+Guillermo RD, gelemias@gmail.com
+
+## License
 
 MIT License
 
@@ -32,7 +77,8 @@ SOFTWARE.
 
 ## RELEASE NOTES
 
-#### Latest version -  0.1.51
+#### Latest version -  0.1.54
++ 2017-04-20 *[ENV] preparing project for a pod lib*
 + 2017-04-18 *[ENV] Added code coverage support*
 + 2017-04-18 *[ENV] added yml build file for Travis CI*
 + 2017-04-18 *[TEST] Added unit tests for GVScrollView*
