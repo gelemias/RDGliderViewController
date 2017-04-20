@@ -1,13 +1,13 @@
-# RDGliderViewController
+# 🛫 RDGliderViewController 🛬
 
-[![Build Status](https://travis-ci.org/gelemias/RDGliderViewController.svg?branch=develop)](https://travis-ci.org/gelemias/RDGliderViewController) [![Coverage Status](https://coveralls.io/repos/github/gelemias/RDGliderViewController/badge.svg?branch=develop)](https://coveralls.io/github/gelemias/RDGliderViewController?branch=develop) [![License: MIT](https://img.shields.io/github/license/mashape/apistatus.svg)](https://opensource.org/licenses/MIT)
+[![Build Status](https://travis-ci.org/gelemias/RDGliderViewController.svg?branch=develop)](https://travis-ci.org/gelemias/RDGliderViewController) [![Coverage Status](https://coveralls.io/repos/github/gelemias/RDGliderViewController/badge.svg?branch=develop)](https://coveralls.io/github/gelemias/RDGliderViewController?branch=develop) [![License: MIT](https://img.shields.io/github/license/mashape/apistatus.svg)](https://opensource.org/licenses/MIT) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 
 Control in *Objective-C* for a draggable ViewController gliding over another ViewController.
 
 RDGliderViewController is a view controller that manages a scrollable view using one side as a sliding point, choosing between Left-to-Right, Top-to-Bottom, Right-to-Left and Bottom-to-Top, and setting an array of offsets as percent values to determine the gliding view steps, as described bellow.
 
-<img src="./img/1.png" width="200"> <img src="./img/2.png" width="200"> <img src="./img/3.png" width="200"> <img src="./img/4.png" width="200">
+<img src="./img/1.gif" width="180"> <img src="./img/2.gif" width="180"> <img src="./img/3.gif" width="180"> <img src="./img/4.gif" width="180">
 
 ## Example
 
@@ -20,7 +20,7 @@ RDGliderViewController is available through [CocoaPods](http://cocoapods.org), a
 it, simply add the following line to your [Podfile](https://guides.cocoapods.org/using/getting-started.html):
 
 ```ruby
-pod "RDGliderViewController"
+pod 'RDGliderViewController'
 ```
 
 ### Using Carthage
@@ -77,13 +77,13 @@ SOFTWARE.
 
 ## RELEASE NOTES
 
-#### Latest version -  0.1.61
+#### Latest version -  0.1.66
+
+#### Previously released:
 + 2017-04-20 *[ENV] preparing project for a pod lib*
 + 2017-04-18 *[ENV] Added code coverage support*
 + 2017-04-18 *[ENV] added yml build file for Travis CI*
 + 2017-04-18 *[TEST] Added unit tests for GVScrollView*
-
-#### Previously released:
 + 2017-04-14 *[REF] enhanced  naming*
 + 2017-04-14 *[FIX] issue with rendering shadow when rotating*
 + 2017-04-14 *[FIX] horizontal offset broken*
