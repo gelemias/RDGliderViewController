@@ -1,4 +1,6 @@
-# RDGliderViewController [![Build Status](https://travis-ci.org/gelemias/RDGliderViewController.svg?branch=develop)](https://travis-ci.org/gelemias/RDGliderViewController) [![Coverage Status](https://coveralls.io/repos/github/gelemias/RDGliderViewController/badge.svg?branch=develop)](https://coveralls.io/github/gelemias/RDGliderViewController?branch=develop) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+# RDGliderViewController
+
+[![Build Status](https://travis-ci.org/gelemias/RDGliderViewController.svg?branch=develop)](https://travis-ci.org/gelemias/RDGliderViewController) [![Coverage Status](https://coveralls.io/repos/github/gelemias/RDGliderViewController/badge.svg?branch=develop)](https://coveralls.io/github/gelemias/RDGliderViewController?branch=develop) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 
 
@@ -6,7 +8,54 @@ Control for a floating view gliding over a ViewController
 
 ---
 
-## LICENCE
+## Example
+
+To run the example project, clone the repo, and run `pod install` from **GliderSample/** directory first.
+
+## Requirements
+
+## Installation
+
+### Using CocoaPods
+
+RDGliderViewController is available through [CocoaPods](http://cocoapods.org). To install
+it, simply add the following line to your [Podfile](https://guides.cocoapods.org/using/getting-started.html):
+
+```ruby
+
+pod "RDGliderViewController"
+```
+
+### Using Carthage
+
+[Carthage](https://github.com/Carthage/Carthage) is a decentralized dependency manager that builds your dependencies and provides you with binary frameworks.
+
+You can install Carthage with [Homebrew](http://brew.sh/) and then integrate **RDGliderViewController** into your Xcode project adding the following line into your [Cartfile](https://github.com/Carthage/Carthage/blob/master/Documentation/Artifacts.md):
+
+```ruby
+
+github "gelemias/RDGliderViewController"
+```
+
+### Manual Installation
+
+For an old fashion installation you can directly add the **header** and **implementation** files for `RDGliderViewController` and `RDScrollView` to your project.
+
+- Download the latest code version or add the repository as a git submodule to your git-tracked project.
+
+- Drag and drop the mention files onto your project and make sure to select **Copy items** if needed.
+
+- Use `#import "RDGliderViewController.h"`.
+
+## Usage
+
+
+
+## Author
+
+RDGliderViewController, gelemias@gmail.com
+
+## License
 
 MIT License
 
@@ -32,7 +81,7 @@ SOFTWARE.
 
 ## RELEASE NOTES
 
-#### Latest version -  0.1.51
+#### Latest version -  0.1.53
 + 2017-04-18 *[ENV] Added code coverage support*
 + 2017-04-18 *[ENV] added yml build file for Travis CI*
 + 2017-04-18 *[TEST] Added unit tests for GVScrollView*

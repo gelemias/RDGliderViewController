@@ -99,7 +99,7 @@
 				C79985501E92480D00B80DA5 /* RDScrollView.m */,
 			);
 			name = RDGliderViewController;
-			path = GliderViewController;
+			path = ../../GliderViewController;
 			sourceTree = "<group>";
 		};
 		C7D9C6101E9220A000F80609 = {
