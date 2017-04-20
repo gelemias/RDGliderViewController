@@ -3,10 +3,15 @@
 [![Build Status](https://travis-ci.org/gelemias/RDGliderViewController.svg?branch=develop)](https://travis-ci.org/gelemias/RDGliderViewController) [![Coverage Status](https://coveralls.io/repos/github/gelemias/RDGliderViewController/badge.svg?branch=develop)](https://coveralls.io/github/gelemias/RDGliderViewController?branch=develop) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 
+Control for a draggable ViewController gliding over another ViewController.
 
-Control for a floating view gliding over a ViewController
 
----
+
+<img src="./img/1.png" width="200">
+<img src="./img/2.png" width="200">
+<img src="./img/3.png" width="200">
+<img src="./img/4.png" width="200">
+
 
 ## Example
 
@@ -81,7 +86,8 @@ SOFTWARE.
 
 ## RELEASE NOTES
 
-#### Latest version -  0.1.53
+#### Latest version -  0.1.54
++ 2017-04-20 *[ENV] preparing project for a pod lib*
 + 2017-04-18 *[ENV] Added code coverage support*
 + 2017-04-18 *[ENV] added yml build file for Travis CI*
 + 2017-04-18 *[TEST] Added unit tests for GVScrollView*
