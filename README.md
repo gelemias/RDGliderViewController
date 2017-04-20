@@ -5,16 +5,13 @@
 
 Control for a draggable ViewController gliding over another ViewController.
 
-
+RDGliderViewController is a view controller that manages a scrollable view using one side as a sliding point, choosing between Left-to-Right, Top-to-Bottom, Right-to-Left and Bottom-to-Top, and setting an array of offsets as percent values to determine the gliding view steps, as described bellow.
 
 <img src="./img/1.png" width="200"> <img src="./img/2.png" width="200"> <img src="./img/3.png" width="200"> <img src="./img/4.png" width="200">
 
-
 ## Example
 
-To run the example project, clone the repo, and run `pod install` from **GliderSample/** directory first.
-
-## Requirements
+To run the example project, clone the repo, and run `pod install` first.
 
 ## Installation
 
@@ -24,7 +21,6 @@ RDGliderViewController is available through [CocoaPods](http://cocoapods.org). T
 it, simply add the following line to your [Podfile](https://guides.cocoapods.org/using/getting-started.html):
 
 ```ruby
-
 pod "RDGliderViewController"
 ```
 
@@ -35,7 +31,6 @@ pod "RDGliderViewController"
 You can install Carthage with [Homebrew](http://brew.sh/) and then integrate **RDGliderViewController** into your Xcode project adding the following line into your [Cartfile](https://github.com/Carthage/Carthage/blob/master/Documentation/Artifacts.md):
 
 ```ruby
-
 github "gelemias/RDGliderViewController"
 ```
 
@@ -47,15 +42,15 @@ For an old fashion installation you can directly add the **header** and **implem
 
 - Drag and drop the mention files onto your project and make sure to select **Copy items** if needed.
 
-- Use `#import "RDGliderViewController.h"`.
+- Add this `#import "RDGliderViewController.h"` at the beginning of your class.
 
 ## Usage
 
-
+//
 
 ## Author
 
-RDGliderViewController, gelemias@gmail.com
+Guillermo RD, gelemias@gmail.com
 
 ## License
 

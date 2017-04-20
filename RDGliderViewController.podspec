@@ -18,14 +18,16 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
-TODO: Add long description of the pod here.
-                       DESC
+  RDGliderViewController is a view controller that manages a scrollable view using one side as a sliding point,
+  choosing between Left-to-Right, Top-to-Bottom, Right-to-Left and Bottom-to-Top,
+  and setting an array of offsets as percent values to determine the gliding view steps.
+  DESC
 
   s.homepage         = 'https://github.com/gelemias/RDGliderViewController'
-  s.screenshots      = 'https://github.com/gelemias/RDGliderViewController/tree/develop/img/1.png',
-                       'https://github.com/gelemias/RDGliderViewController/tree/develop/img/2.png',
-                       'https://github.com/gelemias/RDGliderViewController/tree/develop/img/3.png',
-                       'https://github.com/gelemias/RDGliderViewController/tree/develop/img/4.png'
+  s.screenshots      = 'https://raw.githubusercontent.com/gelemias/RDGliderViewController/pods/img/1.png',
+                       'https://raw.githubusercontent.com/gelemias/RDGliderViewController/pods/img/2.png',
+                       'https://raw.githubusercontent.com/gelemias/RDGliderViewController/pods/img/3.png',
+                       'https://raw.githubusercontent.com/gelemias/RDGliderViewController/pods/img/4.png'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Guillermo RD' => 'gelemias@gmail.com' }
   s.source           = { :git => 'https://github.com/gelemias/RDGliderViewController.git', :tag => s.version.to_s }
