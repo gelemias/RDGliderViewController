@@ -77,7 +77,7 @@ SOFTWARE.
 
 ## RELEASE NOTES
 
-#### Latest version -  0.1.54
+#### Latest version -  0.1.61
 + 2017-04-20 *[ENV] preparing project for a pod lib*
 + 2017-04-18 *[ENV] Added code coverage support*
 + 2017-04-18 *[ENV] added yml build file for Travis CI*
