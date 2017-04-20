@@ -93,12 +93,12 @@
 
 - (NSUInteger)nearestOffsetIndexTo:(CGPoint)contentOffset {
     NSUInteger index = 0;
-    CGFloat offset = self.scrollView.contentOffset.x;
+    CGFloat offset = contentOffset.x;
     CGFloat threshold = CGRectGetWidth(self.scrollView.content.frame);
     
     if (self.orientationType == RDScrollViewOrientationBottomToTop ||
         self.orientationType == RDScrollViewOrientationTopToBottom) {
-        offset = self.scrollView.contentOffset.y;
+        offset = contentOffset.y;
         threshold = CGRectGetHeight(self.scrollView.content.frame);
     }
     

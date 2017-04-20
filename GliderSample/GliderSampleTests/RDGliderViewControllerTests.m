@@ -143,11 +143,48 @@
 }
 
 - (void)testChangeOffset {
+    _testExpWill = [self expectationWithDescription:@"Will"];
+    _testExpDid = [self expectationWithDescription:@"Did"];
+    
+    _testExpWill.assertForOverFulfill = NO;
+    _testExpDid.assertForOverFulfill = NO;
+    
+    XCTAssertTrue([self.gliderVC currentOffsetIndex] == 0);
 
+    [self.gliderVC setOffsets:@[@1, @0.5, @0]];
+    [self.gliderVC changeOffsetTo:2 animated:NO];
+    
+    [self waitForExpectations:@[_testExpDid, _testExpWill] timeout:2];
+    XCTAssertTrue([self.gliderVC isOpen]);
+    XCTAssertTrue([self.gliderVC currentOffsetIndex] == 2);
+    
+    _testExpWill = [self expectationWithDescription:@"Will"];
+    _testExpDid = [self expectationWithDescription:@"Did"];
+    
+    [self.gliderVC setOffsets:@[@1, @0.5, @0]];
+    [self.gliderVC changeOffsetTo:0 animated:NO];
+    
+    [self waitForExpectations:@[_testExpDid, _testExpWill] timeout:2];
+    XCTAssertFalse([self.gliderVC isOpen]);
+    XCTAssertTrue([self.gliderVC currentOffsetIndex] == 0);
 }
 
 - (void)testNearestOffsetIndex {
+    CGPoint point = CGPointMake(0, 0);
+    self.gliderVC.scrollView.orientationType = RDScrollViewOrientationRightToLeft;
+    XCTAssertTrue([self.gliderVC nearestOffsetIndexTo:point] == 0);
 
+    point = CGPointMake(self.gliderVC.scrollView.contentSize.width, 0);
+    self.gliderVC.scrollView.orientationType = RDScrollViewOrientationLeftToRight;
+    XCTAssertTrue([self.gliderVC nearestOffsetIndexTo:point] == 1);
+
+    point = CGPointMake(0, self.gliderVC.scrollView.contentSize.width / 2.5);
+    self.gliderVC.scrollView.orientationType = RDScrollViewOrientationBottomToTop;
+    XCTAssertTrue([self.gliderVC nearestOffsetIndexTo:point] == 0);
+    
+    point = CGPointMake(0, self.gliderVC.scrollView.contentSize.width / 1.4);
+    self.gliderVC.scrollView.orientationType = RDScrollViewOrientationTopToBottom;
+    XCTAssertTrue([self.gliderVC nearestOffsetIndexTo:point] == 1);
 }
 
 #pragma mark - Helper methods
