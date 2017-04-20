@@ -24,10 +24,10 @@ Pod::Spec.new do |s|
   DESC
 
   s.homepage         = 'https://github.com/gelemias/RDGliderViewController'
-  s.screenshots      = 'https://raw.githubusercontent.com/gelemias/RDGliderViewController/pods/img/1.png',
-                       'https://raw.githubusercontent.com/gelemias/RDGliderViewController/pods/img/2.png',
-                       'https://raw.githubusercontent.com/gelemias/RDGliderViewController/pods/img/3.png',
-                       'https://raw.githubusercontent.com/gelemias/RDGliderViewController/pods/img/4.png'
+  s.screenshots      = 'https://raw.githubusercontent.com/gelemias/RDGliderViewController/develop/img/1.png',
+                       'https://raw.githubusercontent.com/gelemias/RDGliderViewController/develop/img/2.png',
+                       'https://raw.githubusercontent.com/gelemias/RDGliderViewController/develop/img/3.png',
+                       'https://raw.githubusercontent.com/gelemias/RDGliderViewController/develop/img/4.png'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Guillermo RD' => 'gelemias@gmail.com' }
   s.source           = { :git => 'https://github.com/gelemias/RDGliderViewController.git', :tag => s.version.to_s }

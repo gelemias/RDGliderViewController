@@ -11,13 +11,12 @@ RDGliderViewController is a view controller that manages a scrollable view using
 
 ## Example
 
-To run the example project, clone the repo, and run `pod install` first.
+To run the example project, clone the repo, and open `./Example/GliderView.xcodeproj`
 
 ## Installation
 
 ### Using CocoaPods
-
-RDGliderViewController is available through [CocoaPods](http://cocoapods.org). To install
+RDGliderViewController is available through [CocoaPods](http://cocoapods.org), a dependency manager for Swift and Objective-C Cocoa projects. To install
 it, simply add the following line to your [Podfile](https://guides.cocoapods.org/using/getting-started.html):
 
 ```ruby
@@ -40,9 +39,9 @@ For an old fashion installation you can directly add the **header** and **implem
 
 - Download the latest code version or add the repository as a git submodule to your git-tracked project.
 
-- Drag and drop the mention files onto your project and make sure to select **Copy items** if needed.
+- Drag and drop the folder `RDGliderViewController/` onto your project and make sure to select **Copy items if needed**.
 
-- Add this `#import "RDGliderViewController.h"` at the beginning of your class.
+- Add `#import "RDGliderViewController.h"` at the beginning of your class.
 
 ## Usage
 
