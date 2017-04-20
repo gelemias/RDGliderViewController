@@ -1,9 +1,9 @@
 # RDGliderViewController
 
-[![Build Status](https://travis-ci.org/gelemias/RDGliderViewController.svg?branch=develop)](https://travis-ci.org/gelemias/RDGliderViewController) [![Coverage Status](https://coveralls.io/repos/github/gelemias/RDGliderViewController/badge.svg?branch=develop)](https://coveralls.io/github/gelemias/RDGliderViewController?branch=develop) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Build Status](https://travis-ci.org/gelemias/RDGliderViewController.svg?branch=develop)](https://travis-ci.org/gelemias/RDGliderViewController) [![Coverage Status](https://coveralls.io/repos/github/gelemias/RDGliderViewController/badge.svg?branch=develop)](https://coveralls.io/github/gelemias/RDGliderViewController?branch=develop) [![License: MIT](https://img.shields.io/github/license/mashape/apistatus.svg)](https://opensource.org/licenses/MIT)
 
 
-Control for a draggable ViewController gliding over another ViewController.
+Control in *Objective-C* for a draggable ViewController gliding over another ViewController.
 
 RDGliderViewController is a view controller that manages a scrollable view using one side as a sliding point, choosing between Left-to-Right, Top-to-Bottom, Right-to-Left and Bottom-to-Top, and setting an array of offsets as percent values to determine the gliding view steps, as described bellow.
 
