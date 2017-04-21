@@ -53,7 +53,7 @@ RDGliderViewController is a very simple to use controller that mainly depends on
 
 Use a the following custom init to instantiate RDGliderViewController:
 
-`- (instancetype)initOn:(nonnull UIViewController *)parent WithContent:(nonnull UIViewController *)content type:(RDScrollViewOrientationType)type AndOffsets:(nonnull NSArray<NSNumber *> *)offsets {
+`- (instancetype)initOn:(nonnull UIViewController *)parent WithContent:(nonnull RDGliderContentViewController *)content type:(RDScrollViewOrientationType)type AndOffsets:(nonnull NSArray<NSNumber *> *)offsets {
 `
 
 e.g.
@@ -68,12 +68,24 @@ And that's all you need to do, if you run your app, an instance of UIViewControl
 
 ### Content and Container
 
-The content view controller that is add into the container, is treated as a child view controller of this one.
+The content view controller should inherit from RDGliderContentViewController to inherit the properly resize when rotating, is treated as a child view controller of this one.
+
+```Objective-C
+#import "RDGliderContentViewController.h"
+
+@interface ContentViewController : RDGliderContentViewController
+
+// Your content class Here
+
+@end
+
+```
+
 Mentioned that not much more is required, only keep in mind that if you do not define a size for the view, RDGliderViewController will it resize it to match container's.
 
 Content view controller can be afterwards as well but always along offsets and orientation since these three properties are dependent of each other:
 
-`- (void)setContentViewController:(nonnull UIViewController *)contentViewController
+`- (void)setContentViewController:(nonnull RDGliderContentViewController *)contentViewController
                             type:(RDScrollViewOrientationType)type
                          offsets:(nonnull NSArray<NSNumber *> *)offsets;
 `

@@ -7,12 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RDGliderContentViewController.h"
 
-@interface ContentViewController : UIViewController
+@interface ContentViewController : RDGliderContentViewController
 
 - (void)setIndex:(NSUInteger)index ofMax:(NSUInteger)max;
 - (void)setOffset:(NSString *)offset;
-
-- (instancetype)initWithLength:(CGFloat)lenght;
 
 @end
