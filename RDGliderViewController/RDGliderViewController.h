@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "RDScrollView.h"
+#import "RDGliderContentViewController.h"
 
 @class RDGliderViewController;
 
@@ -84,7 +85,7 @@
  * @param contentViewController external ViewController placed as a content of the GlideView
  * @param type of GlideView Left to Right, Right to Left, Bottom To Top and Top to Bottom.
  * @param offsets Array of offsets in % (0 to 1) dependent of Content size if not expecified UIScreen  */
-- (void)setContentViewController:(nonnull UIViewController *)contentViewController
+- (void)setContentViewController:(nonnull RDGliderContentViewController *)contentViewController
                             type:(RDScrollViewOrientationType)type
                          offsets:(nonnull NSArray<NSNumber *> *)offsets;
 
@@ -124,7 +125,7 @@
  * @return A newly created RDGliderViewController instance
  */
 - (nullable instancetype)initOn:(nonnull UIViewController *)parent
-                     WithContent:(nonnull UIViewController *)content
+                     WithContent:(nonnull RDGliderContentViewController *)content
                             type:(RDScrollViewOrientationType)type
                       AndOffsets:(nonnull NSArray<NSNumber *> *)offsets;
 

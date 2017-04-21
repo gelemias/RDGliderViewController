@@ -1,10 +1,13 @@
 ## CHANGELOG
 
-#### Latest version -  0.1.66
-+ 2017-04-21 *[DOC] Completed a basic documentation to the README and added a CHANGELOG*
-+ 2017-04-20 *[DOC] Update README with CocoaPods and Carthage support*
+#### Latest version -  0.1.68
++ 2017-04-21 *[FIX] Fixed hidden behaviour with inverted orientationTypes*
++ 2017-04-21 *[REF] created a base RDGliderContentViewController meant to be the base case for any content view controller*
 
 #### Previously released:
++ 2017-04-21 *[POD] updated podspec*
++ 2017-04-21 *[DOC] Completed a basic documentation to the README and added a CHANGELOG*
++ 2017-04-20 *[DOC] Update README with CocoaPods and Carthage support*
 + 2017-04-20 *[ENV] preparing project for a pod lib*
 + 2017-04-18 *[ENV] Added code coverage support*
 + 2017-04-18 *[ENV] added yml build file for Travis CI*

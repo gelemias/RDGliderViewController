@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C7174C321EAA0AEC000A32F3 /* RDGliderContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7174C311EAA0AEC000A32F3 /* RDGliderContentViewController.m */; };
 		C78A83011EA1041C008F5878 /* RDGliderViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C78A83001EA1041C008F5878 /* RDGliderViewControllerTests.m */; };
 		C79985461E92332900B80DA5 /* RDButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C79985451E92332900B80DA5 /* RDButton.m */; };
 		C799854D1E9246BA00B80DA5 /* RDGliderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C799854A1E9246BA00B80DA5 /* RDGliderViewController.m */; };
@@ -34,6 +35,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C7174C301EAA0AEC000A32F3 /* RDGliderContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RDGliderContentViewController.h; sourceTree = "<group>"; };
+		C7174C311EAA0AEC000A32F3 /* RDGliderContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RDGliderContentViewController.m; sourceTree = "<group>"; };
 		C78A83001EA1041C008F5878 /* RDGliderViewControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = RDGliderViewControllerTests.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C79985441E92332900B80DA5 /* RDButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = RDButton.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		C79985451E92332900B80DA5 /* RDButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = RDButton.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -93,6 +96,8 @@
 		C79985481E92469300B80DA5 /* RDGliderViewController */ = {
 			isa = PBXGroup;
 			children = (
+				C7174C301EAA0AEC000A32F3 /* RDGliderContentViewController.h */,
+				C7174C311EAA0AEC000A32F3 /* RDGliderContentViewController.m */,
 				C79985491E9246BA00B80DA5 /* RDGliderViewController.h */,
 				C799854A1E9246BA00B80DA5 /* RDGliderViewController.m */,
 				C799854F1E92480D00B80DA5 /* RDScrollView.h */,
@@ -303,6 +308,7 @@
 				C799854D1E9246BA00B80DA5 /* RDGliderViewController.m in Sources */,
 				C79DCBE51E925EE000E1EF1A /* ContentViewController.m in Sources */,
 				C79985461E92332900B80DA5 /* RDButton.m in Sources */,
+				C7174C321EAA0AEC000A32F3 /* RDGliderContentViewController.m in Sources */,
 				C7D9C6211E9220A000F80609 /* AppDelegate.m in Sources */,
 				C7D9C61E1E9220A000F80609 /* main.m in Sources */,
 			);

@@ -276,7 +276,13 @@
               }
           } completion:^(BOOL finished) {
               self.offsetIndex = offsetIndex;
-              self.isOpen = ([[self offsets] objectAtIndex:offsetIndex].floatValue == 0) ? NO : YES;
+              
+              if (self.orientationType == RDScrollViewOrientationLeftToRight ||
+                  self.orientationType == RDScrollViewOrientationTopToBottom) {
+                  self.isOpen = ([[self offsets] objectAtIndex:offsetIndex].floatValue == 1) ? NO : YES;
+              } else {
+                  self.isOpen = ([[self offsets] objectAtIndex:offsetIndex].floatValue == 0) ? NO : YES;
+              }
               
               [self.content setHidden:!self.isOpen];
               

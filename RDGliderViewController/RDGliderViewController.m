@@ -19,7 +19,7 @@
 @implementation RDGliderViewController
 
 - (instancetype)initOn:(nonnull UIViewController *)parent
-           WithContent:(nonnull UIViewController *)content
+           WithContent:(nonnull RDGliderContentViewController *)content
                   type:(RDScrollViewOrientationType)type
             AndOffsets:(nonnull NSArray<NSNumber *> *)offsets {
     if (self = [super init]) {
@@ -117,7 +117,7 @@
 
 #pragma mark - Public methods
 
-- (void)setContentViewController:(nonnull UIViewController *)contentViewController
+- (void)setContentViewController:(nonnull RDGliderContentViewController *)contentViewController
                             type:(RDScrollViewOrientationType)type
                          offsets:(nonnull NSArray<NSNumber *> *)offsets {
     
