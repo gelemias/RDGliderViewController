@@ -1,6 +1,8 @@
 ## CHANGELOG
 
-#### Latest version -  0.1.67
+#### Latest version -  0.1.68
++ 2017-04-21 *[FIX] Fixed hidden behaviour with inverted orientationTypes*
++ 2017-04-21 *[REF] created a base RDGliderContentViewController meant to be the base case for any content view controller*
 
 #### Previously released:
 + 2017-04-21 *[POD] updated podspec*
