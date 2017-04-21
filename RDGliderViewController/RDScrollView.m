@@ -276,7 +276,8 @@
               }
           } completion:^(BOOL finished) {
               self.offsetIndex = offsetIndex;
-              self.isOpen = (self.offsetIndex == 0) ? NO : YES;
+              self.isOpen = ([[self offsets] objectAtIndex:offsetIndex].floatValue == 0) ? NO : YES;
+              
               [self.content setHidden:!self.isOpen];
               
               self.panGestureRecognizer.enabled = YES;

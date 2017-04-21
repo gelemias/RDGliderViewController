@@ -36,7 +36,7 @@ typedef NS_ENUM(unsigned int, RDScrollViewOrientationType) {
 @property (nonatomic, copy) NSArray<NSNumber *> *offsets;
 
 /**
- Determines whether the element is Open or not.
+ Determines whether the element's offset is different than % 0.
  */
 @property (nonatomic, readonly) BOOL isOpen;
 
