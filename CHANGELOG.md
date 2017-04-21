@@ -1,6 +1,7 @@
 ## CHANGELOG
 
-#### Latest version -  0.1.65
+#### Latest version -  0.1.66
++ 2017-04-21 *[DOC] Completed a basic documentation to the README and added a CHANGELOG*
 + 2017-04-20 *[DOC] Update README with CocoaPods and Carthage support*
 
 #### Previously released:
