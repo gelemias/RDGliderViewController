@@ -1,17 +1,19 @@
-# RDGliderViewController
+# 🛫 RDGliderViewController 🛬
 
-[![Build Status](https://travis-ci.org/gelemias/RDGliderViewController.svg?branch=develop)](https://travis-ci.org/gelemias/RDGliderViewController) [![Coverage Status](https://coveralls.io/repos/github/gelemias/RDGliderViewController/badge.svg?branch=develop)](https://coveralls.io/github/gelemias/RDGliderViewController?branch=develop) [![License: MIT](https://img.shields.io/github/license/mashape/apistatus.svg)](https://opensource.org/licenses/MIT)
+[![Build Status](https://travis-ci.org/gelemias/RDGliderViewController.svg?branch=develop)](https://travis-ci.org/gelemias/RDGliderViewController) [![Coverage Status](https://coveralls.io/repos/github/gelemias/RDGliderViewController/badge.svg?branch=develop)](https://coveralls.io/github/gelemias/RDGliderViewController?branch=develop) [![License: MIT](https://img.shields.io/github/license/mashape/apistatus.svg)](https://opensource.org/licenses/MIT) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 
 Control in *Objective-C* for a draggable ViewController gliding over another ViewController.
 
 RDGliderViewController is a view controller that manages a scrollable view using one side as a sliding point, choosing between Left-to-Right, Top-to-Bottom, Right-to-Left and Bottom-to-Top, and setting an array of offsets as percent values to determine the gliding view steps, as described bellow.
 
-<img src="./img/1.png" width="200"> <img src="./img/2.png" width="200"> <img src="./img/3.png" width="200"> <img src="./img/4.png" width="200">
+<img src="./img/1.gif" width="180"> <img src="./img/2.gif" width="180"> <img src="./img/3.gif" width="180"> <img src="./img/4.gif" width="180">
 
 ## Example
 
-To run the example project, clone the repo, and open `./Example/GliderView.xcodeproj`
+A good way to learn how to use RDGliderViewController is to go through the example app. Take a look at the tests as well for a more thorough usage.
+
+To run the example project, clone the repo, and open `./Example/GliderSample.xcodeproj`
 
 ## Installation
 
@@ -20,14 +22,14 @@ RDGliderViewController is available through [CocoaPods](http://cocoapods.org), a
 it, simply add the following line to your [Podfile](https://guides.cocoapods.org/using/getting-started.html):
 
 ```ruby
-pod "RDGliderViewController"
+pod 'RDGliderViewController'
 ```
 
 ### Using Carthage
 
 [Carthage](https://github.com/Carthage/Carthage) is a decentralized dependency manager that builds your dependencies and provides you with binary frameworks.
 
-You can install Carthage with [Homebrew](http://brew.sh/) and then integrate **RDGliderViewController** into your Xcode project adding the following line into your [Cartfile](https://github.com/Carthage/Carthage/blob/master/Documentation/Artifacts.md#cartfile):
+You can install Carthage with [Homebrew](http://brew.sh/) and then integrate **RDGliderViewController** into your Xcode project by adding the following line to your [Cartfile](https://github.com/Carthage/Carthage/blob/master/Documentation/Artifacts.md#cartfile):
 
 ```ruby
 github "gelemias/RDGliderViewController"
@@ -45,65 +47,87 @@ For an old fashion installation you can directly add the **header** and **implem
 
 ## Usage
 
-//
+RDGliderViewController is a very simple to use controller that mainly depends on three values to work on, *Orientation type* which is determines the scrolling side, the *List of Offsets* which represent the steps of expansion and contraction and the content itself with is a view controller completely independent.
 
-## Author
+### Creation
 
-Guillermo RD, gelemias@gmail.com
+Use a the following custom init to instantiate RDGliderViewController:
+
+`- (instancetype)initOn:(nonnull UIViewController *)parent WithContent:(nonnull UIViewController *)content type:(RDScrollViewOrientationType)type AndOffsets:(nonnull NSArray<NSNumber *> *)offsets {
+`
+
+e.g.
+```Objective-C
+RDGliderViewController *gliderVC = [[RDGliderViewController alloc] initOn:self
+                                                              WithContent:[UIViewController new]
+                                                                     type:RDScrollViewOrientationRightToLeft
+                                                               AndOffsets:@[@0.2, @0.5, @1]];
+```
+
+And that's all you need to do, if you run your app, an instance of UIViewController should be scrollable from Right to Left on top of `self` view controller.
+
+### Content and Container
+
+The content view controller that is add into the container, is treated as a child view controller of this one.
+Mentioned that not much more is required, only keep in mind that if you do not define a size for the view, RDGliderViewController will it resize it to match container's.
+
+Content view controller can be afterwards as well but always along offsets and orientation since these three properties are dependent of each other:
+
+`- (void)setContentViewController:(nonnull UIViewController *)contentViewController
+                            type:(RDScrollViewOrientationType)type
+                         offsets:(nonnull NSArray<NSNumber *> *)offsets;
+`
+
+### Orientation types
+
+`RDScrollViewOrientationType` represent the four sides of the display plus the sliding direction.
+
+```Objective-C
+typedef NS_ENUM(unsigned int, RDScrollViewOrientationType) {
+    RDScrollViewOrientationUnknown = 0,
+
+    RDScrollViewOrientationLeftToRight,
+    RDScrollViewOrientationBottomToTop,
+    RDScrollViewOrientationRightToLeft,
+    RDScrollViewOrientationTopToBottom
+
+};
+```
+
+if content view controller defines a fixed size, this size will be respected during rotation, for horizontal scrolls (Left-to-Right and Right-to-Left) will resize *Width* and for Vertical (Bottom-to-Top and Top-to-Bottom) will reize *Height*
+
+
+### Offsets and OffsetIndex
+
+this `NSArray<NSNumber *> *offsets` property is a list of steps used when either expanding / collapsing or dragging the list is represented in percent % related with the length of the content view controller, e.g. given the list [0, 0.5, 1] for a lenght *400px* would be this offset steps of [0px, 200px, 400px]
+
+`offsets[OffsetIndex].floatValue * contentViewController.lenght`
+
+For inverted OrientationTypes (RDScrollViewOrientationLeftToRight and RDScrollViewOrientationTopToBottom), the offset list are also inverted so for example for a list [0.2, 0.4, 0.6, 1] will be returned [0.8, 0.6, 0.4, 0]
+
+### Expand, Collapse and Close
+
+By default RDGliderViewController is draggable but when setting an offset of `0.0f%` it will be outside of the screen on starting point, to Increase the position of the view by one in the list of offsets use:
+
+`- (void)expand;`
+
+to Decrease the position of RDGliderViewController by one in the list of offsets:
+
+`- (void)collapse;`
+
+and *close* which moves the View directly to the first offset which is the default position:
+
+`- (void)close;`
+
+All of these methods simple change the offsetIndex when calling this method.
+
+`- (void)changeOffsetTo:(NSUInteger)offsetIndex animated:(BOOL)animated;`
 
 ## License
 
-MIT License
+RDGliderViewController is released under the MIT license. See [LICENSE](https://github.com/gelemias/RDGliderViewController/blob/develop/LICENSE) for details.
 
-Copyright (c) 2017 Guillermo RD
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+## Change log
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-
-## RELEASE NOTES
-
-#### Latest version -  0.1.61
-+ 2017-04-20 *[ENV] preparing project for a pod lib*
-+ 2017-04-18 *[ENV] Added code coverage support*
-+ 2017-04-18 *[ENV] added yml build file for Travis CI*
-+ 2017-04-18 *[TEST] Added unit tests for GVScrollView*
-
-#### Previously released:
-+ 2017-04-14 *[REF] enhanced  naming*
-+ 2017-04-14 *[FIX] issue with rendering shadow when rotating*
-+ 2017-04-14 *[FIX] horizontal offset broken*
-+ 2017-04-13 *[DEV] first implementation of Left To Right side*
-+ 2017-04-13 *[REF] cleaned constraints of scrollview*
-+ 2017-04-13 *[DEV] limited max content scroll to largest offset percent of content length*
-+ 2017-04-13 *[DEV] added margins to reversed positions*
-+ 2017-04-13 *[DEV] first implementation for TopToBottom GlideView*
-+ 2017-04-12 *[FIX] fixed release notes not recognised characters*
-+ 2017-04-12 *[DOC] added ReleaseNotes to Readme file*
-+ 2017-04-07 *[DEV] enhanced threshold calculation for boundaries*
-+ 2017-04-07 *[DOC] enhanced documentation on headers*
-+ 2017-04-07 *[DEV] improved constructor of GlideViewController*
-+ 2017-04-07 *[FIX] offset changes where altered while rotating*
-+ 2017-04-06 *[REF] refactored contentSize handling when rotating*
-+ 2017-04-06 *[FIX] offset is affected by the margin when rotating a rather large view*
-+ 2017-04-06 *[DEV] enable the possibility to change multiple offsets by dragging*
-+ 2017-04-06 *[REF] changed offsets approach to % dependant on content’s view*
-+ 2017-04-06 *[REF] refactor usage of glideView types*
-+ 2017-04-05 *[DEV] enhanced recalculation of offset when rotating scrollview*
-+ 2017-04-05 *[FIX] landscape margins offset is off*
-+ 2017-04-05 *[FIX] landscape to portrait rotation changes offset of scrollview*
-+ 2017-04-05 *[FIX] landscape margins offset is off*
+See [CHANGELOG](https://github.com/gelemias/RDGliderViewController/blob/develop/CHANGELOG.md) for details.

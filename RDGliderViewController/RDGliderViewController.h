@@ -70,7 +70,7 @@
 @property (nonatomic, readonly) NSUInteger currentOffsetIndex;
 
 /**
- Returns a bool for determining if the glide view isn't closed.
+ Returns a bool for determining if the glide view isn't closed, is different than offset % 0.
  */
 @property (nonatomic, readonly) BOOL isOpen;
 
@@ -89,17 +89,17 @@
                          offsets:(nonnull NSArray<NSNumber *> *)offsets;
 
 /**
- This method gives a shake to the glive view, is meant to grap users atention.
+ This method gives a shake to the Gliver view, is meant to grap users atention.
  */
 - (void)shake;
 
 /**
- Increase the position of the glive view by one in the list of offsets
+ Increase the position of the Gliver view by one in the list of offsets
  */
 - (void)expand;
 
 /**
- Decrease the position of the glive view by one in the list of offsets
+ Decrease the position of the Gliver view by one in the list of offsets
  */
 - (void)collapse;
 
