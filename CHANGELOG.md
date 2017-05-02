@@ -1,6 +1,7 @@
 ## CHANGELOG
 
-#### Latest version -  0.1.69
+#### Latest version -  0.1.71
++ 2017-04-27 *[REF] refactored Scrollview to be aligned with the Swift project*
 
 #### Previously released:
 + 2017-04-21 *[REF] created a base RDGliderContentViewController meant to be the base case for any content view controller*
