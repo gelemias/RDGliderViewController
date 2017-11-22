@@ -53,6 +53,10 @@
     
     [self setContentSize:size];
     [self layoutIfNeeded];
+
+    dispatch_async (dispatch_get_main_queue (), ^{
+        [self changeOffsetTo:self.offsetIndex animated:NO completion:nil];
+    });
 }
 
 - (void)setMargin:(CGFloat)margin {

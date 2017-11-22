@@ -1,6 +1,8 @@
 ## CHANGELOG
 
-#### Latest version -  0.1.71
+#### Latest version -  0.1.75
++ 2017-05-02 *[ENV] Added a before_install instruction to travis yml*
++ 2017-05-02 *[ENV] Updated ruby version required in gem file*
 + 2017-04-27 *[REF] refactored Scrollview to be aligned with the Swift project*
 
 #### Previously released:
